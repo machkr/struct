@@ -2,10 +2,10 @@
 #include <iostream>
 using namespace std;
 
-template <class type> class SingleNode
+template <class Type> class SingleNode
 {
 public:
-	type data;
+	Type data;
 	SingleNode * next;
 	SingleNode() : data(0), next(nullptr)	//Default Constructor
 	{
