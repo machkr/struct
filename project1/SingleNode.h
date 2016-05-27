@@ -9,7 +9,8 @@ public:
 	SingleNode * next;
 	SingleNode() : data(0), next(nullptr)	//Default Constructor
 	{
-		//Nothing? 
+		//Nothing?
+		//Test
 	}
 	SingleNode(Type const & data, SingleNode * next)	 //Constructor
 	{
