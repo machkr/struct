@@ -1,12 +1,11 @@
-#include "CyclicLinkedList.h"
-
-
+/*#include "CyclicLinkedList.h"
 
 CyclicLinkedList::CyclicLinkedList()
 {
-}
+};
 
 
 CyclicLinkedList::~CyclicLinkedList()
 {
-}
+};
+*/
