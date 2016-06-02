@@ -61,6 +61,5 @@ public:
 		//return size;
 	}
 
-
 	~CyclicLinkedList(); //Must delete all nodes in the linked list when called!!!!! DON'T FORGET BOYOS!!!!
 };

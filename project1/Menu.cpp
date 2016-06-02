@@ -109,6 +109,7 @@ void insert()
 {
 	int option;
 	bool flag = true;
+	bool subflag;
 
 	while (flag)
 	{
@@ -124,7 +125,9 @@ void insert()
 		{
 		case 1:	if (flag1)
 				{
-					while (flag)
+					subflag = true;
+
+					while (subflag)
 					{
 						cout << endl << "Please select the insertion method:" << endl;
 						cout << "  1. Push Front" << endl;
@@ -138,10 +141,16 @@ void insert()
 						switch (option)
 						{
 							case 1: //code to push front in cyclic linked list
+								cout << endl << "Node inserted successfully." << endl;
+								continue;
 
 							case 2: //code to push back in cyclic linked list
+								cout << endl << "Node inserted successfully." << endl;
+								continue;
 
-							case 3: //code to insert node positionaly in cyclic linked list
+							case 3: //code to insert node positionally in cyclic linked list
+								cout << endl << "Node inserted successfully." << endl;
+								continue;
 
 							case 4: break;
 
@@ -149,10 +158,9 @@ void insert()
 								continue;
 						}
 
-						flag = false;
+						subflag = false;
 					}
 
-					cout << endl << "Node inserted successfully." << endl;
 					break;
 				}
 				else
