@@ -4,9 +4,11 @@ using namespace std;
 
 template <class Type> class SingleNode
 {
-public:
+private:
 	Type data;
 	SingleNode * next;
+	friend class CyclicLinkedList;
+public:
 	SingleNode() : data(0), next(nullptr)	//Default Constructor
 	{
 		//Nothing?
@@ -24,7 +26,7 @@ public:
 
 	SingleNode *getNext() const {		//Next accessor
 		return this->next;
-	}
+	} 
 
 	~SingleNode();		//Default Destructor
 };
