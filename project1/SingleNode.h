@@ -2,12 +2,16 @@
 #include <iostream>
 using namespace std;
 
+template <class Type> class LinkedList;
+
 template <class Type> class SingleNode
 {
 private:
 	Type data;
 	SingleNode *next;
-	friend class CyclicLinkedList;
+	friend class LinkedList<Type>;
+	
+//	template <class U> friend class CyclicLinkedList;
 
 public:
 	SingleNode() : data(0), next(nullptr)					//Default Constructor
@@ -31,5 +35,5 @@ public:
 		return this->next;
 	} 
 
-	~SingleNode();											//Default Destructor
+	~SingleNode() {};											//Default Destructor
 };

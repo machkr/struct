@@ -15,8 +15,8 @@ public:
 	// Accessors begin
 
 	// Returns Number of items in the list.
-	int size() const { 
-		return this->size
+	int getSize() const { 
+		return this->size;
 	}
 
 	// Returns true if list is empty. False otherwise. 
@@ -27,29 +27,29 @@ public:
 	// Retrieves object stored in the node pointed to by the head pointer. 
 	// Throws an underflow if list is empty. 
 	Type front() const {			        
-		if (empty()) throw underflow_error("List is empty.");
+		//if (empty()) throw underflow_error("List is empty.");
         return head->getData();
 	}
 	
 	// Retrieves object stored in the node pointed to by the tail pointer. 
 	// Throws an underflow if list is empty. 
 	Type back() const {		
-		if (empty()) throw underflow_error("List is empty.");
+		//if (empty()) throw underflow_error("List is empty.");
 		return tail->getData();
 	}
 
 	//Returns Head Pointer
-	SingleNode<Type> *head() const {			
+	SingleNode<Type> *getHead() const {			
 		return head;
 	}
 
 	//Returns Tail Pointer
-	SingleNode<Type> *tail() const {			
+	SingleNode<Type> *getTail() const {			
 		return tail;
 	}
 
 	//Returns number of nodes in the linked list storing a value equal to the argument
-	int count(Type const & list) const {			
+	int count(Type const & toCount) const {			
 		int count = 0;
 		SingleNode<Type> * curNode;
 		SingleNode<Type> * nextNode;
@@ -86,7 +86,7 @@ public:
 	// next to new node. 
 	void push_back(Type const & newBack) {               
 
-		SingleNode<Type> * newNode = new SingleNode<type>(newBack, nullptr);
+		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, nullptr);
 		tail->next = newNode;
 		size++;	
 		return;
@@ -96,7 +96,7 @@ public:
 	// popped. Throw an underflow exception if list is empty.
 	Type pop_front()								
 	{
-		if (empty()) throw underflow_error("List is empty.");
+		//if (empty()) throw underflow_error("List is empty.");
 		Type data = head->data;
 		delete head;
 		size--;
@@ -121,14 +121,10 @@ public:
 			if (curNode->data == toDelete) {
 				if (curNode == head) {
 					head = nextNode;
+					tail = nullptr;
 				}
 				if (curNode == tail) {
-					// If theres only one node in the list, head = tail = nullptr
-					if (curNode == head && curNode == tail) {
-						head = tail = nullptr;
-					} else {
 						tail = pastNode;
-					}
 				}
 				pastNode->next = nextNode;
 				delete curNode;
