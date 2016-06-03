@@ -1,6 +1,5 @@
 #include "Menu.h"
 #include <iostream>
-
 using namespace std;
 
 //Global flags for the list creation state:
