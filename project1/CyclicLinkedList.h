@@ -3,7 +3,8 @@
 #include "SingleNode.h"
 using namespace std;
 
-template<class Type> class CyclicLinkedList{
+template<class Type> class CyclicLinkedList : public LinkedList
+{
 private:
 	Node<Type> * head;
 	Node<Type> * tail;
@@ -63,5 +64,5 @@ public:
 
 	//Desktop Test 2
 
-	~CyclicLinkedList(); //Must delete all nodes in the linked list when called!!!!! DON'T FORGET BOYOS!!!!
+	~CyclicLinkedList() {}; //Must delete all nodes in the linked list when called!!!!! DON'T FORGET BOYOS!!!!
 };

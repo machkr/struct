@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-template <class Type> class DoubleNode
+template <class Type> class DoubleNode : public SingleNode
 {
 private:
 	Type data;

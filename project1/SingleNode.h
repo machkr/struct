@@ -6,7 +6,7 @@ template <class Type> class LinkedList;
 
 template <class Type> class SingleNode
 {
-private:
+protected:
 	Type data;
 	SingleNode *next;
 	friend class LinkedList<Type>;
@@ -35,5 +35,5 @@ public:
 		return this->next;
 	} 
 
-	~SingleNode() {};											//Default Destructor
+	~SingleNode() {};										//Default Destructor
 };

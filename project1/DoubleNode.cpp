@@ -9,4 +9,5 @@ DoubleNode::DoubleNode()
 
 DoubleNode::~DoubleNode()
 {
-}*/
+}
+*/
