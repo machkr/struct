@@ -3,9 +3,12 @@
 
 using namespace std;
 
+//Global flags for the list creation state:
+//flag1 for cyclic, flag2 for double
 bool flag1 = false;
 bool flag2 = false;
 
+//Function prototypes for menu options
 void create();
 void insert();
 void remove();
@@ -54,6 +57,8 @@ int main()
 		default: cout << "Invalid option: please try again." << endl << endl;
 			continue;
 		}
+
+		flag = false;
 	}
 }
 
@@ -74,7 +79,7 @@ void create()
 
 		switch (option)
 		{
-			case 1:	if (flag1)
+		case 1:	if (flag1)
 				{
 					cout << endl << "You have already created a cyclic linked list." << endl;
 					continue;
@@ -87,7 +92,7 @@ void create()
 					break;
 				}
 
-			case 2: if (flag2)
+		case 2: if (flag2)
 				{
 					cout << endl << "You have already created a doubly linked list." << endl;
 					continue;
@@ -100,10 +105,10 @@ void create()
 					break;
 				}
 
-			case 3: break;
+		case 3: break;
 
-			default: cout << "Invalid option: please try again." << endl << endl;
-				continue;
+		default: cout << "Invalid option: please try again." << endl << endl;
+			continue;
 		}
 
 		flag = false;
@@ -145,22 +150,22 @@ void insert()
 
 						switch (option)
 						{
-							case 1: //code to push front in cyclic linked list
-								cout << endl << "Node inserted successfully." << endl;
-								continue;
+						case 1: //code to push front in cyclic linked list
+							cout << endl << "Node inserted successfully." << endl;
+							continue;
 
-							case 2: //code to push back in cyclic linked list
-								cout << endl << "Node inserted successfully." << endl;
-								continue;
+						case 2: //code to push back in cyclic linked list
+							cout << endl << "Node inserted successfully." << endl;
+							continue;
 
-							case 3: //code to insert node positionally in cyclic linked list
-								cout << endl << "Node inserted successfully." << endl;
-								continue;
+						case 3: //code to insert node positionally in cyclic linked list
+							cout << endl << "Node inserted successfully." << endl;
+							continue;
 
-							case 4: break;
+						case 4: break;
 
-							default: cout << "Invalid option: please try again." << endl << endl;
-								continue;
+						default: cout << "Invalid option: please try again." << endl << endl;
+							continue;
 						}
 
 						subflag = false;
@@ -191,22 +196,22 @@ void insert()
 
 						switch (option)
 						{
-							case 1: //code to push front in doubly linked list
-								cout << endl << "Node inserted successfully." << endl;
-								continue;
+						case 1: //code to push front in doubly linked list
+							cout << endl << "Node inserted successfully." << endl;
+							continue;
 
-							case 2: //code to push back in doubly linked list
-								cout << endl << "Node inserted successfully." << endl;
-								continue;
+						case 2: //code to push back in doubly linked list
+							cout << endl << "Node inserted successfully." << endl;
+							continue;
 
-							case 3: //code to insert node positionally in doubly linked list
-								cout << endl << "Node inserted successfully." << endl;
-								continue;
+						case 3: //code to insert node positionally in doubly linked list
+							cout << endl << "Node inserted successfully." << endl;
+							continue;
 
-							case 4: break;
+						case 4: break;
 
-							default: cout << "Invalid option: please try again." << endl << endl;
-								continue;
+						default: cout << "Invalid option: please try again." << endl << endl;
+							continue;
 						}
 
 						subflag = false;
@@ -265,22 +270,22 @@ void remove()
 
 						switch (option)
 						{
-							case 1: //code to pop front in cyclic linked list
-								cout << endl << "Node removed successfully." << endl;
-								continue;
+						case 1: //code to pop front in cyclic linked list
+							cout << endl << "Node removed successfully." << endl;
+							continue;
 
-							case 2: //code to erase in cyclic linked list
-								cout << endl << "Node(s) removed successfully." << endl;
-								continue;
+						case 2: //code to erase in cyclic linked list
+							cout << endl << "Node(s) removed successfully." << endl;
+							continue;
 
-							case 3: //code to remove node positionally in cyclic linked list
-								cout << endl << "Node removed successfully." << endl;
-								continue;
+						case 3: //code to remove node positionally in cyclic linked list
+							cout << endl << "Node removed successfully." << endl;
+							continue;
 
-							case 4: break;
+						case 4: break;
 
-							default: cout << "Invalid option: please try again." << endl << endl;
-								continue;
+						default: cout << "Invalid option: please try again." << endl << endl;
+							continue;
 						}
 
 						subflag = false;
@@ -369,116 +374,116 @@ void access()
 		switch (option)
 		{
 		case 1:	if (flag1)
-		{
-			subflag = true;
-
-			while (subflag)
-			{
-				cout << endl << "Please select the accessor method:" << endl;
-				cout << "  1. Size" << endl;
-				cout << "  2. Empty" << endl;
-				cout << "  3. Front" << endl;
-				cout << "  4. Back" << endl;
-				cout << "  5. Count" << endl;
-				cout << "  6. Cancel" << endl;
-				cout << endl << "> ";
-
-				cin >> option;
-
-				switch (option)
 				{
-				case 1: //code to access the size of cyclic linked list
-					cout << endl << "Size accessed successfully." << endl;
-					continue;
+					subflag = true;
 
-				case 2: //code to access empty of cyclic linked list
-					cout << endl << "Empty accessed successfully." << endl;
-					continue;
+					while (subflag)
+					{
+						cout << endl << "Please select the accessor method:" << endl;
+						cout << "  1. Size" << endl;
+						cout << "  2. Empty" << endl;
+						cout << "  3. Front" << endl;
+						cout << "  4. Back" << endl;
+						cout << "  5. Count" << endl;
+						cout << "  6. Cancel" << endl;
+						cout << endl << "> ";
 
-				case 3: //code to access front of cyclic linked list
-					cout << endl << "Front accessed successfully." << endl;
-					continue;
+						cin >> option;
 
-				case 4: //code to access back of cyclic linked list
-					cout << endl << "Back accessed successfully." << endl;
-					continue;
+						switch (option)
+						{
+						case 1: //code to access the size of cyclic linked list
+							cout << endl << "Size accessed successfully." << endl;
+							continue;
 
-				case 5: //code to access count of cyclic linked list
-					cout << endl << "Count accessed successfully." << endl;
-					continue;
+						case 2: //code to access empty of cyclic linked list
+							cout << endl << "Empty accessed successfully." << endl;
+							continue;
 
-				case 6: break;
+						case 3: //code to access front of cyclic linked list
+							cout << endl << "Front accessed successfully." << endl;
+							continue;
 
-				default: cout << "Invalid option: please try again." << endl << endl;
+						case 4: //code to access back of cyclic linked list
+							cout << endl << "Back accessed successfully." << endl;
+							continue;
+
+						case 5: //code to access count of cyclic linked list
+							cout << endl << "Count accessed successfully." << endl;
+							continue;
+
+						case 6: break;
+
+						default: cout << "Invalid option: please try again." << endl << endl;
+							continue;
+						}
+
+						subflag = false;
+					}
+
+					break;
+				}
+				else
+				{
+					cout << endl << "You have not created a cyclic linked list." << endl;
 					continue;
 				}
-
-				subflag = false;
-			}
-
-			break;
-		}
-		else
-		{
-			cout << endl << "You have not created a cyclic linked list." << endl;
-			continue;
-		}
 
 		case 2: if (flag2)
-		{
-			subflag = true;
-
-			while (subflag)
-			{
-				cout << endl << "Please select the accessor method:" << endl;
-				cout << "  1. Size" << endl;
-				cout << "  2. Empty" << endl;
-				cout << "  3. Front" << endl;
-				cout << "  4. Back" << endl;
-				cout << "  5. Count" << endl;
-				cout << "  6. Cancel" << endl;
-				cout << endl << "> ";
-
-				cin >> option;
-
-				switch (option)
 				{
-				case 1: //code to access the size of doubly linked list
-					cout << endl << "Size accessed successfully." << endl;
-					continue;
+					subflag = true;
 
-				case 2: //code to access empty of doubly linked list
-					cout << endl << "Empty accessed successfully." << endl;
-					continue;
+					while (subflag)
+					{
+						cout << endl << "Please select the accessor method:" << endl;
+						cout << "  1. Size" << endl;
+						cout << "  2. Empty" << endl;
+						cout << "  3. Front" << endl;
+						cout << "  4. Back" << endl;
+						cout << "  5. Count" << endl;
+						cout << "  6. Cancel" << endl;
+						cout << endl << "> ";
 
-				case 3: //code to access front of doubly linked list
-					cout << endl << "Front accessed successfully." << endl;
-					continue;
+						cin >> option;
 
-				case 4: //code to access back of doubly linked list
-					cout << endl << "Back accessed successfully." << endl;
-					continue;
+						switch (option)
+						{
+						case 1: //code to access the size of doubly linked list
+							cout << endl << "Size accessed successfully." << endl;
+							continue;
 
-				case 5: //code to access count of doubly linked list
-					cout << endl << "Count accessed successfully." << endl;
-					continue;
+						case 2: //code to access empty of doubly linked list
+							cout << endl << "Empty accessed successfully." << endl;
+							continue;
 
-				case 6: break;
+						case 3: //code to access front of doubly linked list
+							cout << endl << "Front accessed successfully." << endl;
+							continue;
 
-				default: cout << "Invalid option: please try again." << endl << endl;
+						case 4: //code to access back of doubly linked list
+							cout << endl << "Back accessed successfully." << endl;
+							continue;
+
+						case 5: //code to access count of doubly linked list
+							cout << endl << "Count accessed successfully." << endl;
+							continue;
+
+						case 6: break;
+
+						default: cout << "Invalid option: please try again." << endl << endl;
+							continue;
+						}
+
+						subflag = false;
+					}
+
+					break;
+				}
+				else
+				{
+					cout << endl << "You have not created a doubly linked list." << endl;
 					continue;
 				}
-
-				subflag = false;
-			}
-
-			break;
-		}
-		else
-		{
-			cout << endl << "You have not created a doubly linked list." << endl;
-			continue;
-		}
 
 		case 3: break;
 
