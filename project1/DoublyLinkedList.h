@@ -5,7 +5,6 @@ using namespace std;
 class DoublyLinkedList
 {
 public:
-	DoublyLinkedList();
-	~DoublyLinkedList();
+	DoublyLinkedList() {};
+	~DoublyLinkedList() {};
 };
-

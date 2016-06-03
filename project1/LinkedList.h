@@ -6,8 +6,8 @@ using namespace std;
 template<class Type> class LinkedList
 {
 protected:
-	SingleNode<Type> * head;
-	SingleNode<Type> * tail;
+	SingleNode<Type> *head;
+	SingleNode<Type> *tail;
 	int size;
 
 public:
@@ -64,11 +64,13 @@ public:
 
 		curNode = nextNode = head;
 
-		while (nextNode != nullptr) {
+		while (nextNode != nullptr)
+		{
 			curNode = nextNode;
 			nextNode = curNode->next;
 			
-			if (curNode->data == toCount) {
+			if (curNode->data == toCount)
+			{
 				count++;
 			}
 		}	
@@ -84,7 +86,8 @@ public:
 	{			
 		SingleNode<Type> * newNode = new SingleNode<Type>(newFront, head);
 		head = newNode;
-		if (size == 0) {
+		if (size == 0)
+		{
 			tail = newNode;
 		}
 		size++;
@@ -96,10 +99,13 @@ public:
 	void push_back(Type const & newBack)
 	{               
 		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, nullptr);
-		if (size == 0) {
+		if (size == 0)
+		{
 			tail = newNode;
 			head = newNode;
-		} else { 
+		}
+		else
+		{ 
 			tail->next = newNode;
 		}
 		tail = newNode;
@@ -131,24 +137,32 @@ public:
 		SingleNode<Type> * pastNode;
 
 		curNode = nextNode = pastNode = head; 
-		while (nextNode != nullptr) {
+		while (nextNode != nullptr)
+		{
 			pastNode = curNode;
 			curNode = nextNode;
 			nextNode = curNode->next;
-			if (curNode->data == toDelete) {
-				if (size == 1) {
+			if (curNode->data == toDelete)
+			{
+				if (size == 1)
+				{
 					head = tail = nullptr;
 					delete curNode;
 					size--;
 					count++;
 					break;
 				}
-				if (curNode == head) {
+
+				if (curNode == head)
+				{
 					head = nextNode;
 				}
-				if (curNode == tail) {
+
+				if (curNode == tail)
+				{
 						tail = pastNode;
 				}
+
 				pastNode->next = nextNode;
 				delete curNode;
 				size--;

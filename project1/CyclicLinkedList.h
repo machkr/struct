@@ -6,8 +6,8 @@ using namespace std;
 template<class Type> class CyclicLinkedList : public LinkedList
 {
 private:
-	Node<Type> * head;
-	Node<Type> * tail;
+	Node<Type> *head;
+	Node<Type> *tail;
 	int size;
 
 public:

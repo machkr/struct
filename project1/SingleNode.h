@@ -14,10 +14,7 @@ protected:
 //	template <class U> friend class CyclicLinkedList;
 
 public:
-	SingleNode() : data(0), next(nullptr)					//Default Constructor
-	{
-		//Nothing?
-	}
+	SingleNode() : data(0), next(nullptr) {}				//Default Constructor
 
 	SingleNode(Type const &data, SingleNode *next)			//Constructor
 	{

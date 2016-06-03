@@ -56,7 +56,6 @@ int main()
 		default: cout << "Invalid option: please try again." << endl << endl;
 			continue;
 		}
-
 		flag = false;
 	}
 }
@@ -109,7 +108,6 @@ void create()
 		default: cout << "Invalid option: please try again." << endl << endl;
 			continue;
 		}
-
 		flag = false;
 	}
 }
@@ -166,10 +164,8 @@ void insert()
 						default: cout << "Invalid option: please try again." << endl << endl;
 							continue;
 						}
-
 						subflag = false;
 					}
-
 					break;
 				}
 				else
@@ -212,10 +208,8 @@ void insert()
 						default: cout << "Invalid option: please try again." << endl << endl;
 							continue;
 						}
-
 						subflag = false;
 					}
-
 					break;
 				}
 				else
@@ -229,7 +223,6 @@ void insert()
 		default: cout << "Invalid option: please try again." << endl << endl;
 			continue;
 		}
-
 		flag = false;
 	}
 }
@@ -286,10 +279,8 @@ void remove()
 						default: cout << "Invalid option: please try again." << endl << endl;
 							continue;
 						}
-
 						subflag = false;
 					}
-			
 					break;
 				}
 				else
@@ -332,10 +323,8 @@ void remove()
 						default: cout << "Invalid option: please try again." << endl << endl;
 							continue;
 						}
-
 						subflag = false;
 					}
-
 					break;
 				}
 				else
@@ -349,7 +338,6 @@ void remove()
 		default: cout << "Invalid option: please try again." << endl << endl;
 			continue;
 		}
-
 		flag = false;
 	}
 }
@@ -416,10 +404,8 @@ void access()
 						default: cout << "Invalid option: please try again." << endl << endl;
 							continue;
 						}
-
 						subflag = false;
 					}
-
 					break;
 				}
 				else
@@ -472,10 +458,8 @@ void access()
 						default: cout << "Invalid option: please try again." << endl << endl;
 							continue;
 						}
-
 						subflag = false;
 					}
-
 					break;
 				}
 				else
@@ -489,7 +473,6 @@ void access()
 		default: cout << "Invalid option: please try again." << endl << endl;
 			continue;
 		}
-
 		flag = false;
 	}
 }
@@ -538,7 +521,6 @@ void output()
 		default: cout << "Invalid option: please try again." << endl << endl;
 			continue;
 		}
-
 		flag = false;
 	}
 }
