@@ -54,7 +54,7 @@ public:
 		SingleNode<Type> * curNode;
 		SingleNode<Type> * nextNode;
 
-		curNode = nextNode = nullptr;
+		curNode = nextNode = head;
 
 		while (nextNode != nullptr) {
 			curNode = nextNode;
@@ -87,7 +87,13 @@ public:
 	void push_back(Type const & newBack) {               
 
 		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, nullptr);
-		tail->next = newNode;
+		if (size == 0) {
+			tail = newNode;
+			head = newNode;
+		} else { 
+			tail->next = newNode;
+		}
+		tail = newNode;
 		size++;	
 		return;
 	}
@@ -119,9 +125,15 @@ public:
 			curNode = nextNode;
 			nextNode = curNode->next;
 			if (curNode->data == toDelete) {
+				if (size == 1) {
+					head = tail = nullptr;
+					delete curNode;
+					size--;
+					count++;
+					break;
+				}
 				if (curNode == head) {
 					head = nextNode;
-					tail = nullptr;
 				}
 				if (curNode == tail) {
 						tail = pastNode;
