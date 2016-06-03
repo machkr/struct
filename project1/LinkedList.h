@@ -16,7 +16,7 @@ public:
 
 	// Returns Number of items in the list.
 	int size() const { 
-		return this->size
+		return this->size;
 	}
 
 	// Returns true if list is empty. False otherwise. 
@@ -138,8 +138,6 @@ public:
 		}
 		return count;
 	}
-
-	//Desktop Test 2
-
+	
 	~LinkedList(); //Must delete all nodes in the linked list when called!!!!! DON'T FORGET BOYOS!!!!
 };
