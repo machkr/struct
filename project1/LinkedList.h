@@ -134,8 +134,6 @@ public:
 		}
 		return count;
 	}
-
-	//Desktop Test 2
-
+	
 	~LinkedList(); //Must delete all nodes in the linked list when called!!!!! DON'T FORGET BOYOS!!!!
 };
