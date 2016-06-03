@@ -27,14 +27,14 @@ public:
 	// Retrieves object stored in the node pointed to by the head pointer. 
 	// Throws an underflow if list is empty. 
 	Type front() const {			        
-		//if (empty()) throw underflow_error("List is empty.");
+		if (empty()) throw underflow_error("List is empty.");
         return head->getData();
 	}
 	
 	// Retrieves object stored in the node pointed to by the tail pointer. 
 	// Throws an underflow if list is empty. 
 	Type back() const {		
-		//if (empty()) throw underflow_error("List is empty.");
+		if (empty()) throw underflow_error("List is empty.");
 		return tail->getData();
 	}
 
@@ -102,7 +102,7 @@ public:
 	// popped. Throw an underflow exception if list is empty.
 	Type pop_front()								
 	{
-		//if (empty()) throw underflow_error("List is empty.");
+		if (empty()) throw underflow_error("List is empty.");
 		Type data = head->data;
 		delete head;
 		size--;
