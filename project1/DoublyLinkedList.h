@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-class DoublyLinkedList
+template<class Type> class DoublyLinkedList : public LinkedList
 {
 public:
 	DoublyLinkedList() {};
