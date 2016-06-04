@@ -6,6 +6,8 @@ DoubleNode::DoubleNode()
 {
 }
 
+//Test.
+
 
 DoubleNode::~DoubleNode()
 {
