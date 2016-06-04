@@ -36,7 +36,7 @@ public:
 			throw underflow_error("The list is empty.");
 		}
 		else {
-			while (current->next != nullptr) {
+			while (current->next != head) {
 				if (current->data == wrecked) {
 					if (current == head) {
 						head = head->next;
