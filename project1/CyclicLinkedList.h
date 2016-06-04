@@ -6,41 +6,11 @@ using namespace std;
 template<class Type> class CyclicLinkedList : public LinkedList
 {
 private:
-	Node<Type> *head;
-	Node<Type> *tail;
-	int size;
+
 
 public:
-	CyclicLinkedList(): head(nullptr), tail(nullptr), size(0){}
 
-	//Accessors begin
-
-	int size() const { //Returns Number of items in the list.
-		//return this->size
-	}
-	bool empty() const {								//Returns true if list is empty. False otherwise. 
-		//return head == nullptr;
-	}
-	
-	Type front() const {			//Retrieves object stored in the node pointed to by the head pointer. Throws an underflow if list is empty. 
-		//if (empty == true);
-	}
-	
-	Type back() const {				//Retrieves object stored in the node pointed to by the tail pointer. Throws an underflow if list is empty. 
-		//if (empty == true);
-	}
-
-	SingleNode<Type> *head() const {			//Returns Head Pointer
-		//return head;
-	}
-
-	SingleNode<Type> *tail() const {			//Returns Tail Pointer
-		//return tail;
-	}
-	
-	int count(Type const & list) const {			//Returns number of nodes in the linked list storing a value equal to the argument
-		//if(data == data){}
-	}
+	CyclicLinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
 	//Mutators begin
 
@@ -59,10 +29,61 @@ public:
 
 	int erase(Type const & wrecked) {         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the head, tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
 
-		//return size;
+		SingleNode<Type> *current = head;
+		SingleNode<Type> *previous = head;
+		int count = 0;
+		if (this->isEmpty()) {
+			throw underflow_error("The list is empty.");
+		}
+		else {
+			while (current->next != nullptr) {
+				if (current->data == wrecked) {
+					if (current == head) {
+						head = head->next;
+						delete previous;
+						size--;
+						count++;
+					}
+					else {
+						SingleNode<Type> *temp = current->next;
+						current->data = current->next->data;
+						current->next = current->next->next;
+						delete temp;
+						size--;
+						count++;
+					}
+				}
+				previous = current;
+				current = current->next;
+			}
+			if (current->data == wrecked) {
+				previous->next = nullptr;
+				delete current;
+				size--;
+				count++;
+			}
+		}
+		cout << "Number of nodes deleted:";
+		return count;
 	}
 
-	//Desktop Test 2
 
-	~CyclicLinkedList() {}; //Must delete all nodes in the linked list when called!!!!! DON'T FORGET BOYOS!!!!
+	~CyclicLinkedList() {
+
+		SingleNode<Type> *current = head;
+		SingleNode<Type> *previous = head;
+		if (this->isEmpty()) {
+			throw underflow_error("The list is empty.");
+		}
+		else {
+			while (current->next != nullptr) {
+				if (current == head) {
+					head = head->next;
+					delete previous;
+					size--;
+				}
+			}
+		}
+	}
+
 };
