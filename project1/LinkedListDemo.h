@@ -52,11 +52,9 @@ class LinkedListDemo {
 			cout << endl << "Node inserted successfully." << endl << endl;
 		}
 		void insertPushBack (vector<int>& prev) {}
-		void insertPositional (vector<int>& prev) {}
 		
 		void removePopFront (vector<int>& prev) {}
 		void removeErase (vector<int>& prev) {}
-		void removePositional (vector<int>& prev) {}
 		
 		void accessSize (vector<int>& prev) {}
 		void accessEmpty (vector<int>& prev) {}

@@ -32,14 +32,12 @@ void LinkedListDemo::buildMenus() {
 
 	insertMethodMenu->add("Push Front", action(insertPushFront));
 	insertMethodMenu->add("Push Back", action(insertPushBack));
-	insertMethodMenu->add("Positional", action(insertPositional));
 
 	removeMenu->add("Cyclic Linked List", MenuList::SubMenu(removeMethodMenu));
 	removeMenu->add("Doubly Linked List", MenuList::SubMenu(removeMethodMenu));
 
 	removeMethodMenu->add("Pop Front", action(removePopFront));
 	removeMethodMenu->add("Erase", action(removeErase));
-	removeMethodMenu->add("Positional", action(removePositional));
 	
 	accessMenu->add("Cyclic Linked List", MenuList::SubMenu(accessMethodMenu));
 	accessMenu->add("Doubly Linked List", MenuList::SubMenu(accessMethodMenu));
