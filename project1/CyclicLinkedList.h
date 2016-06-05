@@ -96,43 +96,48 @@ public:
 	}
 
 
-	int erase(Type const & wrecked) {         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the this->head, this->tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
-
-		SingleNode<Type> *current = this->head;
-		SingleNode<Type> *previous = this->head;
+	int erase(Type const & wrecked) {         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the this->head, this->this->tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
 		int count = 0;
-		if (this->empty()) {
-			throw underflow_error("The list is empty.");
-		}
-		else {
-			while (current->next != this->head) {
-				if (current->data == wrecked) {
-					if (current == this->head) {
-						this->head = this->head->next;
-						delete previous;
-						this->size--;
-						count++;
-					}
-					else {
-						SingleNode<Type> *temp = current->next;
-						current->data = current->next->data;
-						current->next = current->next->next;
-						delete temp;
-						this->size--;
-						count++;
-					}
+		SingleNode<Type> * curNode;
+		SingleNode<Type> * nextNode;
+		SingleNode<Type> * pastNode;
+
+		nextNode = nullptr;
+		curNode = pastNode = this->head; 
+		while (nextNode != this->head)
+		{
+			pastNode = curNode;
+			if (nextNode != nullptr) {
+				curNode = nextNode;
+			}
+			nextNode = curNode->next;
+			if (curNode->data == wrecked)
+			{
+				if (this->size == 1)
+				{
+					this->head = this->tail = nullptr;
+					delete curNode;
+					this->size--;
+					count++;
+					break;
 				}
-				previous = current;
-				current = current->next;
-			}
-			if (current->data == wrecked) {
-				previous->next = current->next;
-				delete current;
+
+				if (curNode == this->head)
+				{
+					this->head = nextNode;
+				}
+
+				if (curNode == this->tail)
+				{
+					this->tail = pastNode;
+				}
+
+				pastNode->next = nextNode;
+				delete curNode;
 				this->size--;
-				count++;
+				count++;		
 			}
 		}
-		cout << "Number of nodes deleted: " << count << endl;
 		return count;
 	}
 
