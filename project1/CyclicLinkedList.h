@@ -126,7 +126,7 @@ public:
 				current = current->next;
 			}
 			if (current->data == wrecked) {
-				previous->next = nullptr;
+				previous->next = current->next;
 				delete current;
 				this->size--;
 				count++;
