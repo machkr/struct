@@ -60,6 +60,41 @@ public:
 		return data;
 	}
 
+	int count(Type const & comparedData) const
+	{
+		int count = 0;
+		SingleNode<Type> * curNode;
+		SingleNode<Type> * nextNode;
+
+		curNode = nextNode = head;
+
+		while (nextNode != head)
+		{
+			curNode = nextNode;
+			nextNode = curNode->next;
+
+			if (curNode->data == comparedData)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+
+	void print()
+	{
+		SingleNode<Type> *curNode = head;
+
+		cout << endl;
+		while (curNode->next != head)
+		{
+			cout << curNode->data << " " << ;
+			curNode = curNode->next;
+		}
+		cout << endl;
+	}
+
+
 	int erase(Type const & wrecked) {         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the head, tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
 
 		SingleNode<Type> *current = head;
@@ -96,7 +131,7 @@ public:
 				count++;
 			}
 		}
-		cout << "Number of nodes deleted:";
+		cout << "Number of nodes deleted: " << count << endl;
 		return count;
 	}
 
