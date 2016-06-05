@@ -8,6 +8,10 @@ template<class Type> class DoublyLinkedList : public LinkedList<Type>
 {
 private:
 
+	DoubleNode<Type> *head;
+	DoubleNode<Type> *tail;
+	int size;
+
 public:
 	//DoublyLinkedList() : this->head(nullptr), this->tail(nullptr), this->size(0) {};
 
@@ -39,11 +43,11 @@ public:
 		this->head->previous = newNode;
 		this->head = newNode;
 
-		if (this->this->size == 0)
+		if (this->size == 0)
 		{
 			this->tail = newNode;
 		}
-		this->this->size++;
+		this->size++;
 	}
 
 	void push_back(Type const &newBack)
@@ -53,12 +57,12 @@ public:
 		this->tail->next = newNode;
 		this->tail = newNode;
 
-		if (this->this->size == 0)
+		if (this->size == 0)
 		{
 			this->head = newNode;
 		}
 
-		this->this->size++;
+		this->size++;
 	}
 
 	Type pop_front()
@@ -84,7 +88,7 @@ public:
 	{
 		DoubleNode<Type> *curNode = this->head->next;
 		DoubleNode<Type> *nextNode;
-		int count;
+		int count = 0;
 
 		while (curNode != this->head)
 		{
@@ -96,7 +100,7 @@ public:
 				delete curNode;
 				count++;
 			}
-			curNode = next;
+			curNode = nextNode;
 		}
 		return count;
 	}
