@@ -15,10 +15,20 @@ class LinkedListDemo {
 		void buildMenus();
 
 		void createCyclic (vector<int>& prev) {
-			cll = new LinkedList<double>();
+			if (cll == nullptr) {
+				cll = new LinkedList<double>();
+				cout << "Cyclic Linked List created Successfully." << endl;
+			} else {
+				cout << "Cyclic Linked List already exists!" << endl;
+			}
 		}
 		void createDoubly (vector<int>& prev) {
-			dll = new LinkedList<double>();
+			if (dll == nullptr) {
+				dll = new LinkedList<double>();
+				cout << "Doubly Linked List created Successfully." << endl;
+			} else {
+				cout << "Doubly Linked List already exists!" << endl;
+			}
 		}
 
 		void insertPushFront (vector<int>& prev) {
@@ -70,7 +80,7 @@ class LinkedListDemo {
 		}
 
 	public: 
-		LinkedListDemo() {}
+		LinkedListDemo() : cll(nullptr), dll(nullptr) {}
 		void run() {
 			buildMenus();
 			mainMenu->run();
