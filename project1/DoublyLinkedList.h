@@ -1,13 +1,14 @@
 #pragma once
 #include "DoubleNode.h"
+#include "LinkedList.h"
 using namespace std;
 
-template<class Type> class DoublyLinkedList : public LinkedList
+template<class Type> class DoublyLinkedList : public LinkedList<Type>
 {
 private:
 
 public:
-	DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
+	//DoublyLinkedList() : this->head(nullptr), this->tail(nullptr), this->size(0) {};
 
 	int count(Type const &toCount) const
 	{
@@ -15,7 +16,7 @@ public:
 		DoubleNode<Type> *curNode;
 		DoubleNode<Type> *nextNode;
 
-		curNode = nextNode = head;
+		curNode = nextNode = this->head;
 
 		while (nextNode != nullptr)
 		{
@@ -32,31 +33,31 @@ public:
 
 	void push_front(Type const &newFront)
 	{
-		DoubleNode<Type> *newNode = new DoubleNode<Type>(newFront, nullptr, head);
+		DoubleNode<Type> *newNode = new DoubleNode<Type>(newFront, nullptr, this->head);
 
-		head->previous = newNode;
-		head = newNode;
+		this->head->previous = newNode;
+		this->head = newNode;
 
-		if (size == 0)
+		if (this->this->size == 0)
 		{
-			tail = newNode;
+			this->tail = newNode;
 		}
-		size++;
+		this->this->size++;
 	}
 
 	void push_back(Type const &newBack)
 	{
-		DoubleNode<Type> *newNode = new DoubleNode<Type>(newBack, tail, nullptr);
+		DoubleNode<Type> *newNode = new DoubleNode<Type>(newBack, this->tail, nullptr);
 
-		tail->next = newNode;
-		tail = newNode;
+		this->tail->next = newNode;
+		this->tail = newNode;
 
-		if (size == 0)
+		if (this->this->size == 0)
 		{
-			head = newNode;
+			this->head = newNode;
 		}
 
-		size++;
+		this->this->size++;
 	}
 
 	Type pop_front()
@@ -64,15 +65,15 @@ public:
 		if (empty()) throw underflow_error("List is empty.");
 
 		Type data;
-		DoubleNode<Type> *popNode = head;
-		head = popNode->next;
+		DoubleNode<Type> *popNode = this->head;
+		this->head = popNode->next;
 
-		if (head == nullptr)
+		if (this->head == nullptr)
 		{
-			tail = nullptr;
+			this->tail = nullptr;
 		}
 
-		head->previous = nullptr;
+		this->head->previous = nullptr;
 		data = popNode->data;
 		delete popNode;
 		return data;
@@ -80,11 +81,11 @@ public:
 
 	int erase(Type const &toDelete)
 	{
-		DoubleNode<Type> *curNode = head->next;
+		DoubleNode<Type> *curNode = this->head->next;
 		DoubleNode<Type> *nextNode;
 		int count;
 
-		while (curNode != head)
+		while (curNode != this->head)
 		{
 			nextNode = curNode->next;
 			if (curNode->data == toDelete)
@@ -101,7 +102,7 @@ public:
 
 	void print()
 	{
-		DoubleNode<Type> *curNode = head;
+		DoubleNode<Type> *curNode = this->head;
 
 		cout << endl;
 		while (curNode->next != nullptr)
@@ -116,14 +117,14 @@ public:
 	{
 		if (this->isEmpty()) throw underflow_error("The list is empty.");
 
-		DoubleNode<Type> *current = head;
+		DoubleNode<Type> *current = this->head;
 
 		while (current->next != nullptr)
 		{
 			delete current->previous;
-			size--;
+			this->this->size--;
 		}
-		head = nullptr;
-		tail = nullptr;
+		this->head = nullptr;
+		this->tail = nullptr;
 	}
 };

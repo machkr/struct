@@ -1,10 +1,11 @@
 #include <iostream>
-#include "CyclicLinkedList.h"
+#include "DoublyLinkedList.h"
+#include <string>
 
 using namespace std;
 
 int main() {
-    CyclicLinkedList<int> * ll = new CyclicLinkedList<int>();
+    DoublyLinkedList<int> * ll = new DoublyLinkedList<int>();
 	cout << "Created LinkedList" << endl;
     ll->push_back(2);
     cout << "\npush_back(2)" << endl;
