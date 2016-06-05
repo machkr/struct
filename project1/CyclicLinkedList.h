@@ -30,7 +30,7 @@ public:
 
 	void push_back(Type const & newBack)
 	{
-		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, nullptr);
+		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, head);
 		if (size == 0)
 		{
 			tail = newNode;
@@ -42,7 +42,6 @@ public:
 		}
 
 		tail = newNode;
-		tail->next = head;
 		size++;
 
 		return;
@@ -144,7 +143,7 @@ public:
 			throw underflow_error("The list is empty.");
 		}
 		else {
-			while (current->next != nullptr) {
+			while (current->next != head) {
 				if (current == head) {
 					head = head->next;
 					delete previous;
