@@ -9,24 +9,6 @@ private:
 public:
 	DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
 
-	//int size() const {};
-
-	//bool empty() const {};
-
-	//front() inherited from base class
-
-	//back() inherited from base class
-
-	/*DoubleNode<Type> *head() const
-	{
-		return head;
-	}
-
-	DoubleNode<Type> *tail() const
-	{
-		return tail;
-	}*/
-
 	int count(Type const &toCount) const
 	{
 		int count = 0;
@@ -59,7 +41,6 @@ public:
 		{
 			tail = newNode;
 		}
-
 		size++;
 	}
 
@@ -82,6 +63,7 @@ public:
 	{
 		if (empty()) throw underflow_error("List is empty.");
 
+		Type data;
 		DoubleNode<Type> *popNode = head;
 		head = popNode->next;
 
@@ -91,8 +73,9 @@ public:
 		}
 
 		head->previous = nullptr;
-		return popNode->data;
+		data = popNode->data;
 		delete popNode;
+		return data;
 	}
 
 	int erase(Type const &toDelete)
@@ -129,5 +112,18 @@ public:
 		cout << endl;
 	}
 
-	~DoublyLinkedList() {};
+	~DoublyLinkedList()
+	{
+		if (this->isEmpty()) throw underflow_error("The list is empty.");
+
+		DoubleNode<Type> *current = head;
+
+		while (current->next != nullptr)
+		{
+			delete current->previous;
+			size--;
+		}
+		head = nullptr;
+		tail = nullptr;
+	}
 };

@@ -30,7 +30,7 @@ public:
 
 	void push_back(Type const & newBack)
 	{
-		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, nullptr);
+		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, head);
 		if (size == 0)
 		{
 			tail = newNode;
@@ -42,7 +42,6 @@ public:
 		}
 
 		tail = newNode;
-		tail->next = head;
 		size++;
 
 		return;
@@ -59,6 +58,41 @@ public:
 		size--;
 		return data;
 	}
+
+	int count(Type const & comparedData) const
+	{
+		int count = 0;
+		SingleNode<Type> * curNode;
+		SingleNode<Type> * nextNode;
+
+		curNode = nextNode = head;
+
+		while (nextNode != head)
+		{
+			curNode = nextNode;
+			nextNode = curNode->next;
+
+			if (curNode->data == comparedData)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+
+	void print()
+	{
+		SingleNode<Type> *curNode = head;
+
+		cout << endl;
+		while (curNode->next != head)
+		{
+			cout << curNode->data << " " << ;
+			curNode = curNode->next;
+		}
+		cout << endl;
+	}
+
 
 	int erase(Type const & wrecked) {         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the head, tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
 
@@ -96,7 +130,7 @@ public:
 				count++;
 			}
 		}
-		cout << "Number of nodes deleted:";
+		cout << "Number of nodes deleted: " << count << endl;
 		return count;
 	}
 
@@ -109,7 +143,7 @@ public:
 			throw underflow_error("The list is empty.");
 		}
 		else {
-			while (current->next != nullptr) {
+			while (current->next != head) {
 				if (current == head) {
 					head = head->next;
 					delete previous;
