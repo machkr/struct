@@ -17,8 +17,7 @@ class MenuList;
 typedef function<void(vector<int>&)> MenuFunction;
 
 // Each MenuList has a vector of Options. Each option contains text, 
-// e.g. "Create List" and a MenuFunction (function pointer) that is
-// called when the option is selected
+// e.g. "Create List" and a MenuFunction that is called when the option is selected
 struct Option {
 	string text;
 	MenuFunction f;
@@ -44,7 +43,7 @@ class MenuList {
 
 		// Run the menu. The overloaded run takes a vector of previous menu options
 		// that were selected. e.g. If "1. Create List" was selected, the first node
-		// will be a 1
+		// will be a 1. This is how all submenus are called
 		void run();
 		void run(vector<int>& previousChoices_);
 
@@ -57,8 +56,8 @@ class MenuList {
 		void setIsMain(bool b);
 		bool getIsMain() const;
 
-		// Making non-static member function pointers is hard in C++, so these
-		// static methods are here to simplify that. 
+		// Making non-static member function pointers is complicated, so these
+		// static methods hopefully simplify that. 
 		// They return the MenuFunction type defined above. SubMenu takes a SubMenu and 
 		// is used for making the hierarchal menus work. Action will take any
 		// regular function (non-member method). 

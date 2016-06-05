@@ -23,20 +23,23 @@ class LinkedListDemo {
 
 		void insertPushFront (vector<int>& prev) {
 			double data;
+			cout << "Value to insert: ";
 			try {
-				cin >> data;
+				data = getDouble();
 			} catch (...) {
-				cout << endl << "Error reading input! Try again.";
+				cout << endl << "Error reading input! Try again." << endl;
 				return;
 			}
-			if (prev[0] == 1) 
+			
+			if (prev[0] == 1) // If Cyclic Linked List was chosen
 				cll->push_front(data);
-			else if (prev[0] == 2) 
+			else if (prev[0] == 2) // If Doubly Linked List was chosen
 				dll->push_front(data);
 			else {
 				cout << "There was an error saving the data" << endl;
 				return;
 			}
+			cout << endl << "Node inserted successfully." << endl << endl;
 		}
 		void insertPushBack (vector<int>& prev) {}
 		void insertPositional (vector<int>& prev) {}
@@ -54,6 +57,17 @@ class LinkedListDemo {
 		void outputCyclic (vector<int>& prev) {}
 		void outputDoubly (vector<int>& prev) {}
 				
+		double getDouble() {
+			double data;
+			string input;
+			cin >> input;
+			try {
+				data = stod(input);
+			} catch (...) {
+				throw invalid_argument("Error reading input.");
+			}
+			return data;
+		}
 
 	public: 
 		LinkedListDemo() {}
