@@ -4,12 +4,42 @@
 #include "LinkedList.h"
 using namespace std;
 
-template<class Type> class DoublyLinkedList : public LinkedList<Type>
+template<class Type> class DoublyLinkedList
 {
 private:
+	DoubleNode<Type> * head;
+	DoubleNode<Type> * tail;
+	int size;
 
 public:
-	//DoublyLinkedList() : this->head(nullptr), this->tail(nullptr), this->size(0) {};
+	//DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
+
+	int getSize() const
+	{ 
+		return size;
+	}
+
+	// Returns true if list is empty. False otherwise. 
+	bool empty() const
+	{								
+		return head == nullptr;
+	}
+    
+	// Retrieves object stored in the node pointed to by the head pointer. 
+	// Throws an underflow if list is empty. 
+	Type front() const
+	{			        
+		if (empty()) throw underflow_error("List is empty.");
+        return head->getData();
+	}
+	
+	// Retrieves object stored in the node pointed to by the tail pointer. 
+	// Throws an underflow if list is empty. 
+	Type back() const
+	{		
+		if (empty()) throw underflow_error("List is empty.");
+		return tail->getData();
+	}
 
 	int count(Type const &toCount) const
 	{
@@ -17,7 +47,7 @@ public:
 		DoubleNode<Type> *curNode;
 		DoubleNode<Type> *nextNode;
 
-		curNode = nextNode = this->head;
+		curNode = nextNode = head;
 
 		while (nextNode != nullptr)
 		{
@@ -34,31 +64,31 @@ public:
 
 	void push_front(Type const &newFront)
 	{
-		DoubleNode<Type> *newNode = new DoubleNode<Type>(newFront, nullptr, this->head);
-
-		this->head->previous = newNode;
-		this->head = newNode;
-
-		if (this->this->size == 0)
+		DoubleNode<Type> *newNode = new DoubleNode<Type>(newFront, nullptr, head);
+		if (size == 0)
 		{
-			this->tail = newNode;
+			tail = newNode;
+			head = newNode;
+		} else { 
+			head->previous = newNode;
+			head = newNode;
 		}
-		this->this->size++;
+
+		size++;
 	}
 
 	void push_back(Type const &newBack)
 	{
-		DoubleNode<Type> *newNode = new DoubleNode<Type>(newBack, this->tail, nullptr);
-
-		this->tail->next = newNode;
-		this->tail = newNode;
-
-		if (this->this->size == 0)
+		DoubleNode<Type> *newNode = new DoubleNode<Type>(newBack, tail, nullptr);
+		if (size == 0)
 		{
-			this->head = newNode;
+			head = newNode;
+			tail = newNode;
+		} else { 
+			tail->next = newNode;
+			tail = newNode;
 		}
-
-		this->this->size++;
+		size++;
 	}
 
 	Type pop_front()
@@ -66,27 +96,28 @@ public:
 		if (empty()) throw underflow_error("List is empty.");
 
 		Type data;
-		DoubleNode<Type> *popNode = this->head;
-		this->head = popNode->next;
+		DoubleNode<Type> *popNode = head;
+		head = popNode->next;
 
-		if (this->head == nullptr)
+		if (head == nullptr)
 		{
-			this->tail = nullptr;
+			tail = nullptr;
 		}
 
-		this->head->previous = nullptr;
+		head->previous = nullptr;
 		data = popNode->data;
 		delete popNode;
+		size--;
 		return data;
 	}
 
 	int erase(Type const &toDelete)
 	{
-		DoubleNode<Type> *curNode = this->head->next;
+		DoubleNode<Type> *curNode = head->next;
 		DoubleNode<Type> *nextNode;
 		int count;
 
-		while (curNode != this->head)
+		while (curNode != nullptr)
 		{
 			nextNode = curNode->next;
 			if (curNode->data == toDelete)
@@ -95,20 +126,21 @@ public:
 				curNode->next->previous = curNode->previous;
 				delete curNode;
 				count++;
+				size--;
 			}
-			curNode = next;
+			curNode = nextNode;
 		}
 		return count;
 	}
 
 	void print()
 	{
-		DoubleNode<Type> *curNode = this->head;
+		DoubleNode<Type> *curNode = head;
 
 		cout << endl;
 		while (curNode->next != nullptr)
 		{
-			cout << curNode->data << " " << ;
+			cout << curNode->data << " ";
 			curNode = curNode->next;
 		}
 		cout << endl;
@@ -116,16 +148,17 @@ public:
 
 	~DoublyLinkedList()
 	{
-		if (this->isEmpty()) throw underflow_error("The list is empty.");
+		if (empty()) throw underflow_error("The list is empty.");
 
-		DoubleNode<Type> *current = this->head;
+		DoubleNode<Type> *current = head;
 
 		while (current->next != nullptr)
 		{
 			delete current->previous;
-			this->this->size--;
+			size--;
 		}
-		this->head = nullptr;
-		this->tail = nullptr;
+		head = nullptr;
+		tail = nullptr;
 	}
+
 };

@@ -10,15 +10,15 @@ template <class Type> class DoubleNode : public SingleNode<Type>
 {
 private:
 	Type data;
-	DoubleNode *previous;
-	DoubleNode *next;
+	DoubleNode<Type> *previous;
+	DoubleNode<Type> *next;
 	friend class LinkedList<Type>;
 	friend class DoublyLinkedList<Type>;
 
 public:
 	DoubleNode() : data(0), previous(nullptr), next(nullptr) {}
 
-	DoubleNode(Type const &data, DoubleNode *previous, DoubleNode *next)
+	DoubleNode(Type const &data, DoubleNode<Type> *previous, DoubleNode<Type> *next)
 	{
 		this->data = data;
 		this->previous = previous;
