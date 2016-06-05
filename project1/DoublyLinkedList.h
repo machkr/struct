@@ -11,6 +11,10 @@ private:
 	DoubleNode<Type> * tail;
 	int size;
 
+	DoubleNode<Type> *head;
+	DoubleNode<Type> *tail;
+	int size;
+
 public:
 	//DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
 
@@ -73,7 +77,6 @@ public:
 			head->previous = newNode;
 			head = newNode;
 		}
-
 		size++;
 	}
 
@@ -115,7 +118,7 @@ public:
 	{
 		DoubleNode<Type> *curNode = head->next;
 		DoubleNode<Type> *nextNode;
-		int count;
+		int count = 0;
 
 		while (curNode != nullptr)
 		{
