@@ -17,13 +17,13 @@ void MenuList::run() {
 	while(1) {
 		// Display options
 		vector<Option>::iterator it;
-		cout << endl << title << endl;
+		cout << title << endl;
 		int i = 1;
 		for (it=options.begin(); it < options.end(); i++, it++) {
 			cout << i << ". " << (*it).text << endl;
 		}
-		if (main) cout << i << ". Quit";
-		else cout << i << ". Back";
+		if (main) cout << 0 << ". Quit";
+		else cout << 0 << ". Back";
 		cout << endl << "> ";
 
 		// Get choice
@@ -40,17 +40,22 @@ void MenuList::run() {
 			cout << "Invalid choice. Try again." << endl;
 			continue;
 		}
-		if (choice < 1 || choice > i) {
+		if (choice < 0 || choice >= i) {
 			cout << "Invalid choice. Try again." << endl;
 			continue;
 		}
 
 		// Back / Quit
-		if (choice == i) return;
+		if (choice == 0) return;
 
-		// Call f chosen by menu
+		// Create copy of choice history to pass to function
 		vector<int> allChoices(previousChoices);
 		allChoices.insert(allChoices.begin(), choice);
+
+		// If function defined, call function for menu choice
+		if (options[choice-1].f == nullptr) {
+			continue;
+		}
 		options[choice-1].f(allChoices);
 		 
 	}
@@ -81,3 +86,8 @@ MenuFunction MenuList::SubMenu(MenuList * menuList) {
 MenuFunction MenuList::Action(void (*action_function)(vector<int>& previousChoices)) {
 	return bind(action_function, _1);
 }
+
+/*MenuFunction MenuList::Action( void (LinkedListDemo::*)(vector<int>&), LinkedListDemo * obj) {
+	return bind(action_function, obj, _1);
+}*/
+
