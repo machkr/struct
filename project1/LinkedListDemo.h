@@ -51,8 +51,27 @@ class LinkedListDemo {
 			}
 			cout << endl << "Node inserted successfully." << endl << endl;
 		}
-		void insertPushBack (vector<int>& prev) {}
-		
+		void insertPushBack (vector<int>& prev) {
+			double data;
+			cout << "Value to insert: ";
+			try {
+				data = getDouble();
+			} catch (...) {
+				cout << endl << "Error reading input! Try again." << endl;
+				return;
+			}
+			
+			if (prev[0] == 1) // If Cyclic Linked List was chosen
+				cll->push_back(data);
+			else if (prev[0] == 2) // If Doubly Linked List was chosen
+				dll->push_back(data);
+			else {
+				cout << "There was an error saving the data" << endl;
+				return;
+			}
+			cout << endl << "Node inserted successfully." << endl << endl;
+		}
+			
 		void removePopFront (vector<int>& prev) {}
 		void removeErase (vector<int>& prev) {}
 		
