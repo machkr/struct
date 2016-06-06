@@ -152,13 +152,19 @@ class LinkedListDemo
 			dll->print();
 		}
 				
-		double getDouble() {
+		double getDouble()
+		{
 			double data;
 			string input;
 			cin >> input;
-			try {
+
+			try
+			{
 				data = stod(input);
-			} catch (...) {
+			}
+
+			catch (...)
+			{
 				throw invalid_argument("Error reading input.");
 			}
 			return data;
@@ -166,7 +172,8 @@ class LinkedListDemo
 
 	public: 
 		LinkedListDemo() : cll(nullptr), dll(nullptr) {}
-		void run() {
+		void run()
+		{
 			buildMenus();
 			mainMenu->run();
 		}
