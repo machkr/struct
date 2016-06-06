@@ -102,14 +102,19 @@ class LinkedListDemo
 
 		void removePopFront (vector<int>& prev)
 		{
-			if (prev[0] == 1)
-				cout << cll->pop_front() << " has been popped." << endl << endl;
-			else if (prev[0] == 2)
-				cout << dll->pop_front() << " has been popped." << endl << endl;
+			try {
+				if (prev[0] == 1)
+					cout << cll->pop_front() << " has been popped." << endl << endl;
+				else if (prev[0] == 2)
+					cout << dll->pop_front() << " has been popped." << endl << endl;
+			} catch (const underflow_error& e) {
+				cout << e.what() << endl;
+			}
 		}
 
 		void removeErase (vector<int>& prev)
 		{
+			int count;
 			double data;
 			cout << "Value to erase: ";
 
@@ -123,30 +128,37 @@ class LinkedListDemo
 				cout << endl << "Error reading input! Try again." << endl << endl;
 				return;
 			}
-
-			if (prev[0] == 1)
-			{
-				cll->erase(data);
-			}
-			else if (prev[0] == 2)
-			{
-				dll->erase(data);
-			}
-			else
-			{
-				cout << "There was an error erasing the data" << endl << endl;
+			try {
+				if (prev[0] == 1)
+				{
+					count = cll->erase(data);
+				}
+				else if (prev[0] == 2)
+				{
+					count = dll->erase(data);
+				}
+				else
+				{
+					cout << "There was an error erasing the data" << endl << endl;
+					return;
+				}
+			} catch (const underflow_error& e) {
+				cout<< e.what() << endl;
 				return;
 			}
-
-			cout << endl << "Data erased successfully." << endl << endl;
+			cout << endl << "Deleted " << count << " nodes from list." << endl << endl;
 		}
 
 		void accessSize (vector<int>& prev)
 		{
-			if (prev[0] == 1)
-				cll->getSize();
-			else if (prev[0] == 2)
-				dll->getSize();
+			try {
+				if (prev[0] == 1)
+					cll->getSize();
+				else if (prev[0] == 2)
+					dll->getSize();
+			} catch (const underflow_error& e) {
+				cout << e.what() << endl;
+			}
 		}
 
 		void accessEmpty(vector<int>& prev)
@@ -159,38 +171,59 @@ class LinkedListDemo
 
 		void accessFront(vector<int>& prev)
 		{
-			if (prev[0] == 1)
-				cll->front();
-			else if (prev[0] == 2)
-				dll->front();
+			try {
+				if (prev[0] == 1)
+					cll->front();
+				else if (prev[0] == 2)
+					dll->front();
+			} catch (const underflow_error& e) {
+				cout << e.what() << endl;
+			}
 		}
 
 		void accessBack (vector<int>& prev)
 		{
-			if (prev[0] == 1)
-				cll->back();
-			if (prev[0] == 2)
-				dll->back();
+			try {
+				if (prev[0] == 1)
+					cll->back();
+				if (prev[0] == 2)
+					dll->back();
+			} catch (const underflow_error& e) {
+				cout << e.what() << endl;
+			}
 		}
 
 		void accessCount(vector<int>& prev)
 		{
 			double applesauce;
-
-			if (prev[0] == 1)
-				cll->count(applesauce);
-			else if (prev[0] == 2)
-				dll->count(applesauce);
+			try {
+				if (prev[0] == 1)
+					cll->count(applesauce);
+				else if (prev[0] == 2)
+					dll->count(applesauce);
+			} catch (const underflow_error& e) {
+				cout << e.what() << endl;
+				return;
+			}
+			cout << "Counted " << applesauce << " values.\n";
 		}
 
 		void outputCyclic (vector<int>& prev)
 		{
-			cll->print();
+			try {
+				cll->print();
+			} catch (const underflow_error& e) {
+				cout << e.what() << endl;
+			}
 		}
 
 		void outputDoubly (vector<int>& prev)
 		{
-			dll->print();
+			try {
+				dll->print();
+			} catch (const underflow_error& e) {
+				cout << e.what() << endl;
+			}
 		}
 				
 		double getDouble()

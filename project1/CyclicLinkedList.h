@@ -163,6 +163,7 @@ public:
 
 				pastNode->next = nextNode;
 				delete curNode;
+                curNode = pastNode;
 				this->size--;
 				count++;		
 			}
