@@ -169,7 +169,7 @@ class LinkedListDemo
 
 			catch (...)
 			{
-				cout << endl << "Error reading input! Try again." << endl << endl;
+				cout << "Error reading input! Try again." << endl << endl;
 				return;
 			}
 			try {
@@ -202,7 +202,7 @@ class LinkedListDemo
 				cout<< e.what() << endl;
 				return;
 			}
-			cout << endl << "Deleted " << count << " nodes from list." << endl << endl;
+			cout << "Deleted " << count << " nodes from list." << endl << endl;
 		}
 
 		void accessSize (vector<int>& prev)
@@ -216,7 +216,7 @@ class LinkedListDemo
                         cout << "Cyclic Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Size is " << cll->getSize() << "." << endl << endl;
+					cout << "Size is " << cll->getSize() << "." << endl << endl;
                 }
 				else if (prev[0] == 2)
 				{
@@ -225,7 +225,7 @@ class LinkedListDemo
                         cout << "Doubly Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Size is " << dll->getSize() << "." << endl << endl;
+					cout << "Size is " << dll->getSize() << "." << endl << endl;
                 }
 			}
 			catch (const underflow_error& e)
@@ -243,7 +243,7 @@ class LinkedListDemo
                     cout << "Cyclic Linked List does not exist!" << endl;
                     return;
                 }
-				cout << endl << "The list " << (cll->empty() ? "is" : "is not") << " empty." << endl << endl;
+				cout << "The list " << (cll->empty() ? "is" : "is not") << " empty." << endl << endl;
             }
 			else if (prev[0] == 2)
 			{
@@ -252,7 +252,7 @@ class LinkedListDemo
                     cout << "Doubly Linked List does not exist!" << endl;
                     return;
                 }
-				cout << endl << "The list " << (dll->empty() ? "is" : "is not") << " empty." << endl << endl;
+				cout << "The list " << (dll->empty() ? "is" : "is not") << " empty." << endl << endl;
             }
 		}
 
@@ -267,7 +267,7 @@ class LinkedListDemo
                         cout << "Cyclic Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Front is " << cll->front() << endl << endl;
+					cout << "Front is " << cll->front() << endl << endl;
                 }
 				else if (prev[0] == 2)
 				{
@@ -276,7 +276,7 @@ class LinkedListDemo
                         cout << "Doubly Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Front is " << dll->front() << endl << endl;
+					cout << "Front is " << dll->front() << endl << endl;
                 }
 			}
 			catch (const underflow_error& e)
@@ -296,7 +296,7 @@ class LinkedListDemo
                         cout << "Cyclic Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Back is " << cll->back() << endl << endl;
+					cout << "Back is " << cll->back() << endl << endl;
                 }
 				else if (prev[0] == 2)
 				{
@@ -305,7 +305,7 @@ class LinkedListDemo
                         cout << "Doubly Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Back is " << cll->back() << endl << endl;
+					cout << "Back is " << cll->back() << endl << endl;
                 }
 			}
 			catch (const underflow_error& e)
@@ -339,7 +339,7 @@ class LinkedListDemo
                         cout << "Cyclic Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Counted " << cll->count(data) << " instances of \"" << data << "\"." << endl << endl;
+					cout << "Counted " << cll->count(data) << " instances of \"" << data << "\"." << endl << endl;
                 }
 				else if (prev[0] == 2)
 				{
@@ -348,7 +348,7 @@ class LinkedListDemo
                         cout << "Doubly Linked List does not exist!" << endl;
                         return;
                     }
-					cout << endl << "Counted " << dll->count(data) << " instances of \"" << data << "\"." << endl << endl;
+					cout << "Counted " << dll->count(data) << " instances of \"" << data << "\"." << endl << endl;
                 }
 			}
 			catch (const underflow_error& e)
