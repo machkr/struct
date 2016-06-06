@@ -54,12 +54,33 @@ public:
 	{
 		if (this->empty()) throw underflow_error("List is empty.");
 		Type data = this->head->data;
-		SingleNode<Type> * temp = new SingleNode<Type>(this->head->next->data, this->head->next->next);
-		delete this->head;
-		this->head = temp;
-		this->tail->next = this->head;
-		this->size--;
-		return data;
+		if (this->size == 1)
+		{
+			delete this->head;
+			this->head = this->tail = NULL;
+			this->size=0;
+			return data;
+		}
+		else if (this->size == 2)
+		{
+			SingleNode<Type> * temp = new SingleNode<Type>(this->head->next->data, head);
+			delete this->head;
+			this->head = temp;
+			this->head->next = head;
+			this->tail = this->head;
+			this->tail->next = head;
+			this->size--;
+			return data;
+		}
+
+		else {
+			SingleNode<Type> * temp = new SingleNode<Type>(this->head->next->data, this->head->next->next);
+			delete this->head;
+			this->head = temp;
+			this->tail->next = this->head;
+			this->size--;
+			return data;
+		}
 	}
 
 	int count(Type const & comparedData) const
@@ -93,7 +114,7 @@ public:
 
 		if (this->size == 0)
 		{
-			throw underflow_error("List is empty.");
+			cout << "List is empty." << endl << endl;
 			return;
 		}
 
@@ -116,12 +137,12 @@ public:
 		SingleNode<Type> * nextNode;
 		SingleNode<Type> * pastNode;
 
-		nextNode = nullptr;
 		curNode = pastNode = this->head; 
+		nextNode = curNode->next;
 		while (nextNode != this->head)
 		{
 			pastNode = curNode;
-			if (nextNode != nullptr)
+			if (nextNode != head)
 			{
 				curNode = nextNode;
 			}
@@ -130,7 +151,7 @@ public:
 			{
 				if (this->size == 1)
 				{
-					this->head = this->tail = nullptr;
+					this->head = this->tail = NULL;
 					delete curNode;
 					this->size--;
 					count++;
