@@ -141,29 +141,37 @@ class LinkedListDemo
 			cout << endl << "Data erased successfully." << endl << endl;
 		}
 
-		void accessSize (vector<int>& prev)
-		{
-		
+		void accessSize (vector<int>& prev) {
+			if (prev[0] == 1)
+				cll->getSize();
+			else if (prev[0] == 2)
+				dll->getSize();
 		}
-
-		void accessEmpty (vector<int>& prev)
-		{
-		
+		void accessEmpty(vector<int>& prev) {
+			if (prev[0] == 1)
+				cll->empty();
+			else if (prev[0] == 2)
+				dll->empty();
 		}
-
-		void accessFront (vector<int>& prev)
-		{
-
+		void accessFront(vector<int>& prev) {
+			if (prev[0] == 1)
+				cll->front();
+			else if (prev[0] == 2)
+				dll->front();
 		}
+		void accessBack (vector<int>& prev) {
+			if (prev[0] == 1)
+				cll->back();
+			if (prev[0] == 2)
+				dll->back();
+			}
+		void accessCount(vector<int>& prev) {
+			double applesauce;
 
-		void accessBack (vector<int>& prev) 
-		{
-
-		}
-
-		void accessCount (vector<int>& prev)
-		{
-
+			if (prev[0] == 1)
+				cll->count(applesauce);
+			else if (prev[0] == 2)
+				dll->count(applesauce);
 		}
 
 		void outputCyclic (vector<int>& prev)
