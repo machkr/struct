@@ -12,7 +12,7 @@ private:
 
 public:
 
-//	CyclicLinkedList() : this->head(nullptr), this->tail(nullptr), this->size(0) {}
+	//CyclicLinkedList() : this->head(nullptr), this->tail(nullptr), this->size(0) {}
 
 	//Mutators begin
 
@@ -20,12 +20,12 @@ public:
 	{
 		SingleNode<Type> * newNode = new SingleNode<Type>(newFront, this->head);
 		this->head = newNode;
-		this->tail->next = this->head;
 		if (this->size == 0)
 		{
 			this->head = newNode;
 			this->tail = newNode;
 		}
+		this->tail->next = this->head;
 		this->size++;
 		return;
 	}
@@ -86,15 +86,13 @@ public:
 	{
 		SingleNode<Type> *curNode = this->head;
 
-		cout << endl;
 		while (curNode->next != this->head)
 		{
 			cout << curNode->data << " ";
 			curNode = curNode->next;
 		}
-		cout << endl;
+		cout << endl << endl;
 	}
-
 
 	int erase(Type const & wrecked)         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the this->head, this->this->tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
 	{
