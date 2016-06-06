@@ -1,16 +1,56 @@
 #pragma once
+#include <iostream>
 #include "DoubleNode.h"
+#include "LinkedList.h"
 using namespace std;
 
-template<class Type> class DoublyLinkedList : public LinkedList
+template<class Type> class DoublyLinkedList
 {
 private:
+	DoubleNode<Type> * head;
+	DoubleNode<Type> * tail;
+	int size;
+
+	/*DoubleNode<Type> *head;
+	DoubleNode<Type> *tail;
+	int size;*/
 
 public:
-	DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
+    DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
+
+	int getSize() const
+	{ 
+		return size;
+	}
+
+	// Returns true if list is empty. False otherwise. 
+	bool empty() const
+	{								
+		return head == nullptr;
+	}
+    
+	// Retrieves object stored in the node pointed to by the head pointer. 
+	// Throws an underflow if list is empty. 
+	Type front() const
+	{			        
+		if (empty()) throw underflow_error("List is empty.");
+        return head->getData();
+	}
+	
+	// Retrieves object stored in the node pointed to by the tail pointer. 
+	// Throws an underflow if list is empty. 
+	Type back() const
+	{		
+		if (empty()) throw underflow_error("List is empty.");
+		return tail->getData();
+	}
 
 	int count(Type const &toCount) const
 	{
+        if (this->head == nullptr) {
+            throw underflow_error("List is empty");
+        }
+        
 		int count = 0;
 		DoubleNode<Type> *curNode;
 		DoubleNode<Type> *nextNode;
@@ -33,13 +73,13 @@ public:
 	void push_front(Type const &newFront)
 	{
 		DoubleNode<Type> *newNode = new DoubleNode<Type>(newFront, nullptr, head);
-
-		head->previous = newNode;
-		head = newNode;
-
 		if (size == 0)
 		{
 			tail = newNode;
+			head = newNode;
+		} else { 
+			head->previous = newNode;
+			head = newNode;
 		}
 		size++;
 	}
@@ -47,15 +87,14 @@ public:
 	void push_back(Type const &newBack)
 	{
 		DoubleNode<Type> *newNode = new DoubleNode<Type>(newBack, tail, nullptr);
-
-		tail->next = newNode;
-		tail = newNode;
-
 		if (size == 0)
 		{
 			head = newNode;
+			tail = newNode;
+		} else { 
+			tail->next = newNode;
+			tail = newNode;
 		}
-
 		size++;
 	}
 
@@ -70,21 +109,27 @@ public:
 		if (head == nullptr)
 		{
 			tail = nullptr;
-		}
+        } else {
+            head->previous = nullptr;
+        }
 
-		head->previous = nullptr;
+		
 		data = popNode->data;
 		delete popNode;
+		size--;
 		return data;
 	}
 
 	int erase(Type const &toDelete)
 	{
+        if (this->head == nullptr) {
+            throw underflow_error("List is empty");
+        }
 		DoubleNode<Type> *curNode = head->next;
 		DoubleNode<Type> *nextNode;
-		int count;
+		int count = 0;
 
-		while (curNode != head)
+		while (curNode != nullptr)
 		{
 			nextNode = curNode->next;
 			if (curNode->data == toDelete)
@@ -93,28 +138,35 @@ public:
 				curNode->next->previous = curNode->previous;
 				delete curNode;
 				count++;
+				size--;
 			}
-			curNode = next;
+			curNode = nextNode;
 		}
 		return count;
 	}
 
 	void print()
 	{
-		DoubleNode<Type> *curNode = head;
+		DoubleNode<Type> *curNode = this->head;
 
-		cout << endl;
-		while (curNode->next != nullptr)
+		if (this->size == 0)
 		{
-			cout << curNode->data << " " << ;
-			curNode = curNode->next;
+			throw underflow_error("List is empty.");
+			return;
 		}
-		cout << endl;
+
+		do
+		{
+			cout << curNode->data << " ";
+			curNode = curNode->next;
+		} while (curNode != nullptr);
+
+		cout << endl << endl;
 	}
 
 	~DoublyLinkedList()
 	{
-		if (this->isEmpty()) throw underflow_error("The list is empty.");
+		if (empty()) throw underflow_error("The list is empty.");
 
 		DoubleNode<Type> *current = head;
 
@@ -123,7 +175,9 @@ public:
 			delete current->previous;
 			size--;
 		}
+
 		head = nullptr;
 		tail = nullptr;
 	}
+
 };

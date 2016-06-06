@@ -1,73 +1,102 @@
 #pragma once
 #include <iostream>
 #include "SingleNode.h"
+#include "LinkedList.h"
+
 using namespace std;
 
-template<class Type> class CyclicLinkedList : public LinkedList
+template<class Type> class CyclicLinkedList : public LinkedList<Type>
 {
 private:
 
 
 public:
 
-	CyclicLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+	//CyclicLinkedList() : this->head(nullptr), this->tail(nullptr), this->size(0) {}
 
 	//Mutators begin
 
 	void push_front(Type const & newFront)
 	{
-		SingleNode<Type> * newNode = new SingleNode<Type>(newFront, head);
-		head = newNode;
-		tail->next = head;
-		if (size == 0)
+		SingleNode<Type> * newNode = new SingleNode<Type>(newFront, this->head);
+		this->head = newNode;
+		if (this->size == 0)
 		{
-			head = newNode;
-			tail = newNode;
+			this->head = newNode;
+			this->tail = newNode;
 		}
-		size++;
+		this->tail->next = this->head;
+		this->size++;
 		return;
 	}
 
 	void push_back(Type const & newBack)
 	{
-		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, head);
-		if (size == 0)
+		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, this->head);
+
+		if (this->size == 0)
 		{
-			tail = newNode;
-			head = newNode;
+			this->tail = newNode;
+			this->head = newNode;
 		}
 		else
 		{
-			tail->next = newNode;
+			this->tail->next = newNode;
 		}
 
-		tail = newNode;
-		size++;
+		this->tail = newNode;
+		this->size++;
 
 		return;
 	}
 
 	Type pop_front()
 	{
-		if (empty()) throw underflow_error("List is empty.");
-		Type data = head->data;
-		SingleNode<Type> * temp = new SingleNode<Type>(head->next->data, head->next->next);
-		delete head;
-		head = temp;
-		tail->next = head;
-		size--;
-		return data;
+		if (this->empty()) throw underflow_error("List is empty.");
+		Type data = this->head->data;
+		if (this->size == 1)
+		{
+			delete this->head;
+			this->head = this->tail = NULL;
+			this->size=0;
+			return data;
+		}
+		else if (this->size == 2)
+		{
+			SingleNode<Type> * temp = new SingleNode<Type>(this->head->next->data, this->head);
+			delete this->head;
+			this->head = temp;
+			this->head->next = this->head;
+			this->tail = this->head;
+			this->tail->next = this->head;
+			this->size--;
+			return data;
+		}
+
+		else {
+			SingleNode<Type> * temp = new SingleNode<Type>(this->head->next->data, this->head->next->next);
+			delete this->head;
+			this->head = temp;
+			this->tail->next = this->head;
+			this->size--;
+			return data;
+		}
 	}
 
 	int count(Type const & comparedData) const
 	{
+        if (this->head == nullptr)
+		{
+            throw underflow_error("List is empty");
+        }
+        
 		int count = 0;
-		SingleNode<Type> * curNode;
-		SingleNode<Type> * nextNode;
+		SingleNode<Type> *curNode;
+		SingleNode<Type> *nextNode;
 
-		curNode = nextNode = head;
+		curNode = nextNode = this->head;
 
-		while (nextNode != head)
+		while (nextNode != this->head)
 		{
 			curNode = nextNode;
 			nextNode = curNode->next;
@@ -82,72 +111,92 @@ public:
 
 	void print()
 	{
-		SingleNode<Type> *curNode = head;
+		SingleNode<Type> *curNode = this->head;
 
-		cout << endl;
-		while (curNode->next != head)
+		if (this->size == 0)
 		{
-			cout << curNode->data << " " << ;
-			curNode = curNode->next;
+			cout << "List is empty." << endl << endl;
+			return;
 		}
-		cout << endl;
+
+		do
+		{
+			cout << curNode->data << " ";
+			curNode = curNode->next;
+		} while (curNode != this->head);
+
+		cout << endl << endl;
 	}
 
-
-	int erase(Type const & wrecked) {         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the head, tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
-
-		SingleNode<Type> *current = head;
-		SingleNode<Type> *previous = head;
+	int erase(Type const & wrecked)         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the this->head, this->this->tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
+	{
+        if (this->head == nullptr) {
+            throw underflow_error("List is empty.");
+        }
 		int count = 0;
-		if (this->isEmpty()) {
-			throw underflow_error("The list is empty.");
-		}
-		else {
-			while (current->next != head) {
-				if (current->data == wrecked) {
-					if (current == head) {
-						head = head->next;
-						delete previous;
-						size--;
-						count++;
-					}
-					else {
-						SingleNode<Type> *temp = current->next;
-						current->data = current->next->data;
-						current->next = current->next->next;
-						delete temp;
-						size--;
-						count++;
-					}
+		SingleNode<Type> * curNode;
+		SingleNode<Type> * nextNode;
+		SingleNode<Type> * pastNode;
+
+		curNode = pastNode = this->head; 
+		nextNode = curNode->next;
+		while (nextNode != this->head)
+		{
+			pastNode = curNode;
+			if (nextNode != this->head)
+			{
+				curNode = nextNode;
+			}
+			nextNode = curNode->next;
+			if (curNode->data == wrecked)
+			{
+				if (this->size == 1)
+				{
+					this->head = this->tail = NULL;
+					delete curNode;
+					this->size--;
+					count++;
+					break;
 				}
-				previous = current;
-				current = current->next;
-			}
-			if (current->data == wrecked) {
-				previous->next = nullptr;
-				delete current;
-				size--;
-				count++;
+
+				if (curNode == this->head)
+				{
+					this->head = nextNode;
+				}
+
+				if (curNode == this->tail)
+				{
+					this->tail = pastNode;
+				}
+
+				pastNode->next = nextNode;
+				delete curNode;
+                curNode = pastNode;
+				this->size--;
+				count++;		
 			}
 		}
-		cout << "Number of nodes deleted: " << count << endl;
 		return count;
 	}
 
 
 	~CyclicLinkedList() {
 
-		SingleNode<Type> *current = head;
-		SingleNode<Type> *previous = head;
-		if (this->isEmpty()) {
+		SingleNode<Type> *current = this->head;
+		SingleNode<Type> *previous = this->head;
+		if (this->isEmpty())
+		{
 			throw underflow_error("The list is empty.");
 		}
-		else {
-			while (current->next != head) {
-				if (current == head) {
-					head = head->next;
+		else
+		{
+			while (current->next != this->head)
+			{
+				if (current == this->head)
+				{
+					this->head = this->head->next;
 					delete previous;
-					size--;
+					this->size--;
 				}
 			}
 		}

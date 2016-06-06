@@ -3,6 +3,7 @@
 using namespace std;
 
 template <class Type> class LinkedList;
+template <class Type> class CyclicLinkedList;
 
 template <class Type> class SingleNode
 {
@@ -10,6 +11,7 @@ protected:
 	Type data;
 	SingleNode *next;
 	friend class LinkedList<Type>;
+	friend class CyclicLinkedList<Type>;
 	
 //	template <class U> friend class CyclicLinkedList;
 
