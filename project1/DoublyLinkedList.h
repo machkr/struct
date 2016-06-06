@@ -109,9 +109,11 @@ public:
 		if (head == nullptr)
 		{
 			tail = nullptr;
-		}
+        } else {
+            head->previous = nullptr;
+        }
 
-		head->previous = nullptr;
+		
 		data = popNode->data;
 		delete popNode;
 		size--;

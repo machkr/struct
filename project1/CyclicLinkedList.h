@@ -63,12 +63,12 @@ public:
 		}
 		else if (this->size == 2)
 		{
-			SingleNode<Type> * temp = new SingleNode<Type>(this->head->next->data, head);
+			SingleNode<Type> * temp = new SingleNode<Type>(this->head->next->data, this->head);
 			delete this->head;
 			this->head = temp;
-			this->head->next = head;
+			this->head->next = this->head;
 			this->tail = this->head;
-			this->tail->next = head;
+			this->tail->next = this->head;
 			this->size--;
 			return data;
 		}
@@ -142,7 +142,7 @@ public:
 		while (nextNode != this->head)
 		{
 			pastNode = curNode;
-			if (nextNode != head)
+			if (nextNode != this->head)
 			{
 				curNode = nextNode;
 			}
