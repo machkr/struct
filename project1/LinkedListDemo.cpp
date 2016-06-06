@@ -18,38 +18,38 @@ void LinkedListDemo::buildMenus() {
 
 	//Add elements to the menus
 	mainMenu->setIsMain(true);
-	mainMenu->add("Create List", MenuList::SubMenu(createMenu));
-	mainMenu->add("Insert Node", MenuList::SubMenu(insertMenu));
-	mainMenu->add("Remove Node", MenuList::SubMenu(removeMenu));
-	mainMenu->add("Access List", MenuList::SubMenu(accessMenu));
-	mainMenu->add("Output List", MenuList::SubMenu(outputMenu));
+	mainMenu->add("Create List", MenuList::SubMenu(createMenu), true);
+	mainMenu->add("Insert Node", MenuList::SubMenu(insertMenu), true);
+	mainMenu->add("Remove Node", MenuList::SubMenu(removeMenu), true);
+	mainMenu->add("Access List", MenuList::SubMenu(accessMenu), true);
+	mainMenu->add("Output List", MenuList::SubMenu(outputMenu), true);
 
-	createMenu->add("Cyclic Linked List", action(createCyclic)); 
-	createMenu->add("Doubly Linked List", action(createDoubly));
+	createMenu->add("Cyclic Linked List", action(createCyclic), false); 
+	createMenu->add("Doubly Linked List", action(createDoubly), false);
 
-	insertMenu->add("Cyclic Linked List", MenuList::SubMenu(insertMethodMenu));
-	insertMenu->add("Doubly Linked List", MenuList::SubMenu(insertMethodMenu));
+	insertMenu->add("Cyclic Linked List", MenuList::SubMenu(insertMethodMenu), true);
+	insertMenu->add("Doubly Linked List", MenuList::SubMenu(insertMethodMenu), true);
 
-	insertMethodMenu->add("Push Front", action(insertPushFront));
-	insertMethodMenu->add("Push Back", action(insertPushBack));
+	insertMethodMenu->add("Push Front", action(insertPushFront), false);
+	insertMethodMenu->add("Push Back", action(insertPushBack), false);
 
-	removeMenu->add("Cyclic Linked List", MenuList::SubMenu(removeMethodMenu));
-	removeMenu->add("Doubly Linked List", MenuList::SubMenu(removeMethodMenu));
+	removeMenu->add("Cyclic Linked List", MenuList::SubMenu(removeMethodMenu), true);
+	removeMenu->add("Doubly Linked List", MenuList::SubMenu(removeMethodMenu), true);
 
-	removeMethodMenu->add("Pop Front", action(removePopFront));
-	removeMethodMenu->add("Erase", action(removeErase));
+	removeMethodMenu->add("Pop Front", action(removePopFront), false);
+	removeMethodMenu->add("Erase", action(removeErase), false);
 	
-	accessMenu->add("Cyclic Linked List", MenuList::SubMenu(accessMethodMenu));
-	accessMenu->add("Doubly Linked List", MenuList::SubMenu(accessMethodMenu));
+	accessMenu->add("Cyclic Linked List", MenuList::SubMenu(accessMethodMenu), true);
+	accessMenu->add("Doubly Linked List", MenuList::SubMenu(accessMethodMenu), true);
 
-	accessMethodMenu->add("Size", action(accessSize));
-	accessMethodMenu->add("Empty", action(accessEmpty));
-	accessMethodMenu->add("Front", action(accessFront));
-	accessMethodMenu->add("Back", action(accessBack));
-	accessMethodMenu->add("Count", action(accessCount));
+	accessMethodMenu->add("Size", action(accessSize), false);
+	accessMethodMenu->add("Empty", action(accessEmpty), false);
+	accessMethodMenu->add("Front", action(accessFront), false);
+	accessMethodMenu->add("Back", action(accessBack), false);
+	accessMethodMenu->add("Count", action(accessCount), false);
 
-	outputMenu->add("Cyclic Linked List", action(outputCyclic));
-	outputMenu->add("Doubly Linked List", action(outputDoubly));
+	outputMenu->add("Cyclic Linked List", action(outputCyclic), false);
+	outputMenu->add("Doubly Linked List", action(outputDoubly), false);
 
 }
 

@@ -5,12 +5,12 @@ MenuList::MenuList(const string& title_) :
 	size(0),
 	title(title_) {};
 
-void MenuList::add(string text_) {
-	options.push_back({text_, nullptr});
+void MenuList::add(string text_, bool submenu_) {
+	options.push_back({text_, nullptr, submenu_});
 }
 
-void MenuList::add(string text_, MenuFunction f_) {
-	options.push_back({text_, f_});
+void MenuList::add(string text_, MenuFunction f_, bool submenu_) {
+	options.push_back({text_, f_, submenu_});
 }
 
 void MenuList::run() {
@@ -50,7 +50,9 @@ void MenuList::run() {
 
 		// Create copy of choice history to pass to function
 		vector<int> allChoices(previousChoices);
-		allChoices.insert(allChoices.begin(), choice);
+		if (options[choice-1].submenu) {
+			allChoices.insert(allChoices.begin(), choice);
+		}
 
 		// If function defined, call function for menu choice
 		if (options[choice-1].f == nullptr) {
