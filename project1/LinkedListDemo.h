@@ -22,11 +22,11 @@ class LinkedListDemo
 			if (cll == nullptr)
 			{
 				cll = new CyclicLinkedList<double>();
-				cout << endl << "Cyclic Linked List created successfully." << endl;
+				cout << endl << "Cyclic Linked List created successfully." << endl << endl;
 			}
 			else
 			{
-				cout << endl << "Cyclic Linked List already exists!" << endl;
+				cout << endl << "Cyclic Linked List already exists!" << endl << endl;
 			}
 		}
 
@@ -35,11 +35,11 @@ class LinkedListDemo
 			if (dll == nullptr)
 			{
 				dll = new DoublyLinkedList<double>();
-				cout << endl << "Doubly Linked List created successfully." << endl;
+				cout << endl << "Doubly Linked List created successfully." << endl << endl;
 			}
 			else
 			{
-				cout << endl << "Doubly Linked List already exists!" << endl;
+				cout << endl << "Doubly Linked List already exists!" << endl << endl;
 			}
 		}
 
