@@ -64,6 +64,10 @@ public:
 
 	int count(Type const & comparedData) const
 	{
+        if (this->head == nullptr) {
+            throw underflow_error("List is empty");
+        }
+        
 		int count = 0;
 		SingleNode<Type> * curNode;
 		SingleNode<Type> * nextNode;
@@ -104,6 +108,9 @@ public:
 
 	int erase(Type const & wrecked)         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the this->head, this->this->tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
 	{
+        if (this->head == nullptr) {
+            throw underflow_error("List is empty.");
+        }
 		int count = 0;
 		SingleNode<Type> * curNode;
 		SingleNode<Type> * nextNode;

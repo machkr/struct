@@ -59,10 +59,19 @@ class LinkedListDemo
 				return;
 			}
 			
-			if (prev[0] == 1) // If Cyclic Linked List was chosen
+            if (prev[0] == 1) {// If Cyclic Linked List was chosen
+                if (cll == nullptr) {
+                    cout << "Cyclic Linked List does not exist!" << endl;
+                    return;
+                }
 				cll->push_front(data);
-			else if (prev[0] == 2) // If Doubly Linked List was chosen
+            } else if (prev[0] == 2) {// If Doubly Linked List was chosen
+                if (dll == nullptr) {
+                    cout << "Doubly Linked List does not exist!" << endl;
+                    return;
+                }
 				dll->push_front(data);
+            }
 			else
 			{
 				cout << "There was an error saving the data" << endl << endl;
@@ -87,10 +96,20 @@ class LinkedListDemo
 				return;
 			}
 			
-			if (prev[0] == 1) // If Cyclic Linked List was chosen
+            if (prev[0] == 1) {// If Cyclic Linked List was chosen
+                if (cll == nullptr) {
+                    cout << "Cyclic Linked List does not exist!" << endl;
+                    return;
+                }
 				cll->push_back(data);
-			else if (prev[0] == 2) // If Doubly Linked List was chosen
+            }
+            else if (prev[0] == 2) { // If Doubly Linked List was chosen
+                if (dll == nullptr) {
+                    cout << "Doubly Linked List does not exist!" << endl;
+                    return;
+                }
 				dll->push_back(data);
+            }
 			else
 			{
 				cout << "There was an error saving the data" << endl << endl;
@@ -102,11 +121,21 @@ class LinkedListDemo
 
 		void removePopFront (vector<int>& prev)
 		{
+            
 			try {
-				if (prev[0] == 1)
+                if (prev[0] == 1) {
+                    if (cll == nullptr) {
+                        cout << "Cyclic Linked List does not exist!" << endl;
+                        return;
+                    }
 					cout << cll->pop_front() << " has been popped." << endl << endl;
-				else if (prev[0] == 2)
+                } else if (prev[0] == 2) {
+                    if (dll == nullptr) {
+                        cout << "Doubly Linked List does not exist!" << endl;
+                        return;
+                    }
 					cout << dll->pop_front() << " has been popped." << endl << endl;
+                }
 			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
@@ -131,10 +160,18 @@ class LinkedListDemo
 			try {
 				if (prev[0] == 1)
 				{
+                    if (cll == nullptr) {
+                        cout << "Cyclic Linked List does not exist!" << endl;
+                        return;
+                    }
 					count = cll->erase(data);
 				}
 				else if (prev[0] == 2)
 				{
+                    if (dll == nullptr) {
+                        cout << "Doubly Linked List does not exist!" << endl;
+                        return;
+                    }
 					count = dll->erase(data);
 				}
 				else
@@ -152,10 +189,19 @@ class LinkedListDemo
 		void accessSize (vector<int>& prev)
 		{
 			try {
-				if (prev[0] == 1)
+                if (prev[0] == 1) {
+                    if (cll == nullptr) {
+                        cout << "Cyclic Linked List does not exist!" << endl;
+                        return;
+                    }
 					cll->getSize();
-				else if (prev[0] == 2)
+                } else if (prev[0] == 2) {
+                    if (dll == nullptr) {
+                        cout << "Doubly Linked List does not exist!" << endl;
+                        return;
+                    }
 					dll->getSize();
+                }
 			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
@@ -163,19 +209,37 @@ class LinkedListDemo
 
 		void accessEmpty(vector<int>& prev)
 		{
-			if (prev[0] == 1)
+            if (prev[0] == 1) {
+                if (cll == nullptr) {
+                    cout << "Cyclic Linked List does not exist!" << endl;
+                    return;
+                }
 				cll->empty();
-			else if (prev[0] == 2)
+            } else if (prev[0] == 2) {
+                if (dll == nullptr) {
+                    cout << "Doubly Linked List does not exist!" << endl;
+                    return;
+                }
 				dll->empty();
+            }
 		}
 
 		void accessFront(vector<int>& prev)
 		{
 			try {
-				if (prev[0] == 1)
+                if (prev[0] == 1) {
+                    if (cll == nullptr) {
+                        cout << "Cyclic Linked List does not exist!" << endl;
+                        return;
+                    }
 					cll->front();
-				else if (prev[0] == 2)
+                } else if (prev[0] == 2) {
+                    if (dll == nullptr) {
+                        cout << "Doubly Linked List does not exist!" << endl;
+                        return;
+                    }
 					dll->front();
+                }
 			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
@@ -184,10 +248,19 @@ class LinkedListDemo
 		void accessBack (vector<int>& prev)
 		{
 			try {
-				if (prev[0] == 1)
-					cll->back();
-				if (prev[0] == 2)
+                if (prev[0] == 1) {
+                    if (cll == nullptr) {
+                        cout << "Cyclic Linked List does not exist!" << endl;
+                        return;
+                    }
+                    cll->back();
+                } else if (prev[0] == 2) {
+                    if (dll == nullptr) {
+                        cout << "Doubly Linked List does not exist!" << endl;
+                        return;
+                    }
 					dll->back();
+                }
 			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
@@ -197,10 +270,19 @@ class LinkedListDemo
 		{
 			double applesauce;
 			try {
-				if (prev[0] == 1)
+                if (prev[0] == 1) {
+                    if (cll == nullptr) {
+                        cout << "Cyclic Linked List does not exist!" << endl;
+                        return;
+                    }
 					cll->count(applesauce);
-				else if (prev[0] == 2)
+                } else if (prev[0] == 2) {
+                    if (dll == nullptr) {
+                        cout << "Doubly Linked List does not exist!" << endl;
+                        return;
+                    }
 					dll->count(applesauce);
+                }
 			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 				return;
@@ -210,6 +292,10 @@ class LinkedListDemo
 
 		void outputCyclic (vector<int>& prev)
 		{
+            if (cll == nullptr) {
+                cout << "Cyclic Linked List does not exist!" << endl;
+                return;
+            }
 			try {
 				cll->print();
 			} catch (const underflow_error& e) {
@@ -219,6 +305,10 @@ class LinkedListDemo
 
 		void outputDoubly (vector<int>& prev)
 		{
+            if (dll == nullptr) {
+                cout << "Doubly Linked List does not exist!" << endl;
+                return;
+            }
 			try {
 				dll->print();
 			} catch (const underflow_error& e) {

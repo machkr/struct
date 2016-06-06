@@ -16,7 +16,7 @@ private:
 	int size;*/
 
 public:
-	//DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
+    DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
 
 	int getSize() const
 	{ 
@@ -47,6 +47,10 @@ public:
 
 	int count(Type const &toCount) const
 	{
+        if (this->head == nullptr) {
+            throw underflow_error("List is empty");
+        }
+        
 		int count = 0;
 		DoubleNode<Type> *curNode;
 		DoubleNode<Type> *nextNode;
@@ -116,6 +120,9 @@ public:
 
 	int erase(Type const &toDelete)
 	{
+        if (this->head == nullptr) {
+            throw underflow_error("List is empty");
+        }
 		DoubleNode<Type> *curNode = head->next;
 		DoubleNode<Type> *nextNode;
 		int count = 0;
