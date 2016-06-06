@@ -11,9 +11,9 @@ private:
 	DoubleNode<Type> * tail;
 	int size;
 
-	DoubleNode<Type> *head;
+	/*DoubleNode<Type> *head;
 	DoubleNode<Type> *tail;
-	int size;
+	int size;*/
 
 public:
 	//DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {};
@@ -160,6 +160,7 @@ public:
 			delete current->previous;
 			size--;
 		}
+
 		head = nullptr;
 		tail = nullptr;
 	}

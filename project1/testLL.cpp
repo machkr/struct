@@ -35,5 +35,6 @@ int main() {
     cout << "front: " << ll->front() << endl;
     cout << "back: " << ll->back() << endl;
 	
+	cin.get();
     return 0;
 }
