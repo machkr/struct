@@ -96,7 +96,8 @@ public:
 	}
 
 
-	int erase(Type const & wrecked) {         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the this->head, this->this->tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
+	int erase(Type const & wrecked)         //Deletes the node(s) (from the front) in the linked list that contains the element equal to the argument (use == to test). As necessary, update the this->head, this->this->tail, and next of all applicable nodes in list. Return number of nodes that were deleted. 
+	{
 		int count = 0;
 		SingleNode<Type> * curNode;
 		SingleNode<Type> * nextNode;
@@ -107,7 +108,8 @@ public:
 		while (nextNode != this->head)
 		{
 			pastNode = curNode;
-			if (nextNode != nullptr) {
+			if (nextNode != nullptr)
+			{
 				curNode = nextNode;
 			}
 			nextNode = curNode->next;
@@ -146,12 +148,16 @@ public:
 
 		SingleNode<Type> *current = this->head;
 		SingleNode<Type> *previous = this->head;
-		if (this->isEmpty()) {
+		if (this->isEmpty())
+		{
 			throw underflow_error("The list is empty.");
 		}
-		else {
-			while (current->next != this->head) {
-				if (current == this->head) {
+		else
+		{
+			while (current->next != this->head)
+			{
+				if (current == this->head)
+				{
 					this->head = this->head->next;
 					delete previous;
 					this->size--;
