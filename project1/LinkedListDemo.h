@@ -55,7 +55,7 @@ class LinkedListDemo
 
 			catch (...)
 			{
-				cout << endl << "Error reading input! Try again." << endl;
+				cout << endl << "Error reading input! Try again." << endl << endl;
 				return;
 			}
 			
@@ -65,7 +65,7 @@ class LinkedListDemo
 				dll->push_front(data);
 			else
 			{
-				cout << "There was an error saving the data" << endl;
+				cout << "There was an error saving the data" << endl << endl;
 				return;
 			}
 			cout << endl << "Node inserted successfully." << endl << endl;
@@ -83,7 +83,7 @@ class LinkedListDemo
 
 			catch (...)
 			{
-				cout << endl << "Error reading input! Try again." << endl;
+				cout << endl << "Error reading input! Try again." << endl << endl;
 				return;
 			}
 			
@@ -93,7 +93,7 @@ class LinkedListDemo
 				dll->push_back(data);
 			else
 			{
-				cout << "There was an error saving the data" << endl;
+				cout << "There was an error saving the data" << endl << endl;
 				return;
 			}
 			cout << endl << "Node inserted successfully." << endl << endl;
@@ -103,9 +103,9 @@ class LinkedListDemo
 		void removePopFront (vector<int>& prev)
 		{
 			if (prev[0] == 1)
-				cout << cll->pop_front() << " has been popped." << endl;
+				cout << cll->pop_front() << " has been popped." << endl << endl;
 			else if (prev[0] == 2)
-				cout << dll->pop_front() << " has been popped." << endl;
+				cout << dll->pop_front() << " has been popped." << endl << endl;
 		}
 
 		void removeErase (vector<int>& prev)
@@ -120,7 +120,7 @@ class LinkedListDemo
 
 			catch (...)
 			{
-				cout << endl << "Error reading input! Try again." << endl;
+				cout << endl << "Error reading input! Try again." << endl << endl;
 				return;
 			}
 
@@ -134,7 +134,7 @@ class LinkedListDemo
 			}
 			else
 			{
-				cout << "There was an error erasing the data" << endl;
+				cout << "There was an error erasing the data" << endl << endl;
 				return;
 			}
 

@@ -33,6 +33,7 @@ public:
 	void push_back(Type const & newBack)
 	{
 		SingleNode<Type> * newNode = new SingleNode<Type>(newBack, this->head);
+
 		if (this->size == 0)
 		{
 			this->tail = newNode;
@@ -86,11 +87,18 @@ public:
 	{
 		SingleNode<Type> *curNode = this->head;
 
-		while (curNode->next != this->head)
+		if (this->size == 0)
+		{
+			throw underflow_error("List is empty.");
+			return;
+		}
+
+		do
 		{
 			cout << curNode->data << " ";
 			curNode = curNode->next;
-		}
+		} while (curNode != this->head);
+
 		cout << endl << endl;
 	}
 

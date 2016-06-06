@@ -138,15 +138,21 @@ public:
 
 	void print()
 	{
-		DoubleNode<Type> *curNode = head;
+		DoubleNode<Type> *curNode = this->head;
 
-		cout << endl;
-		while (curNode->next != nullptr)
+		if (this->size == 0)
+		{
+			throw underflow_error("List is empty.");
+			return;
+		}
+
+		do
 		{
 			cout << curNode->data << " ";
 			curNode = curNode->next;
-		}
-		cout << endl;
+		} while (curNode != nullptr);
+
+		cout << endl << endl;
 	}
 
 	~DoublyLinkedList()
