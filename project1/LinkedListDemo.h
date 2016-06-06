@@ -22,7 +22,7 @@ class LinkedListDemo
 			if (cll == nullptr)
 			{
 				cll = new CyclicLinkedList<double>();
-				cout << endl << "Cyclic Linked List created successfully." << endl << endl;
+				cout << "Cyclic Linked List created successfully." << endl << endl;
 			}
 			else
 			{
@@ -35,7 +35,7 @@ class LinkedListDemo
 			if (dll == nullptr)
 			{
 				dll = new DoublyLinkedList<double>();
-				cout << endl << "Doubly Linked List created successfully." << endl << endl;
+				cout << "Doubly Linked List created successfully." << endl << endl;
 			}
 			else
 			{
@@ -172,7 +172,8 @@ class LinkedListDemo
 				cout << "Error reading input! Try again." << endl << endl;
 				return;
 			}
-			try {
+			try
+			{
 				if (prev[0] == 1)
 				{
                     if (cll == nullptr)
@@ -339,7 +340,7 @@ class LinkedListDemo
                         cout << "Cyclic Linked List does not exist!" << endl;
                         return;
                     }
-					cout << "Counted " << cll->count(data) << " instances of \"" << data << "\"." << endl << endl;
+					cout << endl << "Counted " << cll->count(data) << " instances of \"" << data << "\"." << endl << endl;
                 }
 				else if (prev[0] == 2)
 				{
@@ -348,7 +349,7 @@ class LinkedListDemo
                         cout << "Doubly Linked List does not exist!" << endl;
                         return;
                     }
-					cout << "Counted " << dll->count(data) << " instances of \"" << data << "\"." << endl << endl;
+					cout << endl << "Counted " << dll->count(data) << " instances of \"" << data << "\"." << endl << endl;
                 }
 			}
 			catch (const underflow_error& e)

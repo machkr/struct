@@ -85,13 +85,14 @@ public:
 
 	int count(Type const & comparedData) const
 	{
-        if (this->head == nullptr) {
+        if (this->head == nullptr)
+		{
             throw underflow_error("List is empty");
         }
         
 		int count = 0;
-		SingleNode<Type> * curNode;
-		SingleNode<Type> * nextNode;
+		SingleNode<Type> *curNode;
+		SingleNode<Type> *nextNode;
 
 		curNode = nextNode = this->head;
 
