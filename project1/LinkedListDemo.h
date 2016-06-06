@@ -107,7 +107,7 @@ class LinkedListDemo
 					cout << cll->pop_front() << " has been popped." << endl << endl;
 				else if (prev[0] == 2)
 					cout << dll->pop_front() << " has been popped." << endl << endl;
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
 		}
@@ -142,7 +142,7 @@ class LinkedListDemo
 					cout << "There was an error erasing the data" << endl << endl;
 					return;
 				}
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout<< e.what() << endl;
 				return;
 			}
@@ -156,7 +156,7 @@ class LinkedListDemo
 					cll->getSize();
 				else if (prev[0] == 2)
 					dll->getSize();
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
 		}
@@ -176,7 +176,7 @@ class LinkedListDemo
 					cll->front();
 				else if (prev[0] == 2)
 					dll->front();
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
 		}
@@ -188,7 +188,7 @@ class LinkedListDemo
 					cll->back();
 				if (prev[0] == 2)
 					dll->back();
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
 		}
@@ -201,7 +201,7 @@ class LinkedListDemo
 					cll->count(applesauce);
 				else if (prev[0] == 2)
 					dll->count(applesauce);
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 				return;
 			}
@@ -212,7 +212,7 @@ class LinkedListDemo
 		{
 			try {
 				cll->print();
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
 		}
@@ -221,7 +221,7 @@ class LinkedListDemo
 		{
 			try {
 				dll->print();
-			} catch underflow_error(e) {
+			} catch (const underflow_error& e) {
 				cout << e.what() << endl;
 			}
 		}
