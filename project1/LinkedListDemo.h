@@ -7,12 +7,13 @@
 #include <iostream>
 #include <vector>
 
+template<typename Type> 
 class LinkedListDemo
 {
 	friend class MenuList;
 	private: 
-		CyclicLinkedList<double> * cll;
-		DoublyLinkedList<double> * dll;
+		CyclicLinkedList<Type> * cll;
+		DoublyLinkedList<Type> * dll;
 		
 		MenuList * mainMenu;
 		void buildMenus();
@@ -21,7 +22,7 @@ class LinkedListDemo
 		{
 			if (cll == nullptr)
 			{
-				cll = new CyclicLinkedList<double>();
+				cll = new CyclicLinkedList<Type>();
 				cout << "Cyclic Linked List created successfully." << endl << endl;
 			}
 			else
@@ -34,7 +35,7 @@ class LinkedListDemo
 		{
 			if (dll == nullptr)
 			{
-				dll = new DoublyLinkedList<double>();
+				dll = new DoublyLinkedList<Type>();
 				cout << "Doubly Linked List created successfully." << endl << endl;
 			}
 			else
@@ -45,12 +46,12 @@ class LinkedListDemo
 
 		void insertPushFront (vector<int>& prev)
 		{
-			double data;
+			Type data;
 			cout << "Value to insert: ";
 
 			try
 			{
-				data = getDouble();
+				cin >> data;
 			}
 
 			catch (...)
@@ -86,12 +87,12 @@ class LinkedListDemo
 
 		void insertPushBack (vector<int>& prev)
 		{
-			double data;
+			Type data;
 			cout << "Value to insert: ";
 
 			try
 			{
-				data = getDouble();
+				cin >> data;
 			}
 
 			catch (...)
@@ -159,12 +160,12 @@ class LinkedListDemo
 		void removeErase (vector<int>& prev)
 		{
 			int count;
-			double data;
+			Type data;
 			cout << "Value to erase: ";
 
 			try
 			{
-				data = getDouble();
+				cin >> data;
 			}
 
 			catch (...)
@@ -317,12 +318,12 @@ class LinkedListDemo
 
 		void accessCount(vector<int>& prev)
 		{
-			double data;
+			Type data;
 			cout << "Value to count: ";
 
 			try
 			{
-				data = getDouble();
+				cin >> data;
 			}
 
 			catch (...)
@@ -393,23 +394,6 @@ class LinkedListDemo
 			}
 		}
 				
-		double getDouble()
-		{
-			double data;
-			string input;
-			cin >> input;
-
-			try
-			{
-				data = stod(input);
-			}
-
-			catch (...)
-			{
-				throw invalid_argument("Error reading input.");
-			}
-			return data;
-		}
 
 	public: 
 		LinkedListDemo() : cll(nullptr), dll(nullptr) {}

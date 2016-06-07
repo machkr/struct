@@ -1,9 +1,10 @@
 // I couldn't figure out a way to define this function elsewhere 
-#define action(f) bind(static_cast<void (LinkedListDemo::*)(vector<int>&)> (&LinkedListDemo::f) ,this,_1)
+#define action(f) bind(static_cast<void (LinkedListDemo<Type>::*)(vector<int>&)> (&LinkedListDemo<Type>::f) ,this,_1)
 
 #include "LinkedListDemo.h"
 
-void LinkedListDemo::buildMenus() {
+template<typename Type>
+void LinkedListDemo<Type>::buildMenus() {
 
 	// Menu's must be initialized before they are passed to the SubMenu method
 	mainMenu = new MenuList("Please select an option:");
@@ -54,7 +55,7 @@ void LinkedListDemo::buildMenus() {
 }
 
 int main() {
-	LinkedListDemo demo;
+	LinkedListDemo<double> demo;
 	demo.run();
 	return 0;
 }
