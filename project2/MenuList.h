@@ -44,6 +44,9 @@ class MenuList {
 		void add(string text_, MenuFunction f_);
 		void add(string text_, MenuFunction f_, bool submenu_);
 
+		// Remove a menu option
+		void remove(string text_);
+
 		// Run the menu. The overloaded run takes a vector of previous menu options
 		// that were selected. e.g. If "1. Create List" was selected, the first node
 		// will be a 1. This is how all submenus are called

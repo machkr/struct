@@ -17,6 +17,16 @@ void MenuList::add(string text_, MenuFunction f_, bool submenu_) {
 	options.push_back({text_, f_, submenu_});
 }
 
+void MenuList::remove(string text_) {
+	vector<Option>::iterator it;
+	for (it = options.begin(); it < options.end(); it++) {
+		if (it->text == text_) {
+			options.erase(it);
+			break;
+		}
+	}
+}
+
 void MenuList::run() {
 	while(1) {
 		// Display options

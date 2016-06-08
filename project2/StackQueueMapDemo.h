@@ -12,6 +12,9 @@ class StackQueueMapDemo {
 		void * queue;
 
 		MenuList * mainMenu;
+		MenuList * stackMenu;
+		MenuList * qMenu;
+		MenuList * mapMenu;
 
 		void buildMenus();
 
@@ -19,13 +22,17 @@ class StackQueueMapDemo {
 		 *  Menu Functions  *
 		 *******************/
 
+		// Create Functions
+		void createStack(vector<int>& prev);
+		void createQueue(vector<int>& prev);
+		void createMap(vector<int>& prev);
+
 		// DynContainer 
 		void size(vector<int>& prev) {};
 		void empty(vector<int>& prev) {};
 		void capacity(vector<int>& prev) {};
 		void display(vector<int>& prev) {};
 		void clear(vector<int>& prev) {};
-		void erase(vector<int>& prev) {};
 
 		// DynStack
 		void stackTop(vector<int>& prev) {};
@@ -37,6 +44,9 @@ class StackQueueMapDemo {
 		void qBack(vector<int>& prev) {};
 		void qEnqueue(vector<int>& prev) {};
 		void qDequeue(vector<int>& prev) {};
+		
+		// Stack and Queue
+		void erase(vector<int>& prev) {};
 
 		// DynMap
 		void mapInsert(vector<int>& prev) {};

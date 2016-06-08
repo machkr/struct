@@ -7,9 +7,9 @@ void StackQueueMapDemo::buildMenus() {
 
 	// Initialize menus
 	mainMenu = new MenuList("Please choose a container.");
-	MenuList * stackMenu = new MenuList("Please choose an action.");
-	MenuList * qMenu = new MenuList("Please choose an action.");
-	MenuList * mapMenu = new MenuList("Please choose an action.");
+	stackMenu = new MenuList("Please choose an action for: Stack");
+	qMenu = new MenuList("Please choose an action for: Queue");
+	mapMenu = new MenuList("Please choose an action: Hash Table");
 
 	// Main Menu
 	mainMenu->setIsMain(true);
@@ -18,6 +18,19 @@ void StackQueueMapDemo::buildMenus() {
 	mainMenu->add("Hash Table", MenuList::SubMenu(mapMenu));
 
 	// Stack Menu
+	stackMenu->add("Create Stack", action(createStack));
+	
+	// Queue Menu
+	qMenu->add("Create Queue", action(createQueue));
+
+	// Hash Map Menu
+	mapMenu->add("Create Hash Table", action(createMap));
+}
+
+void StackQueueMapDemo::createStack(vector<int>& prev) {
+	// Create Stack Here
+
+	stackMenu->remove("Create Stack");
 	stackMenu->add("Push", action(stackPush));
 	stackMenu->add("Pop", action(stackPop));
 	stackMenu->add("Top", action(stackTop));
@@ -27,8 +40,13 @@ void StackQueueMapDemo::buildMenus() {
 	stackMenu->add("Show Capacity", action(capacity));
 	stackMenu->add("Clear Stack", action(clear));
 	stackMenu->add("Erase Value", action(erase));
+
+}
+
+void StackQueueMapDemo::createQueue(vector<int>& prev) {
+	// Create Queue Here
 	
-	// Queue Menu
+	qMenu->remove("Create Queue");
 	qMenu->add("Enq Value", action(qEnqueue));
 	qMenu->add("Deq Value", action(qDequeue));
 	qMenu->add("Front", action(qFront));
@@ -40,14 +58,19 @@ void StackQueueMapDemo::buildMenus() {
 	qMenu->add("Clear Queue", action(clear));
 	qMenu->add("Erase Value", action(erase));
 
-	// Hash Map Menu
+}
+
+void StackQueueMapDemo::createMap(vector<int>& prev) {
+	// Create Map Here
+	mapMenu->remove("Create Hash Table");	
+	mapMenu->add("Insert", action(mapInsert));
+	mapMenu->add("Search", action(mapSearch));
+	mapMenu->add("Delete", action(mapDelete));
 	mapMenu->add("Display", action(display));
 	mapMenu->add("Show Is Empty?", action(empty));
 	mapMenu->add("Show Size", action(size));
 	mapMenu->add("Show Capacity", action(capacity));
 	mapMenu->add("Clear Hash Table", action(clear));
-	mapMenu->add("Erase Value", action(erase));
-
 }
 
 int main() {
