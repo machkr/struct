@@ -5,8 +5,12 @@ MenuList::MenuList(const string& title_) :
 	size(0),
 	title(title_) {};
 
-void MenuList::add(string text_, bool submenu_) {
-	options.push_back({text_, nullptr, submenu_});
+void MenuList::add(string text_) {
+	options.push_back({text_, nullptr, false});
+}
+
+void MenuList::add(string text_, MenuFunction f_) {
+	options.push_back({text_, f_, false});
 }
 
 void MenuList::add(string text_, MenuFunction f_, bool submenu_) {

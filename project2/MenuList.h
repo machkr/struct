@@ -40,7 +40,8 @@ class MenuList {
 		MenuList(const string& title_);
 
 		// Add a menu option to the Menu
-		void add(string text_, bool submenu_);
+		void add(string text_);
+		void add(string text_, MenuFunction f_);
 		void add(string text_, MenuFunction f_, bool submenu_);
 
 		// Run the menu. The overloaded run takes a vector of previous menu options
