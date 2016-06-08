@@ -13,9 +13,9 @@ void StackQueueMapDemo::buildMenus() {
 
 	// Main Menu
 	mainMenu->setIsMain(true);
-	mainMenu->add("Stack", MenuList::SubMenu(stackMenu));
-	mainMenu->add("Queue", MenuList::SubMenu(qMenu));
-	mainMenu->add("Hash Table", MenuList::SubMenu(mapMenu));
+	mainMenu->add("Stack", MenuList::SubMenu(stackMenu), true);
+	mainMenu->add("Queue", MenuList::SubMenu(qMenu), true);
+	mainMenu->add("Hash Table", MenuList::SubMenu(mapMenu), true);
 
 	// Stack Menu
 	stackMenu->add("Create Stack", action(createStack));
@@ -28,7 +28,10 @@ void StackQueueMapDemo::buildMenus() {
 }
 
 void StackQueueMapDemo::createStack(vector<int>& prev) {
-	// Create Stack Here
+	
+	/*
+	 *  Create Stack Here
+	 */
 
 	stackMenu->remove("Create Stack");
 	stackMenu->add("Push", action(stackPush));
@@ -44,7 +47,10 @@ void StackQueueMapDemo::createStack(vector<int>& prev) {
 }
 
 void StackQueueMapDemo::createQueue(vector<int>& prev) {
-	// Create Queue Here
+
+	/*
+	 *  Create Queue Here
+	 */
 	
 	qMenu->remove("Create Queue");
 	qMenu->add("Enq Value", action(qEnqueue));
@@ -61,7 +67,11 @@ void StackQueueMapDemo::createQueue(vector<int>& prev) {
 }
 
 void StackQueueMapDemo::createMap(vector<int>& prev) {
-	// Create Map Here
+
+	/*
+	 *  Create Map Here
+	 */
+
 	mapMenu->remove("Create Hash Table");	
 	mapMenu->add("Insert", action(mapInsert));
 	mapMenu->add("Search", action(mapSearch));
