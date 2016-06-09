@@ -19,13 +19,15 @@ typedef function<void(vector<int>&)> MenuFunction;
 
 // Each MenuList has a vector of Options. Each option contains text, 
 // e.g. "Create List" and a MenuFunction that is called when the option is selected
-struct Option {
+struct Option
+{
 	string text;
 	MenuFunction f;
 	bool submenu;
 };
 
-class MenuList {
+class MenuList
+{
 	private:
 		vector<Option> options;
 
@@ -67,8 +69,8 @@ class MenuList {
 		// They return the MenuFunction type defined above. SubMenu takes a SubMenu and 
 		// is used for making the hierarchal menus work. Action will take any
 		// regular function (non-member method). 
-		static MenuFunction SubMenu(MenuList * menuList);
-		static MenuFunction Action(void (*action_function)(vector<int>& previousChoices));
+		static MenuFunction SubMenu(MenuList *menuList);
+		static MenuFunction Action(void (*action_function)(vector<int> &previousChoices));
 };
 
 #endif

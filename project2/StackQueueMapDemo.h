@@ -2,19 +2,20 @@
 #include <string>
 #include "MenuList.h"
 
-class StackQueueMapDemo { 
+class StackQueueMapDemo
+{ 
 	private:
-		//DynMap<K,V> * map;
-		void * map;
-		//DynStack<Type> * stack;
-		void * stack;
-		//DynQueue<Type> * queue;
-		void * queue;
+		//DynMap<K,V> *map;
+		void *map;
+		//DynStack<Type> *stack;
+		void *stack;
+		//DynQueue<Type> *queue;
+		void *queue;
 
-		MenuList * mainMenu;
-		MenuList * stackMenu;
-		MenuList * qMenu;
-		MenuList * mapMenu;
+		MenuList *mainMenu;
+		MenuList *stackMenu;
+		MenuList *qMenu;
+		MenuList *mapMenu;
 
 		void buildMenus();
 
@@ -23,40 +24,40 @@ class StackQueueMapDemo {
 		 *******************/
 
 		// Create Functions
-		void createStack(vector<int>& prev);
-		void createQueue(vector<int>& prev);
-		void createMap(vector<int>& prev);
+		void createStack(vector<int> &prev);
+		void createQueue(vector<int> &prev);
+		void createMap(vector<int> &prev);
 
 		// DynContainer 
-		void size(vector<int>& prev) {};
-		void empty(vector<int>& prev) {};
-		void capacity(vector<int>& prev) {};
-		void display(vector<int>& prev) {};
-		void clear(vector<int>& prev) {};
+		void size(vector<int> &prev) {};
+		void empty(vector<int> & prev) {};
+		void capacity(vector<int> &prev) {};
+		void display(vector<int> &prev) {};
+		void clear(vector<int> &prev) {};
 
 		// DynStack
-		void stackTop(vector<int>& prev) {};
-		void stackPush(vector<int>& prev) {};
-		void stackPop(vector<int>& prev) {};
+		void stackTop(vector<int> &prev) {};
+		void stackPush(vector<int> &prev) {};
+		void stackPop(vector<int> &prev) {};
 
 		// Dyn Queue
-		void qFront(vector<int>& prev) {};
-		void qBack(vector<int>& prev) {};
-		void qEnqueue(vector<int>& prev) {};
-		void qDequeue(vector<int>& prev) {};
+		void qFront(vector<int> &prev) {};
+		void qBack(vector<int> &prev) {};
+		void qEnqueue(vector<int> &prev) {};
+		void qDequeue(vector<int> &prev) {};
 		
 		// Stack and Queue
-		void erase(vector<int>& prev) {};
+		void erase(vector<int> &prev) {};
 
 		// DynMap
-		void mapInsert(vector<int>& prev) {};
-		void mapSearch(vector<int>& prev) {};
-		void mapDelete(vector<int>& prev) {};
+		void mapInsert(vector<int> &prev) {};
+		void mapSearch(vector<int> &prev) {};
+		void mapDelete(vector<int> &prev) {};
 
 	public:
-		void run() {
+		void run()
+		{
 			buildMenus();
 			mainMenu->run();
 		}
-
 };

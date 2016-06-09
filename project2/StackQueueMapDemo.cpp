@@ -3,8 +3,8 @@
 
 using namespace std;
 
-void StackQueueMapDemo::buildMenus() {
-
+void StackQueueMapDemo::buildMenus()
+{
 	// Initialize menus
 	mainMenu = new MenuList("Please choose a container.");
 	stackMenu = new MenuList("Please choose an action for: Stack");
@@ -27,8 +27,8 @@ void StackQueueMapDemo::buildMenus() {
 	mapMenu->add("Create Hash Table", action(createMap));
 }
 
-void StackQueueMapDemo::createStack(vector<int>& prev) {
-	
+void StackQueueMapDemo::createStack(vector<int>& prev)
+{
 	/*
 	 *  Create Stack Here
 	 */
@@ -46,8 +46,8 @@ void StackQueueMapDemo::createStack(vector<int>& prev) {
 
 }
 
-void StackQueueMapDemo::createQueue(vector<int>& prev) {
-
+void StackQueueMapDemo::createQueue(vector<int>& prev)
+{
 	/*
 	 *  Create Queue Here
 	 */
@@ -66,8 +66,8 @@ void StackQueueMapDemo::createQueue(vector<int>& prev) {
 
 }
 
-void StackQueueMapDemo::createMap(vector<int>& prev) {
-
+void StackQueueMapDemo::createMap(vector<int>& prev)
+{
 	/*
 	 *  Create Map Here
 	 */
@@ -83,7 +83,8 @@ void StackQueueMapDemo::createMap(vector<int>& prev) {
 	mapMenu->add("Clear Hash Table", action(clear));
 }
 
-int main() {
+int main()
+{
 	StackQueueMapDemo demo;
 	demo.run();
 	return 0;
