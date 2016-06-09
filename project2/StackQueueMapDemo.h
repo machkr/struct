@@ -30,7 +30,7 @@ class StackQueueMapDemo
 
 		// DynContainer 
 		void size(vector<int> &prev) {};
-		void empty(vector<int> & prev) {};
+		void empty(vector<int> &prev) {};
 		void capacity(vector<int> &prev) {};
 		void display(vector<int> &prev) {};
 		void clear(vector<int> &prev) {};
