@@ -8,9 +8,9 @@ class DynQueue
 {
 private:
 	type *queueArray;		//Array
-	int count;				//Counter
-	int ihead;				//Head index
-	int itail;				//Tail index
+	int count;			//Counter
+	int ihead;			//Head index
+	int itail;			//Tail index
 	int initialSize;		//Array capacity (should be 13 if using default constructor) 
 	int arraySize;			//Current array size
 
@@ -38,8 +38,8 @@ public:
 	}
 
 	//Destructor
-	~DyneQueue() {									//Needs to delete the memory allocated for the whole array!
-		delete[] queueArray;
+	~DyneQueue() {								//Needs to delete the memory allocated for the whole array!
+		this->clear();
 	}
 
 	//Accessors
@@ -58,15 +58,15 @@ public:
 		return queueArray[itail];
 	}
 
-	int size() const {								//Returns number of elemets currently stored in the queue. (O(1))
+	int size() const {							//Returns number of elemets currently stored in the queue. (O(1))
 		return count;
 	}
 
-	bool empty() {									//Returns true if queue is empty, false otherwise. (O(1))
+	bool empty() {								//Returns true if queue is empty, false otherwise. (O(1))
 		return count == 0;
 	}
 
-	int capacity() {								//Returns the current size of the array. (O(1)) 
+	int capacity() {							//Returns the current size of the array. (O(1)) 
 		return arraySize();
 	}
 
@@ -93,7 +93,7 @@ public:
 
 	//Mutators
 
-	void enqueue(Type const & data) {				//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
+	void enqueue(Type const & data) {					//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
 
 		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
 
