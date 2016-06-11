@@ -77,7 +77,6 @@ public:
 		if (this->empty())
 		{
 			cerr << ("Error: the queue is empty.") << endl << endl;
-			//if (this->empty()) throw underflow_error("Error: the queue is empty.");
 			return;
 		}
 
@@ -102,7 +101,7 @@ public:
 			arraySize = 2 * initialSize;
 			type *newArray = new type[arraySize];
 
-			for (int i = 0; i < arraySize; i++)
+			for (int i = ihead; i <= itail; i++)
 			{
 				if (i < initialSize) newArray[i] = queueArray[i];
 				else newArray[i] = NULL;
@@ -125,7 +124,6 @@ public:
 		if (this->empty())
 		{
 			cerr << ("Error: the queue is empty.") << endl;
-			//if (this->empty()) throw underflow_error("Error: the queue is empty.");
 			return NULL;
 		}
 
@@ -139,7 +137,7 @@ public:
 			arraySize /= 2;
 			type *newArray = new type[arraySize];
 
-			for (int i = 0; i < arraySize; i++)
+			for (int i = ihead; i <= itail; i++)
 			{
 				if (i < initialSize) newArray[i] = queueArray[i];
 				else newArray[i] = NULL;
@@ -159,7 +157,6 @@ public:
 		if (this->empty())
 		{
 			cerr << ("Error: the queue is already empty.") << endl;
-			//if (this->empty()) throw underflow_error("Error: the queue is empty.");
 			return;
 		}
 
@@ -185,7 +182,7 @@ public:
 		if (this->empty())
 		{
 			cerr << ("Error: the queue is empty.") << endl;
-			//if (this->empty()) throw underflow_error("Error: the queue is empty.");
+			if (this->empty()) throw underflow_error("Error: the queue is empty.");
 			return 0;
 		}
 
