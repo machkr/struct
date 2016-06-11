@@ -74,7 +74,7 @@ public:
 		return arraySize;
 	}
 
-	void display() const						//Prints the content of the Queue. (O(n))
+	void display()								//Prints the content of the Queue. (O(n))
 	{
 		int number = 1;
 
