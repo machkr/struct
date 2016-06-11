@@ -114,9 +114,8 @@ public:
 			cout << endl << "The array size has been doubled to accept " << arraySize << " elements." << endl << endl;
 		}
 
-		queueArray[count] = data;
+		queueArray[++itail] = data;
 		count++;
-		itail++;
 		cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 	}
 
