@@ -189,7 +189,7 @@ public:
 			return 0;
 		}
 
-		for (int i = count - 1; i >= 0; i--)
+		for (int i = ihead; i <= itail; i++)
 		{
 			if (data == queueArray[i])
 			{
@@ -204,7 +204,7 @@ public:
 
 		temp.display();
 
-		for (int i = (temp.count) - 1; i >= 0; i--)
+		for (int i = 0; i <= (temp.count) - 1; i++)
 		{
 			enqueue(temp.dequeue());
 		}
