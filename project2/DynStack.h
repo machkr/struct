@@ -196,8 +196,6 @@ public:
 			}
 		}
 
-		temp.display();
-
 		for (int i = (temp.count) - 1; i >= 0; i--)
 		{
 			push(temp.pop());

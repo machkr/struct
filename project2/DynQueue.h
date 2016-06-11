@@ -8,9 +8,9 @@ class DynQueue
 {
 private:
 	type *queueArray;		//Array
-	int count;			//Counter
-	int ihead;			//Head index
-	int itail;			//Tail index
+	int count;				//Counter
+	int ihead;				//Head index
+	int itail;				//Tail index
 	int initialSize;		//Array capacity (should be 13 if using default constructor) 
 	int arraySize;			//Current array size
 
@@ -18,7 +18,8 @@ public:
 
 	//Constructors
 
-	DynQueue(int size) : count(0), ihead(0), itail(0) {
+	DynQueue(int size) : count(0), ihead(0), itail(0)
+	{
 		if (size <= 0)
 		{
 			initialSize = 1;
@@ -33,44 +34,49 @@ public:
 
 	}
 
-	DynQueue() : count(0), initialSize(13), arraySize(0), ihead(0), itail(0) {
+	DynQueue() : count(0), initialSize(13), arraySize(0), ihead(0), itail(0)
+	{
 		queueArray = new type[initialSize];
 	}
 
 	//Destructor
-	~DyneQueue() {								//Needs to delete the memory allocated for the whole array!
+	~DynQueue()									//Needs to delete the memory allocated for the whole array!
+	{
 		this->clear();
 	}
 
 	//Accessors
 
-	type front() const {							//Returns object at front of queue. Underflow exception.		
-		if (this->empty()) {
-			throw underflow_error("Queue is Empty.");
-		}
+	type front() const							//Returns object at front of queue. Underflow exception.		
+	{	
+		if (this->empty()) throw underflow_error("Queue is Empty.");
 		return queueArray[ihead];
 	}
 
-	type back() const {							//Returns object at bck of queue. Underflow exception.
-		if (this->empty()) {
-			throw underflow_error("Queue is Empty.");
-		}
+	type back() const							//Returns object at bck of queue. Underflow exception.
+	{	
+		if (this->empty()) throw underflow_error("Queue is Empty.");
 		return queueArray[itail];
 	}
 
-	int size() const {							//Returns number of elemets currently stored in the queue. (O(1))
+	int size() const							//Returns number of elemets currently stored in the queue. (O(1))
+	{	
 		return count;
 	}
 
-	bool empty() {								//Returns true if queue is empty, false otherwise. (O(1))
+	bool empty()								//Returns true if queue is empty, false otherwise. (O(1))
+	{	
 		return count == 0;
 	}
 
-	int capacity() {							//Returns the current size of the array. (O(1)) 
+	int capacity()								//Returns the current size of the array. (O(1)) 
+	{	
 		return arraySize;
 	}
 
-	void display() const {							//Prints the content of the Queue. (O(n))
+	void display() const						//Prints the content of the Queue. (O(n))
+	{
+		int number = 1;
 
 		cout << "Attempting to display the queue..." << endl;
 
@@ -81,8 +87,6 @@ public:
 		}
 
 		cout << "Here's the queue, from front to back:" << endl;
-		
-		int number = 1;
 
 		for (int i = ihead; i <= itail; i++)
 		{
@@ -95,8 +99,8 @@ public:
 
 	//Mutators
 
-	void enqueue(type const & data) {					//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
-
+	void enqueue(type const &data)				//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
+	{
 		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
 
 		if (count == initialSize)
@@ -119,9 +123,9 @@ public:
 		cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 	}
 
-	type dequeue() {								//Removes element at the front of the queue. If after it's removed, the array is 1/4 full and array size is greater than the initial size, size of the array is halved. This may throw an underflow. (O(1) on average)
-		
-		cout << "Attempting to dequeue the queue..." << endl;
+	type dequeue()								//Removes element at the front of the queue. If after it's removed, the array is 1/4 full and array size is greater than the initial size, size of the array is halved. This may throw an underflow. (O(1) on average)
+	{	
+		cout << "Attempting to dequeue from the queue..." << endl;
 
 		if (this->empty())
 		{
@@ -153,7 +157,8 @@ public:
 		return temp;
 	}
 
-	void clear() {									//Removes all elements in the queue. The array is resized to the initial size. (O(1))
+	void clear()								//Removes all elements in the queue. The array is resized to the initial size. (O(1))
+	{	
 		cout << "Attempting to clear the queue..." << endl;
 
 		if (this->empty())
@@ -174,8 +179,7 @@ public:
 	}
 
 	int erase(type const & data)                    //Removes elements from the front that contains the element equal to the argument. If afterwards the array is 1/4 full and the array size is greater than the initial size, the size of array is halved. Return number of elements that were deleted. Underflow may be used. 
-													//Dequeue every element to compare. Use a temporary queue to hold elements that are not equal to the argument. After main queue is empty, return elements that are in the temporary queue back to the main one. Calculate running time in report!
-	{
+	{												//Dequeue every element to compare. Use a temporary queue to hold elements that are not equal to the argument. After main queue is empty, return elements that are in the temporary queue back to the main one. Calculate running time in report!
 		int num = 0;
 		DynQueue<type> temp = DynQueue<type>(count);
 
@@ -200,8 +204,6 @@ public:
 				temp.enqueue(dequeue());
 			}
 		}
-
-		temp.display();
 
 		for (int i = 0; i <= (temp.count) - 1; i++)
 		{
