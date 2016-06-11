@@ -93,7 +93,7 @@ public:
 
 	//Mutators
 
-	void enqueue(Type const & data) {					//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
+	void enqueue(type const & data) {					//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
 
 		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
 
