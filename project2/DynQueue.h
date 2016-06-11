@@ -67,7 +67,7 @@ public:
 	}
 
 	int capacity() {							//Returns the current size of the array. (O(1)) 
-		return arraySize();
+		return arraySize;
 	}
 
 	void display() const {							//Prints the content of the Queue. (O(n))
@@ -114,7 +114,7 @@ public:
 
 		queueArray[count] = data;
 		count++;
-		itail = count;
+		itail++;
 		cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 	}
 
