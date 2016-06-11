@@ -81,10 +81,13 @@ public:
 		}
 
 		cout << "Here's the queue, from front to back:" << endl;
+		
+		int number = 1;
 
 		for (int i = ihead; i <= itail; i++)
 		{
-			cout << "Element " << i << ": " << queueArray[i] << endl;
+			cout << "Element " << number << ": " << queueArray[i] << endl;
+			number++;
 		}
 
 		cout << endl;
