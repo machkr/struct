@@ -128,12 +128,6 @@ public:
 			return NULL;
 		}
 
-		if (ihead == itail)
-		{
-			type temp = this->front();
-			queueArray[]
-		}
-
 		type temp = this->front();
 		queueArray[ihead] = NULL;
 		count--;
