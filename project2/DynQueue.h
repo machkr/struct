@@ -33,7 +33,7 @@ public:
 
 	}
 
-	DyneQueue() : count(0), initialSize(13), arraySize(0), ihead(0), itail(0) {
+	DynQueue() : count(0), initialSize(13), arraySize(0), ihead(0), itail(0) {
 		queueArray = new type[initialSize];
 	}
 
@@ -119,6 +119,7 @@ public:
 	}
 
 	type dequeue() {								//Removes element at the front of the queue. If after it's removed, the array is 1/4 full and array size is greater than the initial size, size of the array is halved. This may throw an underflow. (O(1) on average)
+		
 		cout << "Attempting to dequeue the queue..." << endl;
 
 		if (this->empty())
