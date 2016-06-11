@@ -163,7 +163,7 @@ public:
 			return;
 		}
 
-		for (int i = 0; i < arraySize; i++)
+		for (int i = ihead; i <= itail; i++)
 		{
 			queueArray[i] = NULL;
 			count--;
