@@ -94,14 +94,15 @@ public:
 	{
 		cout << "Attempting to push \"" << data << "\"..." << endl;
 
-		if (count == initialSize)
+		if (count == arraySize)
 		{
-			arraySize = 2 * initialSize;
+			int temp = arraySize;
+			arraySize = 2 * arraySize;
 			type *newArray = new type[arraySize];
 
 			for (int i = 0; i < arraySize; i++)
 			{
-				if (i < initialSize) newArray[i] = stackArray[i];
+				if (i < temp) newArray[i] = stackArray[i];
 				else newArray[i] = NULL;
 			}
 

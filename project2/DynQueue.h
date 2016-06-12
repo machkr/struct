@@ -26,7 +26,7 @@ public:
 			arraySize = 0;
 		}
 		else {
-			intialSize = size;
+			initialSize = size;
 			arraySize = 0;
 		}
 
@@ -103,14 +103,15 @@ public:
 	{
 		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
 
-		if (count == initialSize)
+		if (count == arraySize)
 		{
-			arraySize = 2 * initialSize;
+			int temp = arraySize;
+			arraySize *= 2;
 			type *newArray = new type[arraySize];
 
 			for (int i = ihead; i <= itail; i++)
 			{
-				if (i < initialSize) newArray[i] = queueArray[i];
+				if (i < temp) newArray[i] = queueArray[i];
 				else newArray[i] = NULL;
 			}
 
@@ -118,7 +119,8 @@ public:
 			cout << endl << "The array size has been doubled to accept " << arraySize << " elements." << endl << endl;
 		}
 
-		queueArray[++itail] = data;
+		itail++;
+		queueArray[itail + 1] = data;
 		count++;
 		cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 	}
