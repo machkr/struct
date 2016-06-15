@@ -135,17 +135,19 @@ public:
         }
 		int count = 0;
 		SingleNode<Type> * curNode = this->head;
-		SingleNode<Type> * pastNode = this->head;
+		SingleNode<Type> * pastNode = this->tail;
 
-		while (curNode != nullptr) 
+		do
 		{
 			if (curNode->data == wrecked) 
 			{
-				if (pastNode != nullptr) 
-					pastNode->next = curNode->next;
+                pastNode->next = curNode->next;
 
 				if (curNode == this->head)
 					this->head = curNode->next;
+                
+                if (curNode == this->tail)
+                    this->tail = pastNode;
 				
 				SingleNode<Type> * temp = curNode;
 				curNode = curNode->next;
@@ -154,8 +156,9 @@ public:
 				count++;
 				continue;
 			}
+            pastNode = curNode;
 			curNode = curNode->next;
-		}
+        } while (curNode != this->head);
 		return count;
 	}
 
