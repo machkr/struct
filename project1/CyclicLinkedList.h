@@ -134,51 +134,30 @@ public:
             throw underflow_error("List is empty.");
         }
 		int count = 0;
-		SingleNode<Type> * curNode;
-		SingleNode<Type> * nextNode;
-		SingleNode<Type> * pastNode;
+		SingleNode<Type> * curNode = this->head;
+		SingleNode<Type> * pastNode = this->head;
 
-		curNode = pastNode = this->head; 
-		nextNode = curNode->next;
-		while (nextNode != this->head)
+		while (curNode != nullptr) 
 		{
-			pastNode = curNode;
-			if (nextNode != this->head)
+			if (curNode->data == wrecked) 
 			{
-				curNode = nextNode;
-			}
-			nextNode = curNode->next;
-			if (curNode->data == wrecked)
-			{
-				if (this->size == 1)
-				{
-					this->head = this->tail = NULL;
-					delete curNode;
-					this->size--;
-					count++;
-					break;
-				}
+				if (pastNode != nullptr) 
+					pastNode->next = curNode->next;
 
 				if (curNode == this->head)
-				{
-					this->head = nextNode;
-				}
-
-				if (curNode == this->tail)
-				{
-					this->tail = pastNode;
-				}
-
-				pastNode->next = nextNode;
-				delete curNode;
-                curNode = pastNode;
+					this->head = curNode->next;
+				
+				SingleNode<Type> * temp = curNode;
+				curNode = curNode->next;
+				delete temp;
 				this->size--;
-				count++;		
+				count++;
+				continue;
 			}
+			curNode = curNode->next;
 		}
 		return count;
 	}
-
 
 	~CyclicLinkedList() {
 
