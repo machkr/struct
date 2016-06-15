@@ -4,7 +4,7 @@
 #include "LinkedList.h"
 using namespace std;
 
-template<class Type> class DoublyLinkedList
+template<class Type> class DoublyLinkedList : public LinkedList<Type>
 {
 private:
 	DoubleNode<Type> * head;
