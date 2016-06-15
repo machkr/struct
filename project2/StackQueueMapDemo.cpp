@@ -3,6 +3,8 @@
 
 using namespace std;
 
+template <typename type>
+
 void StackQueueMapDemo::buildMenus()
 {
 	// Initialize menus
@@ -29,9 +31,13 @@ void StackQueueMapDemo::buildMenus()
 
 void StackQueueMapDemo::createStack(vector<int>& prev)
 {
-	/*
-	 *  Create Stack Here
-	 */
+	int size;
+	cout << endl << "Please enter the size: " << endl;
+	cin >> size;
+
+	stack = new DynStack<string>(size);
+
+	cout << endl << "Stack created successfully." << endl << endl;
 
 	stackMenu->remove("Create Stack");
 	stackMenu->add("Push", action(stackPush));
