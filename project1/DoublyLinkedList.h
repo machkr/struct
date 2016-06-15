@@ -122,28 +122,43 @@ public:
 
 	int erase(Type const &toDelete)
 	{
-        if (this->head == nullptr) {
+        if (this->head == nullptr) 
+		{
             throw underflow_error("List is empty");
         }
-		DoubleNode<Type> *curNode = head->next;
-		DoubleNode<Type> *nextNode;
+
 		int count = 0;
 
-		while (curNode != nullptr)
+		DoubleNode<Type> * curNode = head;
+		while (curNode != nullptr) 
 		{
-			nextNode = curNode->next;
-			if (curNode->data == toDelete)
+			if (curNode->data == toDelete) 
 			{
-				curNode->previous->next = curNode->next;
-				curNode->next->previous = curNode->previous;
-				delete curNode;
-				count++;
+				if (curNode->previous != nullptr) 
+				{
+					curNode->previous->next = curNode->next;
+				}
+
+				if (curNode->next != nullptr) {
+					curNode->next->previous = curNode->previous;
+				}
+
+				if (curNode == head) {
+					head = curNode->next;
+				}
+
+				DoubleNode<Type> * temp = curNode;
+				curNode = curNode->next;
+				delete temp;
 				size--;
+				count++;
+				continue;
 			}
-			curNode = nextNode;
+			curNode = curNode->next;
 		}
 		return count;
 	}
+
 
 	void print()
 	{
