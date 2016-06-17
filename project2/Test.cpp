@@ -35,10 +35,17 @@ int main()
 	x.erase(100);
 	x.display();
 
-	//cout << "Let's see if we can delete all FOUR 100's!!" << endl;
-	//x.erase(100);
-	//x.display();
+	cout << "Woohoo it works!" << endl;
+	cout << "Let's see if we can enqueue some more and clear some more!" << endl;
 
+	x.enqueue(7);
+	x.display();
+	x.enqueue(10);
+	x.display();
+	x.clear();
+	x.display();
+
+	
 	//y.push(1);
 	//y.push(0);
 	//y.push(1);
