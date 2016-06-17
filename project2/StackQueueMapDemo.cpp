@@ -1,11 +1,8 @@
 #define action(f) bind(static_cast<void (StackQueueMapDemo::*)(vector<int>&)> (&StackQueueMapDemo::f) ,this,_1)
 #include "StackQueueMapDemo.h"
 
-using namespace std;
-
 template <typename type>
-
-void StackQueueMapDemo::buildMenus()
+void StackQueueMapDemo<type>::buildMenus()
 {
 	// Initialize menus
 	mainMenu = new MenuList("Please choose a container.");
@@ -29,7 +26,8 @@ void StackQueueMapDemo::buildMenus()
 	mapMenu->add("Create Hash Table", action(createMap));
 }
 
-void StackQueueMapDemo::createStack(vector<int>& prev)
+template <typename type>
+void StackQueueMapDemo<type>::createStack(vector<int>& prev)
 {
 	int size;
 	cout << endl << "Please enter the size: " << endl;
@@ -52,7 +50,8 @@ void StackQueueMapDemo::createStack(vector<int>& prev)
 
 }
 
-void StackQueueMapDemo::createQueue(vector<int>& prev)
+template <typename type>
+void StackQueueMapDemo<type>::createQueue(vector<int>& prev)
 {
 	/*
 	 *  Create Queue Here
@@ -69,10 +68,10 @@ void StackQueueMapDemo::createQueue(vector<int>& prev)
 	qMenu->add("Show Capacity", action(capacity));
 	qMenu->add("Clear Queue", action(clear));
 	qMenu->add("Erase Value", action(erase));
-
 }
 
-void StackQueueMapDemo::createMap(vector<int>& prev)
+template <typename type>
+void StackQueueMapDemo<type>::createMap(vector<int>& prev)
 {
 	/*
 	 *  Create Map Here
@@ -91,7 +90,7 @@ void StackQueueMapDemo::createMap(vector<int>& prev)
 
 int main()
 {
-	StackQueueMapDemo demo;
+	StackQueueMapDemo<string> demo;
 	demo.run();
 	return 0;
 }

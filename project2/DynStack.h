@@ -38,6 +38,8 @@ public:
 	//Destructor
 	~DynStack()
 	{
+		count = 0;
+		arraySize = 0;
 		delete[] stackArray;
 	}
 
@@ -97,7 +99,7 @@ public:
 			for (int i = 0; i < (2 * arraySize); i++)
 			{
 				if (i < arraySize) newArray[i] = stackArray[i];
-				else newArray[i] = NULL;
+				else newArray[i].clear();
 			}
 
 			cout << "Warning: the stack is full (" << count << "/" << arraySize << ")." << endl;
@@ -108,13 +110,10 @@ public:
 
 		stackArray[count] = data;
 		count++;
-		cout << "\"" << data << "\" has been pushed successfully." << endl << endl;
 	}
 
 	type pop()
 	{
-		cout << "Attempting to pop the stack..." << endl;
-
 		if (this->empty())
 		{
 			cerr << ("Error: the stack is empty.") << endl << endl;
@@ -123,7 +122,7 @@ public:
 		}
 
 		type temp = this->top();
-		stackArray[count - 1] = NULL;
+		stackArray[count - 1].clear();
 		count--;
 
 		if (((double)count / (double)arraySize <= 0.25) && (arraySize > initialSize))
@@ -133,7 +132,7 @@ public:
 			for (int i = 0; i < (arraySize / 2); i++)
 			{
 				if (i < arraySize) newArray[i] = stackArray[i];
-				else newArray[i] = NULL;
+				else newArray[i].clear();
 			}
 
 			cout << "Warning: the stack is nearly empty (" << count << "/" << arraySize << ")." << endl;
@@ -142,7 +141,6 @@ public:
 			arraySize = arraySize / 2;
 		}
 
-		cout << "The stack has been popped successfully (Removed \"" << temp << "\")." << endl << endl;
 		return temp;
 	}
 
@@ -159,7 +157,7 @@ public:
 
 		for (int i = 0; i < arraySize; i++)
 		{
-			stackArray[i] = NULL;
+			stackArray[i].clear();
 		}
 
 		count = 0;

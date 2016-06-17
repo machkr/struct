@@ -4,14 +4,14 @@
 #include "DynQueue.h"
 #include "MenuList.h"
 
-template <typename type>;
+template<typename type>
 
 class StackQueueMapDemo
 { 
 	private:
 		//DynMap<K,V> *map;
 		void *map;
-		DynStack<string> *stack;
+		DynStack<type> *stack;
 		//void *stack;
 		//DynQueue<string> *queue;
 		void *queue;
@@ -25,7 +25,7 @@ class StackQueueMapDemo
 
 		/********************
 		 *  Menu Functions  *
-		 *******************/
+		 ********************/
 
 		// Create Functions
 		void createStack(vector<int> &prev);
@@ -35,33 +35,76 @@ class StackQueueMapDemo
 		// DynContainer 
 		void size(vector<int> &prev)
 		{
-			cout << "The size is " << this->size << "." << endl << endl; 
+			cout << "The size is " << stack->size() << "." << endl << endl; 
 		};
 
 		void empty(vector<int> &prev)
 		{
-			cout << ((this->empty() ? "Yes." : "No.") << endl << endl;
+			cout << (stack->empty() ? "Yes." : "No.") << endl << endl;
 		};
 
-		void capacity(vector<int> &prev) {};
-		void display(vector<int> &prev) {};
-		void clear(vector<int> &prev) {};
+		void capacity(vector<int> &prev)
+		{
+			cout << "The capacity is " << stack->capacity() << "." << endl << endl;
+		};
+
+		void display(vector<int> &prev)
+		{
+			try
+			{
+				stack->display();
+			}
+
+			catch (const underflow_error& e)
+			{
+				cout << e.what() << endl;
+			}
+		};
+
+		void clear(vector<int> &prev)
+		{
+			try
+			{
+				stack->clear();
+			}
+
+			catch (const underflow_error& e)
+			{
+				cout << e.what() << endl;
+			}
+		};
 
 		// DynStack
 		void stackTop(vector<int> &prev)
 		{
-			cout << "The top of the stack is '" << stack->top() << "'." << endl;
+			cout << "The top of the stack is \"" << stack->top() << "\"." << endl << endl;
 		};
 
 		void stackPush(vector<int> &prev)
 		{
 			type data;
+			cout << "Data to push: ";
+
+			try
+			{
+				cin >> data;
+			}
+
+			catch (...)
+			{
+				cout << endl << "Error reading input! Try again." << endl << endl;
+				return;
+			}
+
 			cout << "Attempting to push \"" << data << "\"..." << endl;
+			stack->push(data);
+			cout << "\"" << data << "\" has been pushed successfully." << endl << endl;
 		};
 
 		void stackPop(vector<int> &prev)
 		{
-
+			cout << "Attempting to pop the stack..." << endl;
+			cout << "The stack has been popped successfully (Removed \"" << stack->pop() << "\")." << endl << endl;
 		};
 
 		// Dyn Queue
@@ -87,7 +130,21 @@ class StackQueueMapDemo
 		// Stack and Queue
 		void erase(vector<int> &prev)
 		{
-		
+			type data;
+			cout << "Data to erase: ";
+
+			try
+			{
+				cin >> data;
+			}
+
+			catch (...)
+			{
+				cout << endl << "Error reading input! Try again." << endl << endl;
+				return;
+			}
+
+			stack->erase(data);
 		};
 
 		// DynMap
