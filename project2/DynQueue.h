@@ -13,6 +13,7 @@ private:
 	int itail;				//Tail index
 	int initialSize;		//Array capacity (should be 13 if using default constructor) 
 	int arraySize;			//Current array size
+	bool eraseFlag = false;
 
 public:
 
@@ -49,13 +50,13 @@ public:
 
 	type front() const							//Returns object at front of queue. Underflow exception.		
 	{	
-		if (this->empty()) throw underflow_error("Queue is Empty.");
+		if (count==0) cerr << ("Error: the queue is empty.") << endl;
 		return queueArray[ihead];
 	}
 
 	type back() const							//Returns object at bck of queue. Underflow exception.
 	{	
-		if (this->empty()) throw underflow_error("Queue is Empty.");
+		if (count==0) cerr << ("Error: the queue is empty.") << endl;
 		return queueArray[itail];
 	}
 
@@ -88,7 +89,7 @@ public:
 
 		cout << "Here's the queue, from front to back:" << endl;
 
-		for (int i = ihead; i <= itail; i++)
+		for (int i = ihead; i < (itail+1); i++)
 		{
 			cout << "Element " << number << ": " << queueArray[i] << endl;
 			number++;
@@ -101,6 +102,42 @@ public:
 
 	void enqueue(type const &data)				//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
 	{
+		if (eraseFlag == true) //Erase Call
+		{
+			cout << "We are in the Erase Call FOR ENQUEUE! LOL I LOVE ERASE." << endl;
+			if (count == arraySize)
+			{
+				int temp = arraySize;
+				arraySize *= 2;
+				type *newArray = new type[arraySize];
+
+				for (int i = ihead; i <= itail; i++)
+				{
+					if (i < temp) newArray[i] = queueArray[i];
+					else newArray[i] = NULL;
+				}
+
+				queueArray = newArray;
+			}
+
+			else if (count == 0)
+			{
+				ihead = itail;
+				queueArray[itail] = data;
+				count++;
+				return;
+
+			}
+
+			else
+
+			itail++;
+			queueArray[itail] = data;
+			count++;
+			return;
+		}
+
+		//Non-erase Call
 		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
 
 		if (count == arraySize)
@@ -119,14 +156,61 @@ public:
 			cout << endl << "The array size has been doubled to accept " << arraySize << " elements." << endl << endl;
 		}
 
+		else if (count == 0)
+		{
+			ihead = itail;
+			queueArray[itail] = data;
+			count++;
+			cout << "\"" << data << "\" enqueued successfully." << endl << endl;
+			return;
+
+		}
+
+		else
+
 		itail++;
-		queueArray[itail + 1] = data;
+		queueArray[itail] = data;
 		count++;
 		cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 	}
 
 	type dequeue()								//Removes element at the front of the queue. If after it's removed, the array is 1/4 full and array size is greater than the initial size, size of the array is halved. This may throw an underflow. (O(1) on average)
 	{	
+
+		if (eraseFlag == true) //Erase Call
+		{
+			cout << "We are in the Erase Call! LOL I LOVE ERASE." << endl;
+			if (this->empty())
+			{
+				cerr << ("Error: the queue is empty.") << endl;
+				return NULL;
+			}
+
+			type temp = this->front();
+			queueArray[ihead] = NULL;
+			count--;
+			ihead++;
+
+			if ((((double)count / (double)arraySize) <= 0.25) && (arraySize > initialSize))
+			{
+				arraySize /= 2;
+				type *newArray = new type[arraySize];
+
+				for (int i = ihead; i <= itail; i++)
+				{
+					if (i < initialSize) newArray[i] = queueArray[i];
+					else newArray[i] = NULL;
+				}
+
+				queueArray = newArray;
+
+				}
+
+			return temp;
+		}
+
+		//Non-erase call
+
 		cout << "Attempting to dequeue from the queue..." << endl;
 
 		if (this->empty())
@@ -185,6 +269,9 @@ public:
 		int num = 0;
 		DynQueue<type> temp = DynQueue<type>(count);
 
+		eraseFlag = true;
+		temp.eraseFlag = true;
+
 		cout << "Attempting to erase \"" << data << "\"..." << endl;
 
 		if (this->empty())
@@ -203,14 +290,21 @@ public:
 			}
 			else
 			{
-				temp.enqueue(dequeue());
+				temp.enqueue(queueArray[i]);
+				this->dequeue();
 			}
+
+			this->clear();
 		}
 
-		for (int i = 0; i <= (temp.count) - 1; i++)
+		for (int i = 0; i <= (temp.count); i++)
 		{
-			enqueue(temp.dequeue());
+			type tempData = temp.front();
+			temp.dequeue();
+			this->enqueue(tempData);
 		}
+
+		temp.clear();
 
 		if (num == 1)
 		{
@@ -220,6 +314,8 @@ public:
 		{
 			cout << num << " instances of \"" << data << "\" have been erased successfully." << endl << endl;
 		}
+
+		eraseFlag = false;
 		
 		return num;
 	}
