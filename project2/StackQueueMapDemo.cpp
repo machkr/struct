@@ -1,5 +1,6 @@
 #define action(f) bind(static_cast<void (StackQueueMapDemo::*)(vector<int>&)> (&StackQueueMapDemo::f) ,this,_1)
 #include "StackQueueMapDemo.h"
+#include "DynMap.h"
 
 using namespace std;
 
@@ -69,7 +70,7 @@ void StackQueueMapDemo::createQueue(vector<int>& prev)
 void StackQueueMapDemo::createMap(vector<int>& prev)
 {
 
-	map = new DynMap<string,string>();
+//	map = new DynMap<string,string>();
 
 	mapMenu->remove("Create Hash Table");	
 	mapMenu->add("Insert", action(mapInsert));

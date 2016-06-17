@@ -1,4 +1,5 @@
 #include "DynMap.h"
+#include <string>
 
 template <class K, class V> 
 DynMap<K,V>::DynMap() : 
@@ -10,13 +11,13 @@ DynMap<K,V>::DynMap() :
 	initializeArray(array, arraySize);
 }
 
-/*
+
 template <class K, class V> 
 int DynMap<K,V>::hash(K const &key) 
 {
-	
+	return 1;	
 }
-*/
+
 
 template <class K, class V> 
 void DynMap<K,V>::insert(K const &key, V const &val) 
@@ -77,4 +78,4 @@ void DynMap<K,V>::initializeArray(LinkedList<V> * a, int size) {
 
 
 	
-
+//template class DynMap<string, string>;
