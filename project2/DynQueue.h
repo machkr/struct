@@ -105,31 +105,33 @@ public:
 		if (eraseFlag == true) //Erase Call
 		{
 			cout << "We are in the Erase Call FOR ENQUEUE! LOL I LOVE ERASE." << endl;
-			if (count == arraySize)
+
+		if (count == 0)
+		{
+			ihead = itail;
+			queueArray[ihead] = data;
+			count++;
+			return;
+
+		}
+
+		else if (count == arraySize)
 			{
-				int temp = arraySize;
-				arraySize *= 2;
-				type *newArray = new type[arraySize];
+				int temp = 0;
+				type *newArray = new type[arraySize*2];
 
 				for (int i = ihead; i <= itail; i++)
 				{
-					if (i < temp) newArray[i] = queueArray[i];
+					if (temp < arraySize) newArray[i] = queueArray[i];
 					else newArray[i] = NULL;
+					temp++;
 				}
 
+				arraySize *= 2; 
 				queueArray = newArray;
 			}
 
-			else if (count == 0)
-			{
-				ihead = itail;
-				queueArray[itail] = data;
-				count++;
-				return;
-
-			}
-
-			else
+			
 
 			itail++;
 			queueArray[itail] = data;
@@ -140,33 +142,33 @@ public:
 		//Non-erase Call
 		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
 
-		if (count == arraySize)
-		{
-			int temp = arraySize;
-			arraySize *= 2;
-			type *newArray = new type[arraySize];
-
-			for (int i = ihead; i <= itail; i++)
-			{
-				if (i < temp) newArray[i] = queueArray[i];
-				else newArray[i] = NULL;
-			}
-
-			queueArray = newArray;
-			cout << endl << "The array size has been doubled to accept " << arraySize << " elements." << endl << endl;
-		}
-
-		else if (count == 0)
+		if (count == 0)
 		{
 			ihead = itail;
-			queueArray[itail] = data;
+			queueArray[ihead] = data;
 			count++;
 			cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 			return;
 
 		}
 
-		else
+		else if (count == arraySize)
+		{
+			int temp = 0;
+			type *newArray = new type[arraySize * 2];
+
+			for (int i = ihead; i <= itail; i++)
+			{
+				if (temp < arraySize) newArray[i] = queueArray[i];
+				else newArray[i] = NULL;
+				temp++;
+			}
+
+			arraySize *= 2;
+			queueArray = newArray;
+			cout << endl << "The array size has been doubled to accept " << arraySize << " elements." << endl << endl;
+		}
+
 
 		itail++;
 		queueArray[itail] = data;
@@ -176,6 +178,7 @@ public:
 
 	type dequeue()								//Removes element at the front of the queue. If after it's removed, the array is 1/4 full and array size is greater than the initial size, size of the array is halved. This may throw an underflow. (O(1) on average)
 	{	
+		int tempNumber = 0;
 
 		if (eraseFlag == true) //Erase Call
 		{
@@ -193,15 +196,15 @@ public:
 
 			if ((((double)count / (double)arraySize) <= 0.25) && (arraySize > initialSize))
 			{
-				arraySize /= 2;
-				type *newArray = new type[arraySize];
+				type *newArray = new type[arraySize/2];
 
 				for (int i = ihead; i <= itail; i++)
 				{
-					if (i < initialSize) newArray[i] = queueArray[i];
+					if (tempNumber < initialSize) newArray[i] = queueArray[i];
 					else newArray[i] = NULL;
+					tempNumber++;
 				}
-
+				arraySize /= 2;
 				queueArray = newArray;
 
 				}
@@ -229,17 +232,20 @@ public:
 			arraySize /= 2;
 			type *newArray = new type[arraySize];
 
-			for (int i = ihead; i <= itail; i++)
+			for (int i = ihead; i < itail; i++)
 			{
-				if (i < initialSize) newArray[i] = queueArray[i];
+				if (tempNumber < initialSize) newArray[i] = queueArray[i];
 				else newArray[i] = NULL;
+				tempNumber++;
 			}
 
+			arraySize /= 2;
 			queueArray = newArray;
 			cout << endl << "The array size has been halved to accept " << arraySize << " elements." << endl << endl;
 		}
 
 		cout << "The queue has been dequeued successfully (Removed \"" << temp << "\")." << endl << endl;
+
 		return temp;
 	}
 
@@ -294,8 +300,9 @@ public:
 				this->dequeue();
 			}
 
-			this->clear();
 		}
+
+		this->clear();
 
 		for (int i = 0; i <= (temp.count); i++)
 		{
