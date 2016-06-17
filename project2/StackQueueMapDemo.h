@@ -1,13 +1,13 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include "MenuList.h"
+#include "DynMap.h"
 
 class StackQueueMapDemo
 { 
 	private:
-		//DynMap<K,V> *map;
-		void *map;
-		//DynStack<Type> *stack;
+		DynMap<string,string> *map;
 		void *stack;
 		//DynQueue<Type> *queue;
 		void *queue;
@@ -50,7 +50,7 @@ class StackQueueMapDemo
 		void erase(vector<int> &prev) {};
 
 		// DynMap
-		void mapInsert(vector<int> &prev) {};
+		void mapInsert(vector<int> &prev);
 		void mapSearch(vector<int> &prev) {};
 		void mapDelete(vector<int> &prev) {};
 

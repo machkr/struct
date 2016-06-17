@@ -68,9 +68,8 @@ void StackQueueMapDemo::createQueue(vector<int>& prev)
 
 void StackQueueMapDemo::createMap(vector<int>& prev)
 {
-	/*
-	 *  Create Map Here
-	 */
+
+	map = new DynMap<string,string>();
 
 	mapMenu->remove("Create Hash Table");	
 	mapMenu->add("Insert", action(mapInsert));
@@ -83,9 +82,16 @@ void StackQueueMapDemo::createMap(vector<int>& prev)
 	mapMenu->add("Clear Hash Table", action(clear));
 }
 
-int main()
+
+void StackQueueMapDemo::mapInsert(vector<int> &prev) 
 {
-	StackQueueMapDemo demo;
-	demo.run();
-	return 0;
+	string key;
+	string value;
+	cout << "Key: ";
+	cin >> key;
+	cout << "Value: ";
+	cin >> value;
+	map->insert(key,value);
+
 }
+

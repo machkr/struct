@@ -1,3 +1,4 @@
+#pragma once
 class DynContainer { 
 	public:
 		virtual int size() const;

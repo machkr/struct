@@ -6,8 +6,6 @@
 #include <functional>
 #include <string>
 
-class LinkedListDemo;
-
 using namespace std;
 using namespace std::placeholders;
 
