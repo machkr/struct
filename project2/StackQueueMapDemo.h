@@ -6,6 +6,7 @@
 
 class StackQueueMapDemo
 { 
+	friend class MenuList;
 	private:
 		DynMap<string,string> *map;
 		void *stack;
@@ -29,11 +30,11 @@ class StackQueueMapDemo
 		void createMap(vector<int> &prev);
 
 		// DynContainer 
-		void size(vector<int> &prev) {};
-		void empty(vector<int> &prev) {};
-		void capacity(vector<int> &prev) {};
-		void display(vector<int> &prev) {};
-		void clear(vector<int> &prev) {};
+		void size(vector<int> &prev);
+		void empty(vector<int> &prev);
+		void capacity(vector<int> &prev);
+		void display(vector<int> &prev);
+		void clear(vector<int> &prev);
 
 		// DynStack
 		void stackTop(vector<int> &prev) {};
@@ -51,7 +52,7 @@ class StackQueueMapDemo
 
 		// DynMap
 		void mapInsert(vector<int> &prev);
-		void mapSearch(vector<int> &prev) {};
+		void mapSearch(vector<int> &prev);
 		void mapDelete(vector<int> &prev) {};
 
 	public:

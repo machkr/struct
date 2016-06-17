@@ -1,10 +1,12 @@
 #pragma once
 class DynContainer { 
 	public:
-		virtual int size() const;
-		virtual bool empty() const;
-		virtual int capacity() const;
-		virtual int display() const;
-		virtual void clear();
+		DynContainer(){};
+		~DynContainer(){};
+		virtual int size() const = 0;
+		virtual bool empty() const = 0;
+		virtual int capacity() const = 0;
+		virtual void display() const = 0;
+		virtual void clear() = 0;
 };
 

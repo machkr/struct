@@ -70,7 +70,7 @@ void StackQueueMapDemo::createQueue(vector<int>& prev)
 void StackQueueMapDemo::createMap(vector<int>& prev)
 {
 
-//	map = new DynMap<string,string>();
+	map = new DynMap<string,string>();
 
 	mapMenu->remove("Create Hash Table");	
 	mapMenu->add("Insert", action(mapInsert));
@@ -88,7 +88,7 @@ void StackQueueMapDemo::mapInsert(vector<int> &prev)
 {
 	string key;
 	string value;
-	cout << "Key: ";
+	cout << "(Insert)\nKey: ";
 	cin >> key;
 	cout << "Value: ";
 	cin >> value;
@@ -96,3 +96,124 @@ void StackQueueMapDemo::mapInsert(vector<int> &prev)
 
 }
 
+void StackQueueMapDemo::mapSearch(vector<int> &prev) 
+{
+	string key;
+	string value;
+	cout << "(Search)\nKey: ";
+	cin >> key;
+	try {
+		value = map->search(key);
+	} catch (const underflow_error& e) {
+		cout << e.what() << endl << endl;
+		return;
+	}
+	cout << "Value: " << value << endl << endl;;
+}
+
+void StackQueueMapDemo::size(vector<int> &prev)
+{
+	switch ( prev.back() ) 
+	{
+		// Stack
+		case 1: 
+			break;
+
+		// Queue
+		case 2:
+			break;
+
+		// Map
+		case 3:
+			cout << "Size: " << map->size() << endl << endl;
+			break;
+	}
+}
+
+void StackQueueMapDemo::empty(vector<int> &prev)
+{
+	switch ( prev.back() ) 
+	{
+		// Stack
+		case 1: 
+			break;
+
+		// Queue
+		case 2:
+			break;
+
+		// Map
+		case 3:
+			cout <<	(map->empty() ? "True" : "False");
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::capacity(vector<int> &prev)
+{
+	switch ( prev.back() ) 
+	{
+		// Stack
+		case 1: 
+			break;
+
+		// Queue
+		case 2:
+			break;
+
+		// Map
+		case 3:
+			cout << "Capacity: " << map->capacity();
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::display(vector<int> &prev)
+{
+	switch ( prev.back() ) 
+	{
+		// Stack
+		case 1: 
+			break;
+
+		// Queue
+		case 2:
+			break;
+
+		// Map
+		case 3:
+			try {
+				map->display();
+			} catch (const underflow_error& e) {
+				cout << e.what();
+			}
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::clear(vector<int> &prev)
+{
+	switch ( prev.back() ) 
+	{
+		// Stack
+		case 1: 
+			break;
+
+		// Queue
+		case 2:
+			break;
+
+		// Map
+		case 3:
+			try {
+				map->display();
+			} catch (const underflow_error& e) {
+				cout << e.what();
+			}
+			break;
+	}
+	cout << endl << endl;
+}

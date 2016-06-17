@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include <iterator>
 #include "LinkedList.h"
 #include "DynContainer.h"
 
@@ -15,25 +17,48 @@ struct MapNode {
 };
 
 template <class K, class V>
-class DynMap {
+class DynMap : public DynContainer {
 	public:
 		static const int INITIAL_SIZE = 8;
 	private:
 		LinkedList<MapNode<K,V>> ** array;
 		int count;
+		int bucketsFilled;
 		int initialSize;
 		int arraySize;
-		int hash(K const &key, int size) 
+
+		/******************
+		 * Hash Functions *
+		******************/
+		unsigned int hash(int const &key, int size) 
 		{
-			return 1;
+			if (key > 65536) {
+				throw overflow_error("Key is too big");
+			}
+			return ((25173 * key) + 13849) % size;
+		}
+
+		unsigned int hash(char const &key, int size) 
+		{
+			return ((25173 * key) + 13849) % size;
 		}
 	
+		unsigned int hash(string const &key, int size) 
+		{
+			int n = 1;
+			for (string::const_iterator it = key.begin(); it != key.end(); it++) {
+				n = (25173 * ((n * (*it)) % 65536) + 13849) % 65536;
+			} 
+			return ((25173 * n) + 13849) % size;
+		}
+		
 	public:
 		DynMap() : 
-				array(new LinkedList<MapNode<K,V>>*[INITIAL_SIZE]),
+				array(new LinkedList<MapNode<K,V>>*[4]),
 				count(0), 
-				initialSize(INITIAL_SIZE),
-				arraySize(INITIAL_SIZE)
+				bucketsFilled(0),
+				initialSize(4),
+				arraySize(4)
 		{
 			initializeArray(array, arraySize);
 		}
@@ -45,10 +70,25 @@ class DynMap {
 				doubleSize();
 
 			int h = hash(key, arraySize);
-			if (array[h] == nullptr) 
+			if (array[h] == nullptr) {
 				array[h] = new LinkedList<MapNode<K,V>>();
+				bucketsFilled++;
+			} else { 
+				// Find duplicate keys, replace if found
+				SingleNode<MapNode<K,V>> * curNode = array[h]->getHead();
+				while(curNode!=nullptr)
+				{
+					if (curNode->getData().key == key)
+					{
+						array[h]->erase(curNode->getData());
+						array[h]->push_back({key,val});
+					}
+					curNode = curNode->getNext();
+				}
+			}
 				
 			array[h]->push_back({key,val});
+			count++;
 			
 		}
 
@@ -119,8 +159,33 @@ class DynMap {
 		int size() const { return count; }
 		bool empty() const { return count == 0; }
 		int capacity() const { return arraySize; }
-		void display() const {}	;
-		void clear() {};
+		void display() const 
+		{
+			if (empty())
+				throw underflow_error("Hash Table is empty");
+
+			for (int i = 0; i < arraySize; i++) 
+			{
+				if (array[i] == nullptr) continue;
+				
+				SingleNode<MapNode<K,V>> * curNode = array[i]->getHead();
+				while(curNode != nullptr) {
+					MapNode<K,V> curMapNode = curNode->getData();
+					cout << "Key: " << curMapNode.key << endl;
+					cout << "Value: " << curMapNode.val << endl << endl;
+					curNode = curNode->getNext();
+				}
+			}
+		}	
+
+		void clear() 
+		{
+			for (int i = 0; i < arraySize; i++) 
+			{
+				if (array[i] == nullptr) continue;
+				delete array[i];
+			}
+		};
 
 		void initializeArray(LinkedList<MapNode<K,V>> ** a, int size) 
 		{
