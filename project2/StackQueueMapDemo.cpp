@@ -1,5 +1,6 @@
 #define action(f) bind(static_cast<void (StackQueueMapDemo::*)(vector<int>&)> (&StackQueueMapDemo::f) ,this,_1)
 #include "StackQueueMapDemo.h"
+#include "DynMap.h"
 
 using namespace std;
 
@@ -68,9 +69,8 @@ void StackQueueMapDemo::createQueue(vector<int>& prev)
 
 void StackQueueMapDemo::createMap(vector<int>& prev)
 {
-	/*
-	 *  Create Map Here
-	 */
+
+	map = new DynMap<string,string>();
 
 	mapMenu->remove("Create Hash Table");	
 	mapMenu->add("Insert", action(mapInsert));
@@ -83,9 +83,153 @@ void StackQueueMapDemo::createMap(vector<int>& prev)
 	mapMenu->add("Clear Hash Table", action(clear));
 }
 
-int main()
+
+void StackQueueMapDemo::size(vector<int> &prev)
 {
-	StackQueueMapDemo demo;
-	demo.run();
-	return 0;
+	cout << "(Size)" << endl;
+	switch ( prev.back() ) 
+	{
+		
+		case 1: // Stack
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			cout << map->size(); 
+			break;
+	}
+	cout << endl << endl;
 }
+
+void StackQueueMapDemo::empty(vector<int> &prev)
+{
+	cout << "(Empty)" << endl;
+	switch ( prev.back() ) 
+	{
+		
+		case 1: // Stack
+			break;
+
+		
+		case 2: // Queue
+			break;
+
+		
+		case 3: // Map
+			cout <<	(map->empty() ? "True" : "False");
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::capacity(vector<int> &prev)
+{
+	cout << "(Capacity)" << endl;
+	switch ( prev.back() ) 
+	{
+		
+		case 1: // Stack 
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			cout << map->capacity();
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::display(vector<int> &prev)
+{
+	cout << "(Display)" << endl;
+	switch ( prev.back() ) 
+	{
+		case 1: // Stack
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			try {
+				map->display();
+			} catch (const underflow_error& e) {
+				cout << e.what();
+			}
+			break;
+	}
+	cout << endl;
+}
+
+void StackQueueMapDemo::clear(vector<int> &prev)
+{
+	cout << "(Clear)" << endl;
+	switch ( prev.back() ) 
+	{
+		case 1: // Stack
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			map->clear();
+			cout << "Hash Table cleared";
+			break;
+	}
+	cout << endl << endl;
+}
+
+
+/**************
+ * Hash Table *
+ * ***********/
+
+void StackQueueMapDemo::mapInsert(vector<int> &prev) 
+{
+	string key;
+	string value;
+	cout << "(Insert)\nKey: ";
+	cin >> key;
+	cout << "Value: ";
+	cin >> value;
+	map->insert(key,value);
+	cout << endl;
+
+}
+
+void StackQueueMapDemo::mapSearch(vector<int> &prev) 
+{
+	string key;
+	string value;
+	cout << "(Search)\nKey: ";
+	cin >> key;
+	try {
+		value = map->search(key);
+	} catch (const underflow_error& e) {
+		cout << e.what() << endl << endl;
+		return;
+	}
+	cout << "Value: " << value << endl << endl;;
+}
+
+void StackQueueMapDemo::mapDelete(vector<int> &prev)
+{
+	cout << "(Delete)" << endl;
+	string key;
+	string value;
+	cout << "(Delete)\nKey: ";
+	cin >> key;
+	try {
+		map->del(key);
+	} catch (const underflow_error& e) {
+		cout << e.what();
+	}
+	cout << "Delete successful.";
+	cout << endl << endl;
+}
+
