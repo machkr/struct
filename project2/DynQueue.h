@@ -19,7 +19,7 @@ public:
 	int initialSize; //Array capacity (should be 13 if using default constructor) 
 	//Constructors
 
-	DynQueue(int size) : count(0), ihead(0), itail(0), arraySize(0)
+	DynQueue(int size) : count(0), ihead(0), itail(0)
 	{
 		if (size <= 0)
 		{
@@ -29,6 +29,8 @@ public:
 		{
 			this->initialSize = size;
 		}
+
+		this->arraySize = this->initialSize;
 
 		queueArray = new type[this->initialSize];
 
@@ -71,7 +73,7 @@ public:
 
 	int capacity()								//Returns the current size of the array. (O(1)) 
 	{	
-		return arraySize;
+		return this->arraySize;
 	}
 
 	void display()								//Prints the content of the Queue. (O(n))
@@ -88,7 +90,7 @@ public:
 
 		cout << "Here's the queue, from front to back:" << endl;
 
-		for (int i = ihead; i < (itail+1); i++)
+		for (int i = this->ihead; i <= this->itail; i++)
 		{
 			cout << "Element " << number << ": " << queueArray[i] << endl;
 			number++;
@@ -119,10 +121,10 @@ public:
 				int temp = 0;
 				type *newArray = new type[arraySize*2];
 
-				for (int i = ihead; i <= itail; i++)
+				for (int i = this->ihead; i <= this->itail; i++)
 				{
 					if (temp < this->arraySize) newArray[i] = queueArray[i];
-					else newArray[i] = NULL;
+					else newArray[i].clear();
 					temp++;
 				}
 
@@ -156,10 +158,10 @@ public:
 			int temp = 0;
 			type *newArray = new type[arraySize * 2];
 
-			for (int i = ihead; i <= itail; i++)
+			for (int i = this->ihead; i <= this->itail; i++)
 			{
 				if (temp < arraySize) newArray[i] = queueArray[i];
-				else newArray[i] = NULL;
+				else newArray[i].clear();
 				temp++;
 			}
 
@@ -182,30 +184,25 @@ public:
 		//Erase Call
 		if (eraseFlag == true) 
 		{
-			if (this->empty())
-			{
-				cerr << ("Error: the queue is empty.") << endl;
-				return NULL;
-			}
+			if (this->empty()) throw underflow_error("Error: the queue is empty.");
 
 			type temp = this->front();
-			queueArray[ihead] = NULL;
+			queueArray[ihead].clear();
 			count--;
 			ihead++;
 
-			if ((((double)count / (double)arraySize) <= 0.25) && (arraySize > initialSize))
+			if (((double)count / (double)arraySize <= 0.25) && (arraySize > initialSize))
 			{
 				type *newArray = new type[arraySize/2];
 
-				for (int i = ihead; i <= itail; i++)
+				for (int i = this->ihead; i <= this->itail; i++)
 				{
 					if (tempNumber < initialSize) newArray[i] = queueArray[i];
-					else newArray[i] = NULL;
+					else newArray[i].clear();
 					tempNumber++;
 				}
 				arraySize /= 2;
 				queueArray = newArray;
-
 				}
 
 			return temp;
@@ -214,18 +211,14 @@ public:
 		//Non-erase call
 		cout << "Attempting to dequeue from the queue..." << endl;
 
-		if (this->empty())
-		{
-			cerr << ("Error: the queue is empty.") << endl;
-			return NULL;
-		}
+		if (this->empty()) throw underflow_error("Error: the queue is empty.");
 
 		type temp = this->front();
-		queueArray[ihead] = NULL;
+		queueArray[ihead].clear();
 		count--;
 		ihead++;
 
-		if ((((double)count / (double)arraySize) <= 0.25) && (arraySize > initialSize))
+		if (((double)count / (double)arraySize <= 0.25) && (arraySize > initialSize))
 		{
 			arraySize /= 2;
 			type *newArray = new type[arraySize];
@@ -233,7 +226,7 @@ public:
 			for (int i = ihead; i < itail; i++)
 			{
 				if (tempNumber < initialSize) newArray[i] = queueArray[i];
-				else newArray[i] = NULL;
+				else newArray[i].clear();
 				tempNumber++;
 			}
 
@@ -259,7 +252,7 @@ public:
 
 			for (int i = ihead; i <= itail; i++)
 			{
-				queueArray[i] = NULL;
+				queueArray[i].clear();
 				count--;
 				ihead++;
 			}
@@ -277,9 +270,9 @@ public:
 			return;
 		}
 
-		for (int i = ihead; i <= itail; i++)
+		for (int i = this->ihead; i <= this->itail; i++)
 		{
-			queueArray[i] = NULL;
+			queueArray[i].clear();
 			count--;
 			ihead++;
 		}
@@ -305,7 +298,7 @@ public:
 			return 0;
 		}
 
-		for (int i = ihead; i <= itail; i++)
+		for (int i = this->ihead; i <= this->itail; i++)
 		{
 			if (data == queueArray[i])
 			{

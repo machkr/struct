@@ -43,10 +43,10 @@ class StackQueueMapDemo
 		void stackPop(vector<int> &prev);
 
 		// DynQueue
-		void qFront(vector<int> &prev) {};
-		void qBack(vector<int> &prev) {};
-		void qEnqueue(vector<int> &prev) {};
-		void qDequeue(vector<int> &prev) {};
+		void qFront(vector<int> &prev);
+		void qBack(vector<int> &prev);
+		void qEnqueue(vector<int> &prev);
+		void qDequeue(vector<int> &prev);
 		
 		// DynStack and DynQueue
 		void erase(vector<int> &prev);
