@@ -123,6 +123,8 @@ class DynMap : public DynContainer {
 				if (curNode->getData().key == key) 
 				{
 					array[h]->erase({key,curNode->getData().val});
+					if (array[h]->empty()) 
+						delete array[h];
 					return;
 				}
 				curNode = curNode->getNext();
@@ -187,12 +189,13 @@ class DynMap : public DynContainer {
 		{
 			for (int i = 0; i < arraySize; i++) 
 			{
-				if (array[i] == nullptr) continue;
-				delete array[i];
+				if (array[i] != nullptr)
+					delete array[i];
 			}
 			delete array;
 			array = new LinkedList<MapNode<K,V>>*[initialSize];	
 			arraySize = initialSize;
+			initializeArray(array,arraySize);
 		};
 
 		void initializeArray(LinkedList<MapNode<K,V>> ** a, int size) 
