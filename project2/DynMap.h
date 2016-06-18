@@ -76,14 +76,14 @@ class DynMap : public DynContainer {
 				array[h] = new LinkedList<MapNode<K,V>>();
 				bucketsFilled++;
 			} else { 
-				// Find duplicate keys, replace if found
+				// Find duplicate keys
 				SingleNode<MapNode<K,V>> * curNode = array[h]->getHead();
 				while(curNode!=nullptr)
 				{
 					if (curNode->getData().key == key)
 					{
 						array[h]->erase(curNode->getData());
-						array[h]->push_back({key,val});
+						break;
 					}
 					curNode = curNode->getNext();
 				}

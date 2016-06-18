@@ -194,9 +194,9 @@ void StackQueueMapDemo::mapInsert(vector<int> &prev)
 	string key;
 	string value;
 	cout << "(Insert)\nKey: ";
-	cin >> key;
+	getline(cin,key);
 	cout << "Value: ";
-	cin >> value;
+	getline(cin,value);
 	map->insert(key,value);
 	cout << endl;
 
@@ -207,7 +207,7 @@ void StackQueueMapDemo::mapSearch(vector<int> &prev)
 	string key;
 	string value;
 	cout << "(Search)\nKey: ";
-	cin >> key;
+	getline(cin,key);
 	try {
 		value = map->search(key);
 	} catch (const underflow_error& e) {
@@ -219,15 +219,15 @@ void StackQueueMapDemo::mapSearch(vector<int> &prev)
 
 void StackQueueMapDemo::mapDelete(vector<int> &prev)
 {
-	cout << "(Delete)" << endl;
 	string key;
 	string value;
 	cout << "(Delete)\nKey: ";
-	cin >> key;
+	getline(cin,key);
 	try {
 		map->del(key);
 	} catch (const underflow_error& e) {
 		cout << e.what();
+		return;
 	}
 	cout << "Delete successful.";
 	cout << endl << endl;

@@ -49,6 +49,7 @@ void MenuList::run()
 		// Get choice
 		string choiceStr;
 		cin >> choiceStr;
+		cin.ignore();
 
 		cout << endl;
 
