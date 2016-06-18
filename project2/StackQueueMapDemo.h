@@ -3,15 +3,16 @@
 #include <string>
 #include "MenuList.h"
 #include "DynMap.h"
+#include "DynQueue.h"
+#include "DynStack.h"
 
 class StackQueueMapDemo
 { 
 	friend class MenuList;
 	private:
 		DynMap<string,string> *map;
-		void *stack;
-		//DynQueue<Type> *queue;
-		void *queue;
+		DynStack<string> *stack;
+		DynQueue<string> *queue;
 
 		MenuList *mainMenu;
 		MenuList *stackMenu;
@@ -37,18 +38,18 @@ class StackQueueMapDemo
 		void clear(vector<int> &prev);
 
 		// DynStack
-		void stackTop(vector<int> &prev) {};
-		void stackPush(vector<int> &prev) {};
-		void stackPop(vector<int> &prev) {};
+		void stackTop(vector<int> &prev);
+		void stackPush(vector<int> &prev);
+		void stackPop(vector<int> &prev);
 
-		// Dyn Queue
+		// DynQueue
 		void qFront(vector<int> &prev) {};
 		void qBack(vector<int> &prev) {};
 		void qEnqueue(vector<int> &prev) {};
 		void qDequeue(vector<int> &prev) {};
 		
-		// Stack and Queue
-		void erase(vector<int> &prev) {};
+		// DynStack and DynQueue
+		void erase(vector<int> &prev);
 
 		// DynMap
 		void mapInsert(vector<int> &prev);
