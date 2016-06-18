@@ -90,7 +90,7 @@ public:
 			cout << "Attempting to push \"" << data << "\"..." << endl;
 		}
 		
-		if (count == initialSize)
+		if (count == arraySize)
 		{
 			type *newArray = new type[2 * arraySize];
 
@@ -103,7 +103,7 @@ public:
 			if (!eraseFlag)
 			{
 				cout << "Warning: the stack is full (" << count << "/" << arraySize << ")." << endl;
-				cout << "The array size has been doubled to accept " << arraySize << " elements." << endl;
+				cout << "The array size has been doubled to accept " << (arraySize * 2) << " elements." << endl;
 			}
 
 			arraySize = 2 * arraySize;
@@ -179,9 +179,11 @@ public:
 	int erase(type const &data)
 	{
 		int num = 0;
-		eraseFlag = true;
 
 		DynStack<type> temp = DynStack<type>(count);
+
+		eraseFlag = true;
+		temp.eraseFlag = true;
 
 		cout << "Attempting to erase \"" << data << "\"..." << endl;
 
@@ -214,6 +216,7 @@ public:
 			cout << num << " instances of \"" << data << "\" have been erased successfully." << endl << endl;
 		}
 		
+		temp.eraseFlag = false;
 		eraseFlag = false;
 		return num;
 	}

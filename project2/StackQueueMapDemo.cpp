@@ -203,7 +203,6 @@ void StackQueueMapDemo::clear(vector<int> &prev)
 			cout << "Hash Table cleared.";
 			break;
 	}
-	cout << endl << endl;
 }
 
 
