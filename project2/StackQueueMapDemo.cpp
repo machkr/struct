@@ -84,6 +84,111 @@ void StackQueueMapDemo::createMap(vector<int>& prev)
 }
 
 
+void StackQueueMapDemo::size(vector<int> &prev)
+{
+	cout << "(Size)" << endl;
+	switch ( prev.back() ) 
+	{
+		
+		case 1: // Stack
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			cout << map->size(); 
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::empty(vector<int> &prev)
+{
+	cout << "(Empty)" << endl;
+	switch ( prev.back() ) 
+	{
+		
+		case 1: // Stack
+			break;
+
+		
+		case 2: // Queue
+			break;
+
+		
+		case 3: // Map
+			cout <<	(map->empty() ? "True" : "False");
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::capacity(vector<int> &prev)
+{
+	cout << "(Capacity)" << endl;
+	switch ( prev.back() ) 
+	{
+		
+		case 1: // Stack 
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			cout << map->capacity();
+			break;
+	}
+	cout << endl << endl;
+}
+
+void StackQueueMapDemo::display(vector<int> &prev)
+{
+	cout << "(Display)" << endl;
+	switch ( prev.back() ) 
+	{
+		case 1: // Stack
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			try {
+				map->display();
+			} catch (const underflow_error& e) {
+				cout << e.what();
+			}
+			break;
+	}
+	cout << endl;
+}
+
+void StackQueueMapDemo::clear(vector<int> &prev)
+{
+	cout << "(Clear)" << endl;
+	switch ( prev.back() ) 
+	{
+		case 1: // Stack
+			break;
+
+		case 2: // Queue
+			break;
+
+		case 3: // Map
+			map->clear();
+			cout << "Hash Table cleared";
+			break;
+	}
+	cout << endl << endl;
+}
+
+
+/**************
+ * Hash Table *
+ * ***********/
+
 void StackQueueMapDemo::mapInsert(vector<int> &prev) 
 {
 	string key;
@@ -93,6 +198,7 @@ void StackQueueMapDemo::mapInsert(vector<int> &prev)
 	cout << "Value: ";
 	cin >> value;
 	map->insert(key,value);
+	cout << endl;
 
 }
 
@@ -111,109 +217,19 @@ void StackQueueMapDemo::mapSearch(vector<int> &prev)
 	cout << "Value: " << value << endl << endl;;
 }
 
-void StackQueueMapDemo::size(vector<int> &prev)
+void StackQueueMapDemo::mapDelete(vector<int> &prev)
 {
-	switch ( prev.back() ) 
-	{
-		// Stack
-		case 1: 
-			break;
-
-		// Queue
-		case 2:
-			break;
-
-		// Map
-		case 3:
-			cout << "Size: " << map->size() << endl << endl;
-			break;
+	cout << "(Delete)" << endl;
+	string key;
+	string value;
+	cout << "(Delete)\nKey: ";
+	cin >> key;
+	try {
+		map->del(key);
+	} catch (const underflow_error& e) {
+		cout << e.what();
 	}
-}
-
-void StackQueueMapDemo::empty(vector<int> &prev)
-{
-	switch ( prev.back() ) 
-	{
-		// Stack
-		case 1: 
-			break;
-
-		// Queue
-		case 2:
-			break;
-
-		// Map
-		case 3:
-			cout <<	(map->empty() ? "True" : "False");
-			break;
-	}
+	cout << "Delete successful.";
 	cout << endl << endl;
 }
 
-void StackQueueMapDemo::capacity(vector<int> &prev)
-{
-	switch ( prev.back() ) 
-	{
-		// Stack
-		case 1: 
-			break;
-
-		// Queue
-		case 2:
-			break;
-
-		// Map
-		case 3:
-			cout << "Capacity: " << map->capacity();
-			break;
-	}
-	cout << endl << endl;
-}
-
-void StackQueueMapDemo::display(vector<int> &prev)
-{
-	switch ( prev.back() ) 
-	{
-		// Stack
-		case 1: 
-			break;
-
-		// Queue
-		case 2:
-			break;
-
-		// Map
-		case 3:
-			try {
-				map->display();
-			} catch (const underflow_error& e) {
-				cout << e.what();
-			}
-			break;
-	}
-	cout << endl << endl;
-}
-
-void StackQueueMapDemo::clear(vector<int> &prev)
-{
-	switch ( prev.back() ) 
-	{
-		// Stack
-		case 1: 
-			break;
-
-		// Queue
-		case 2:
-			break;
-
-		// Map
-		case 3:
-			try {
-				map->display();
-			} catch (const underflow_error& e) {
-				cout << e.what();
-			}
-			break;
-	}
-	cout << endl << endl;
-}

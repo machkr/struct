@@ -53,7 +53,7 @@ class StackQueueMapDemo
 		// DynMap
 		void mapInsert(vector<int> &prev);
 		void mapSearch(vector<int> &prev);
-		void mapDelete(vector<int> &prev) {};
+		void mapDelete(vector<int> &prev);
 
 	public:
 		void run()

@@ -30,26 +30,28 @@ class DynMap : public DynContainer {
 		/******************
 		 * Hash Functions *
 		******************/
-		unsigned int hash(int const &key, int size) 
+		unsigned int hash(int const &key, int size) const
 		{
-			if (key > 65536) {
-				throw overflow_error("Key is too big");
-			}
-			return ((25173 * key) + 13849) % size;
+			unsigned long n = (unsigned long)key;
+			n = ((1103515245 * n) + 12345) % 4294967296;
+			return (unsigned int) n % size;
 		}
 
-		unsigned int hash(char const &key, int size) 
+		unsigned int hash(char const &key, int size) const 
 		{
-			return ((25173 * key) + 13849) % size;
+			unsigned long n = (unsigned long)key;
+			n = ((1103515245 * n) + 12345) % 4294967296;
+			return (unsigned int) n % size;
+
 		}
 	
-		unsigned int hash(string const &key, int size) 
+		unsigned int hash(string const &key, int size) const 
 		{
-			int n = 1;
+			unsigned long n = 1;
 			for (string::const_iterator it = key.begin(); it != key.end(); it++) {
-				n = (25173 * ((n * (*it)) % 65536) + 13849) % 65536;
+				n = (1103515245 * (n + (*it)) + 12345) % 4294967296;
 			} 
-			return ((25173 * n) + 13849) % size;
+			return (unsigned int)(n % size);
 		}
 		
 	public:
@@ -69,7 +71,7 @@ class DynMap : public DynContainer {
 			if ( count > (arraySize / 2) )
 				doubleSize();
 
-			int h = hash(key, arraySize);
+			unsigned int h = hash(key, arraySize);
 			if (array[h] == nullptr) {
 				array[h] = new LinkedList<MapNode<K,V>>();
 				bucketsFilled++;
@@ -94,7 +96,7 @@ class DynMap : public DynContainer {
 
 		V search(K const &key) 
 		{
-			int h = hash(key, arraySize);
+			unsigned int h = hash(key, arraySize);
 			if (array[h] == nullptr) 
 				throw underflow_error("Key not found");
 
@@ -111,7 +113,7 @@ class DynMap : public DynContainer {
 
 		void del(K const &key) 
 		{
-			int h = hash(key, arraySize);
+			unsigned int h = hash(key, arraySize);
 			if (array[h] == nullptr)
 				throw underflow_error("Key not found");
 
@@ -140,7 +142,7 @@ class DynMap : public DynContainer {
 					SingleNode<MapNode<K,V>> * curNode = array[i]->getHead();
 					while (curNode != nullptr) 
 					{
-						int h = hash(curNode->getData().key, arraySize*2);
+						unsigned int h = hash(curNode->getData().key, arraySize*2);
 						if (newArray[h] == nullptr) 
 							newArray[h] = new LinkedList<MapNode<K,V>>();
 						newArray[h]->push_back(curNode->getData());
@@ -159,6 +161,7 @@ class DynMap : public DynContainer {
 		int size() const { return count; }
 		bool empty() const { return count == 0; }
 		int capacity() const { return arraySize; }
+
 		void display() const 
 		{
 			if (empty())
@@ -171,8 +174,10 @@ class DynMap : public DynContainer {
 				SingleNode<MapNode<K,V>> * curNode = array[i]->getHead();
 				while(curNode != nullptr) {
 					MapNode<K,V> curMapNode = curNode->getData();
+					unsigned int h = hash(curMapNode.key, arraySize);
 					cout << "Key: " << curMapNode.key << endl;
-					cout << "Value: " << curMapNode.val << endl << endl;
+					cout << "Value: " << curMapNode.val << endl ;
+					cout << "Hash: " << h << endl << endl;
 					curNode = curNode->getNext();
 				}
 			}
@@ -185,6 +190,9 @@ class DynMap : public DynContainer {
 				if (array[i] == nullptr) continue;
 				delete array[i];
 			}
+			delete array;
+			array = new LinkedList<MapNode<K,V>>*[initialSize];	
+			arraySize = initialSize;
 		};
 
 		void initializeArray(LinkedList<MapNode<K,V>> ** a, int size) 
