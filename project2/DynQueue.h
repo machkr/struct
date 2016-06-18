@@ -11,27 +11,26 @@ private:
 	int count;				//Counter
 	int ihead;				//Head index
 	int itail;				//Tail index
-	int initialSize;		//Array capacity (should be 13 if using default constructor) 
 	int arraySize;			//Current array size
 	bool eraseFlag = false;
 
 public:
 
+	int initialSize; //Array capacity (should be 13 if using default constructor) 
 	//Constructors
 
-	DynQueue(int size) : count(0), ihead(0), itail(0)
+	DynQueue(int size) : count(0), ihead(0), itail(0), arraySize(0)
 	{
 		if (size <= 0)
 		{
-			initialSize = 1;
-			arraySize = 0;
+			this->initialSize = 1;
 		}
-		else {
-			initialSize = size;
-			arraySize = 0;
+		else 
+		{
+			this->initialSize = size;
 		}
 
-		queueArray = new type[initialSize];
+		queueArray = new type[this->initialSize];
 
 	}
 
@@ -102,11 +101,11 @@ public:
 
 	void enqueue(type const &data)				//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
 	{
-		if (eraseFlag == true) //Erase Call
+		//Erase Call
+		if (eraseFlag == true)
 		{
-			cout << "We are in the Erase Call FOR ENQUEUE! LOL I LOVE ERASE." << endl;
 
-		if (count == 0)
+		if (this->count == 0)
 		{
 			ihead = itail;
 			queueArray[ihead] = data;
@@ -115,19 +114,19 @@ public:
 
 		}
 
-		else if (count == arraySize)
+		else if (this->count == this->arraySize)
 			{
 				int temp = 0;
 				type *newArray = new type[arraySize*2];
 
 				for (int i = ihead; i <= itail; i++)
 				{
-					if (temp < arraySize) newArray[i] = queueArray[i];
+					if (temp < this->arraySize) newArray[i] = queueArray[i];
 					else newArray[i] = NULL;
 					temp++;
 				}
 
-				arraySize *= 2; 
+				this->arraySize *= 2; 
 				queueArray = newArray;
 			}
 
@@ -135,7 +134,7 @@ public:
 
 			itail++;
 			queueArray[itail] = data;
-			count++;
+			this->count++;
 			return;
 		}
 
@@ -180,9 +179,9 @@ public:
 	{	
 		int tempNumber = 0;
 
-		if (eraseFlag == true) //Erase Call
+		//Erase Call
+		if (eraseFlag == true) 
 		{
-			cout << "We are in the Erase Call! LOL I LOVE ERASE." << endl;
 			if (this->empty())
 			{
 				cerr << ("Error: the queue is empty.") << endl;
@@ -213,7 +212,6 @@ public:
 		}
 
 		//Non-erase call
-
 		cout << "Attempting to dequeue from the queue..." << endl;
 
 		if (this->empty())
@@ -251,6 +249,26 @@ public:
 
 	void clear()								//Removes all elements in the queue. The array is resized to the initial size. (O(1))
 	{	
+		//Erase Call
+		if (eraseFlag == true)
+		{
+			if (this->empty())
+			{
+				return;
+			}
+
+			for (int i = ihead; i <= itail; i++)
+			{
+				queueArray[i] = NULL;
+				count--;
+				ihead++;
+			}
+
+			arraySize = initialSize;
+			return;		
+		}
+
+		//Non-Erase Call
 		cout << "Attempting to clear the queue..." << endl;
 
 		if (this->empty())
@@ -283,7 +301,7 @@ public:
 		if (this->empty())
 		{
 			cerr << ("Error: the queue is empty.") << endl;
-			if (this->empty()) throw underflow_error("Error: the queue is empty.");
+			//if (this->empty()) throw underflow_error("Error: the queue is empty.");
 			return 0;
 		}
 
@@ -296,19 +314,19 @@ public:
 			}
 			else
 			{
-				temp.enqueue(queueArray[i]);
-				this->dequeue();
+				temp.enqueue(this->dequeue());
 			}
 
 		}
 
 		this->clear();
 
-		for (int i = 0; i <= (temp.count); i++)
+		for (int i = temp.ihead; i <= (temp.itail); i++)
 		{
-			type tempData = temp.front();
+			this->enqueue(temp.dequeue());
+			/*type tempData = temp.front();
 			temp.dequeue();
-			this->enqueue(tempData);
+			this->enqueue(tempData);*/
 		}
 
 		temp.clear();
