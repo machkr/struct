@@ -53,9 +53,14 @@ void StackQueueMapDemo::createStack(vector<int>& prev)
 
 void StackQueueMapDemo::createQueue(vector<int>& prev)
 {
-	/*
-	 *  Create Queue Here
-	 */
+	int size;
+	cout << endl << "Please enter the size of the queue: ";
+	cin >> size;
+	cin.ignore();
+
+	queue = new DynQueue<string>(size);
+
+	cout << endl << "Queue created successfully." << endl << endl;
 	
 	qMenu->remove("Create Queue");
 	qMenu->add("Enq Value", action(qEnqueue));
@@ -96,6 +101,7 @@ void StackQueueMapDemo::size(vector<int> &prev)
 			break;
 
 		case 2: // Queue
+			cout << queue->size(); //Adding extra content so it doesn't look like copy paste. YOLO LOL SWAG I LOVE YOU MATT. 
 			break;
 
 		case 3: // Map
@@ -117,6 +123,7 @@ void StackQueueMapDemo::empty(vector<int> &prev)
 
 		
 		case 2: // Queue
+			cout << (queue->empty() ? "True." : "False.");
 			break;
 
 		
@@ -137,6 +144,7 @@ void StackQueueMapDemo::capacity(vector<int> &prev)
 			break;
 
 		case 2: // Queue
+			cout << queue->capacity();
 			break;
 
 		case 3: // Map
@@ -163,6 +171,14 @@ void StackQueueMapDemo::display(vector<int> &prev)
 			break;
 
 		case 2: // Queue
+			try
+			{
+				queue->display();
+			}
+			catch (const underflow_error& e)
+			{
+				cout << e.what();
+			}
 			break;
 
 		case 3: // Map
@@ -198,6 +214,16 @@ void StackQueueMapDemo::clear(vector<int> &prev)
 			break;
 
 		case 2: // Queue
+			try
+			{
+				queue->clear();
+			}
+			catch (const underflow_error& e)
+			{
+				cout << e.what();
+			}
+
+			cout << "Queue cleared.";
 			break;
 
 		case 3: // Map
@@ -251,6 +277,59 @@ void StackQueueMapDemo::stackPop(vector<int> &prev)
 	}
 }
 
+void StackQueueMapDemo::qFront(vector<int> &prev)
+{
+	cout << "(Front)" << endl;
+
+	try
+	{
+		cout << "\"" << queue->front() << "\"" << endl << endl;
+	}
+	catch (const underflow_error& e)
+	{
+		cout << e.what() << endl << endl;
+		return;
+	}
+}
+
+void StackQueueMapDemo::qBack(vector<int> &prev)
+{
+	cout << "(Back)" << endl;
+
+	try
+	{
+		cout << "\"" << queue->back() << "\"" << endl << endl;
+	}
+	catch (const underflow_error& e)
+	{
+		cout << e.what() << endl << endl;
+		return;
+	}
+}
+
+void StackQueueMapDemo::qEnqueue(vector<int> &prev)
+{
+	cout << "(Enqueue)" << endl;
+	string data;
+	cout << "Data: ";
+	getline(cin, data);
+	queue->enqueue(data);
+}
+
+void StackQueueMapDemo::qDequeue(vector<int> &prev)
+{
+	cout << "(Pop)" << endl;
+	try
+	{
+		queue->dequeue();
+	}
+	catch (const underflow_error& e)
+	{
+		cout << e.what() << endl << endl;
+		return;
+	}
+}
+
 
 /************************
  *    Stack and Queue   *
@@ -270,6 +349,7 @@ void StackQueueMapDemo::erase(vector<int> &prev)
 		break;
 
 	case 2: // Queue
+		queue->erase(data);
 		break;
 	}
 
