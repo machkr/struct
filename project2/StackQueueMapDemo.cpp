@@ -5,10 +5,10 @@ template <typename type>
 void StackQueueMapDemo<type>::buildMenus()
 {
 	// Initialize menus
-	mainMenu = new MenuList("Please choose a container.");
-	stackMenu = new MenuList("Please choose an action for: Stack");
-	qMenu = new MenuList("Please choose an action for: Queue");
-	mapMenu = new MenuList("Please choose an action: Hash Table");
+	mainMenu = new MenuList("Please choose a container:");
+	stackMenu = new MenuList("Please choose an action for the stack:");
+	qMenu = new MenuList("Please choose an action for the queue:");
+	mapMenu = new MenuList("Please choose an action for the hash table:");
 
 	// Main Menu
 	mainMenu->setIsMain(true);
@@ -30,7 +30,7 @@ template <typename type>
 void StackQueueMapDemo<type>::createStack(vector<int>& prev)
 {
 	int size;
-	cout << endl << "Please enter the size: " << endl;
+	cout << endl << "Please enter the size: ";
 	cin >> size;
 
 	stack = new DynStack<string>(size);

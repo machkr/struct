@@ -11,6 +11,7 @@ private:
 	int count;
 	int initialSize;
 	int arraySize;
+	bool eraseFlag = false;
 
 public:
 	//Constructor
@@ -102,8 +103,12 @@ public:
 				else newArray[i].clear();
 			}
 
-			cout << "Warning: the stack is full (" << count << "/" << arraySize << ")." << endl;
-			cout << "The stack size has been doubled to accept " << arraySize << " elements." << endl;
+			if (!eraseFlag)
+			{
+				cout << "Warning: the stack is full (" << count << "/" << arraySize << ")." << endl;
+				cout << "The stack size has been doubled to accept " << (arraySize * 2) << " elements." << endl;
+			}
+
 			arraySize = 2 * arraySize;
 			stackArray = newArray;
 		}
@@ -118,7 +123,7 @@ public:
 		{
 			cerr << ("Error: the stack is empty.") << endl << endl;
 			//if (this->empty()) throw underflow_error("Error: the stack is empty.");
-			return NULL;
+			exit;
 		}
 
 		type temp = this->top();
@@ -135,8 +140,12 @@ public:
 				else newArray[i].clear();
 			}
 
-			cout << "Warning: the stack is nearly empty (" << count << "/" << arraySize << ")." << endl;
-			cout << "The stack size has been halved to accept " << arraySize / 2 << " elements." << endl;
+			if (!eraseFlag)
+			{
+				cout << "Warning: the stack is nearly empty (" << count << "/" << arraySize << ")." << endl;
+				cout << "The stack size has been halved to accept " << arraySize / 2 << " elements." << endl;
+			}
+
 			stackArray = newArray;
 			arraySize = arraySize / 2;
 		}
@@ -168,6 +177,7 @@ public:
 	int erase(type const &data)
 	{
 		int num = 0;
+		eraseFlag = true;
 		DynStack<type> temp = DynStack<type>(count);
 
 		cout << "Attempting to erase \"" << data << "\"..." << endl;
@@ -206,6 +216,7 @@ public:
 			cout << num << " instances of \"" << data << "\" have been erased successfully." << endl << endl;
 		}
 		
+		eraseFlag = false;
 		return num;
 	}
 };
