@@ -1,27 +1,29 @@
 #include <iostream>
+#include <string>
+#include "DynContainer.h"
 
 using namespace std;
 
 template <class type>
-
-class DynStack
+class DynStack : public DynContainer
 {
 private:
 	type *stackArray;
 	int count;
 	int initialSize;
 	int arraySize;
+	bool eraseFlag = false;
 
 public:
 	//Constructor
-	DynStack(): count(0), initialSize(1), arraySize(1)
+	DynStack<type>() : count(0), initialSize(13), arraySize(13)
 	{
 		stackArray = new type[arraySize];
 	}
 
-	DynStack(int size): count(0)
+	DynStack<type>(int size) : count(0)
 	{
-		if(size <= 0)
+		if (size <= 0)
 		{
 			initialSize = 1;
 			arraySize = 1;
@@ -38,6 +40,8 @@ public:
 	//Destructor
 	~DynStack()
 	{
+		count = 0;
+		arraySize = 0;
 		delete[] stackArray;
 	}
 
@@ -45,9 +49,8 @@ public:
 
 	type top() const
 	{
-		if (this->empty()) cerr << ("Error: the stack is empty.") << endl;
-		//if (this->empty()) throw underflow_error("Error: the stack is empty.");
-		
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
+
 		return stackArray[count - 1];
 	}
 
@@ -72,15 +75,12 @@ public:
 
 		if (this->empty())
 		{
-			cerr << ("Error: the stack is empty.") << endl << endl;
-			//if (this->empty()) throw underflow_error("Error: the stack is empty.");
-			return;
+			if (this->empty()) throw underflow_error("Error: the stack is empty.");
 		}
-
 
 		cout << "Here's the stack, from top to bottom:" << endl;
 
-		for(int i = count - 1; i >= 0; i--)
+		for (int i = count - 1; i >= 0; i--)
 		{
 			cout << "Element " << i << ": " << stackArray[i] << endl;
 		}
@@ -89,62 +89,70 @@ public:
 	}
 
 	//Mutator Methods
-
 	void push(type const &data)
 	{
-		cout << "Attempting to push \"" << data << "\"..." << endl;
+		if (!eraseFlag) { cout << "Attempting to push \"" << data << "\"..." << endl; }
 
-		if (count == initialSize)
+		if (count == arraySize)
 		{
-			arraySize = 2 * initialSize;
-			type *newArray = new type[arraySize];
+			type *newArray = new type[2 * arraySize];
 
-			for (int i = 0; i < arraySize; i++)
+			for (int i = 0; i < (2 * arraySize); i++)
 			{
-				if (i < initialSize) newArray[i] = stackArray[i];
-				else newArray[i] = NULL;
+				if (i < arraySize) newArray[i] = stackArray[i];
+				else newArray[i].clear();
 			}
 
+			if (!eraseFlag)
+			{
+				cout << "Warning: the stack is full (" << count << "/" << arraySize << ")." << endl;
+				cout << "The stack size has been doubled to accept " << (arraySize * 2) << " elements." << endl;
+			}
+
+			arraySize = 2 * arraySize;
 			stackArray = newArray;
-			cout << endl << "The array size has been doubled to accept " << arraySize << " elements." << endl << endl;
 		}
 
 		stackArray[count] = data;
 		count++;
-		cout << "\"" << data << "\" pushed successfully." << endl << endl;
+
+		if (!eraseFlag) { cout << "\"" << data << "\" has been pushed successfully." << endl << endl; }
 	}
 
 	type pop()
 	{
-		cout << "Attempting to pop the stack..." << endl;
+		if (!eraseFlag) { cout << "Attempting to pop the stack..." << endl; }
 
 		if (this->empty())
 		{
-			cerr << ("Error: the stack is empty.") << endl;
-			//if (this->empty()) throw underflow_error("Error: the stack is empty.");
-			return NULL;
+			if (this->empty()) throw underflow_error("Error: the stack is empty.");
 		}
 
 		type temp = this->top();
-		stackArray[count - 1] = NULL;
+		stackArray[count - 1].clear();
 		count--;
 
-		if ((((double)count / (double)arraySize) <= 0.25) && (arraySize > initialSize))
+		if (((double)count / (double)arraySize <= 0.25) && (arraySize > initialSize))
 		{
-			arraySize /= 2;
-			type *newArray = new type[arraySize];
+			type *newArray = new type[arraySize / 2];
 
-			for (int i = 0; i < arraySize; i++)
+			for (int i = 0; i < (arraySize / 2); i++)
 			{
-				if (i < initialSize) newArray[i] = stackArray[i];
-				else newArray[i] = NULL;
+				if (i < arraySize) newArray[i] = stackArray[i];
+				else newArray[i].clear();
+			}
+
+			if (!eraseFlag)
+			{
+				cout << "Warning: the stack is nearly empty (" << count << "/" << arraySize << ")." << endl;
+				cout << "The stack size has been halved to accept " << arraySize / 2 << " elements." << endl;
 			}
 
 			stackArray = newArray;
-			cout << endl << "The array size has been halved to accept " << arraySize << " elements." << endl << endl;
+			arraySize = arraySize / 2;
 		}
 
-		cout << "The stack has been popped successfully (Removed \"" << temp << "\")." << endl << endl;
+		if (!eraseFlag) { cout << "The stack has been popped successfully (Removed \"" << temp << "\")." << endl << endl; }
 		return temp;
 	}
 
@@ -154,17 +162,16 @@ public:
 
 		if (this->empty())
 		{
-			cerr << ("Error: the stack is already empty.") << endl;
-			//if (this->empty()) throw underflow_error("Error: the stack is empty.");
+			if (this->empty()) throw underflow_error("Error: the stack is empty.");
 			return;
 		}
 
 		for (int i = 0; i < arraySize; i++)
 		{
-			stackArray[i] = NULL;
-			count--;
+			stackArray[i].clear();
 		}
 
+		count = 0;
 		arraySize = initialSize;
 		cout << "The stack has been cleared successfully." << endl << endl;
 	}
@@ -172,15 +179,14 @@ public:
 	int erase(type const &data)
 	{
 		int num = 0;
+		eraseFlag = true;
 		DynStack<type> temp = DynStack<type>(count);
 
 		cout << "Attempting to erase \"" << data << "\"..." << endl;
 
 		if (this->empty())
 		{
-			cerr << ("Error: the stack is empty.") << endl;
-			//if (this->empty()) throw underflow_error("Error: the stack is empty.");
-			return 0;
+			if (this->empty()) throw underflow_error("Error: the stack is empty.");
 		}
 
 		for (int i = count - 1; i >= 0; i--)
@@ -196,8 +202,6 @@ public:
 			}
 		}
 
-		temp.display();
-
 		for (int i = (temp.count) - 1; i >= 0; i--)
 		{
 			push(temp.pop());
@@ -211,7 +215,8 @@ public:
 		{
 			cout << num << " instances of \"" << data << "\" have been erased successfully." << endl << endl;
 		}
-		
+
+		eraseFlag = false;
 		return num;
 	}
 };
