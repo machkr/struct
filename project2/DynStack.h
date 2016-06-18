@@ -1,11 +1,10 @@
 #include <iostream>
-#include <string>
-#include "DynContainer.h"
 
 using namespace std;
 
 template <class type>
-class DynStack : public DynContainer
+
+class DynStack
 {
 private:
 	type *stackArray;
@@ -16,14 +15,14 @@ private:
 
 public:
 	//Constructor
-	DynStack<type>() : count(0), initialSize(13), arraySize(13)
+	DynStack(): count(0), initialSize(1), arraySize(1)
 	{
 		stackArray = new type[arraySize];
 	}
 
-	DynStack<type>(int size) : count(0)
+	DynStack(int size): count(0)
 	{
-		if (size <= 0)
+		if(size <= 0)
 		{
 			initialSize = 1;
 			arraySize = 1;
@@ -40,8 +39,6 @@ public:
 	//Destructor
 	~DynStack()
 	{
-		count = 0;
-		arraySize = 0;
 		delete[] stackArray;
 	}
 
@@ -50,7 +47,7 @@ public:
 	type top() const
 	{
 		if (this->empty()) throw underflow_error("Error: the stack is empty.");
-
+		
 		return stackArray[count - 1];
 	}
 
@@ -73,14 +70,11 @@ public:
 	{
 		cout << "Attempting to display the stack..." << endl;
 
-		if (this->empty())
-		{
-			if (this->empty()) throw underflow_error("Error: the stack is empty.");
-		}
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		cout << "Here's the stack, from top to bottom:" << endl;
 
-		for (int i = count - 1; i >= 0; i--)
+		for(int i = count - 1; i >= 0; i--)
 		{
 			cout << "Element " << i << ": " << stackArray[i] << endl;
 		}
@@ -91,9 +85,12 @@ public:
 	//Mutator Methods
 	void push(type const &data)
 	{
-		if (!eraseFlag) { cout << "Attempting to push \"" << data << "\"..." << endl; }
-
-		if (count == arraySize)
+		if (!eraseFlag)
+		{
+			cout << "Attempting to push \"" << data << "\"..." << endl;
+		}
+		
+		if (count == initialSize)
 		{
 			type *newArray = new type[2 * arraySize];
 
@@ -106,7 +103,7 @@ public:
 			if (!eraseFlag)
 			{
 				cout << "Warning: the stack is full (" << count << "/" << arraySize << ")." << endl;
-				cout << "The stack size has been doubled to accept " << (arraySize * 2) << " elements." << endl;
+				cout << "The array size has been doubled to accept " << arraySize << " elements." << endl;
 			}
 
 			arraySize = 2 * arraySize;
@@ -116,23 +113,26 @@ public:
 		stackArray[count] = data;
 		count++;
 
-		if (!eraseFlag) { cout << "\"" << data << "\" has been pushed successfully." << endl << endl; }
+		if (!eraseFlag)
+		{
+			cout << "\"" << data << "\" pushed successfully." << endl << endl;
+		}
 	}
 
 	type pop()
 	{
-		if (!eraseFlag) { cout << "Attempting to pop the stack..." << endl; }
-
-		if (this->empty())
+		if (!eraseFlag)
 		{
-			if (this->empty()) throw underflow_error("Error: the stack is empty.");
+			cout << "Attempting to pop the stack..." << endl;
 		}
+		
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		type temp = this->top();
 		stackArray[count - 1].clear();
 		count--;
 
-		if (((double)count / (double)arraySize <= 0.25) && (arraySize > initialSize))
+		if ((((double)count / (double)arraySize) <= 0.25) && (arraySize > initialSize))
 		{
 			type *newArray = new type[arraySize / 2];
 
@@ -152,7 +152,11 @@ public:
 			arraySize = arraySize / 2;
 		}
 
-		if (!eraseFlag) { cout << "The stack has been popped successfully (Removed \"" << temp << "\")." << endl << endl; }
+		if (!eraseFlag)
+		{
+			cout << "The stack has been popped successfully (Removed \"" << temp << "\")." << endl << endl;
+		}
+		
 		return temp;
 	}
 
@@ -160,11 +164,7 @@ public:
 	{
 		cout << "Attempting to clear the stack..." << endl;
 
-		if (this->empty())
-		{
-			if (this->empty()) throw underflow_error("Error: the stack is empty.");
-			return;
-		}
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		for (int i = 0; i < arraySize; i++)
 		{
@@ -180,14 +180,12 @@ public:
 	{
 		int num = 0;
 		eraseFlag = true;
+
 		DynStack<type> temp = DynStack<type>(count);
 
 		cout << "Attempting to erase \"" << data << "\"..." << endl;
 
-		if (this->empty())
-		{
-			if (this->empty()) throw underflow_error("Error: the stack is empty.");
-		}
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		for (int i = count - 1; i >= 0; i--)
 		{
@@ -215,7 +213,7 @@ public:
 		{
 			cout << num << " instances of \"" << data << "\" have been erased successfully." << endl << endl;
 		}
-
+		
 		eraseFlag = false;
 		return num;
 	}

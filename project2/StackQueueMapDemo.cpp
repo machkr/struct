@@ -30,13 +30,13 @@ void StackQueueMapDemo::buildMenus()
 void StackQueueMapDemo::createStack(vector<int>& prev)
 {
 	int size;
-	cout << endl << "Please enter the size: ";
+	cout << "Please enter the size: ";
 	cin >> size;
 	cin.ignore();
 
 	stack = new DynStack<string>(size);
 
-	cout << endl << "Stack created successfully." << endl << endl;
+	cout << "Stack created successfully." << endl << endl;
 
 	stackMenu->remove("Create Stack");
 	stackMenu->add("Push", action(stackPush));
@@ -176,7 +176,6 @@ void StackQueueMapDemo::display(vector<int> &prev)
 			}
 			break;
 	}
-	cout << endl;
 }
 
 void StackQueueMapDemo::clear(vector<int> &prev)
@@ -193,8 +192,7 @@ void StackQueueMapDemo::clear(vector<int> &prev)
 			{
 				cout << e.what();
 			}
-			
-			cout << "Stack cleared.";
+
 			break;
 
 		case 2: // Queue
@@ -258,7 +256,7 @@ void StackQueueMapDemo::stackPop(vector<int> &prev)
 
 void StackQueueMapDemo::erase(vector<int> &prev)
 {
-	cout << "(Erase)\nData: " << endl;
+	cout << "(Erase)" << endl << "Data: ";
 	string data;
 	getline(cin, data);
 
@@ -272,8 +270,6 @@ void StackQueueMapDemo::erase(vector<int> &prev)
 	case 2: // Queue
 		break;
 	}
-
-	cout << endl << endl;
 }
 
 
