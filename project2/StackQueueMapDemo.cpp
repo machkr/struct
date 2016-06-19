@@ -90,6 +90,11 @@ void StackQueueMapDemo::createMap(vector<int>& prev)
 	mapMenu->add("Clear Hash Table", action(clear));
 }
 
+
+/***************
+* DynContainer *
+****************/
+
 void StackQueueMapDemo::size(vector<int> &prev)
 {
 	cout << "(Size)" << endl;
@@ -101,7 +106,7 @@ void StackQueueMapDemo::size(vector<int> &prev)
 			break;
 
 		case 2: // Queue
-			cout << queue->size(); //Adding extra content so it doesn't look like copy paste. YOLO LOL SWAG I LOVE YOU MATT. 
+			cout << queue->size();
 			break;
 
 		case 3: // Map
@@ -232,9 +237,9 @@ void StackQueueMapDemo::clear(vector<int> &prev)
 }
 
 
-/**************
-*    Stack    *
-**************/
+/*********
+ * Stack *
+ *********/
 
 void StackQueueMapDemo::stackTop(vector<int> &prev)
 {
@@ -253,8 +258,8 @@ void StackQueueMapDemo::stackTop(vector<int> &prev)
 
 void StackQueueMapDemo::stackPush(vector<int> &prev)
 {
-	cout << "(Push)" << endl;
 	string data;
+	cout << "(Push)" << endl;
 	cout << "Data: ";
 	getline(cin, data);
 	stack->push(data);
@@ -273,6 +278,11 @@ void StackQueueMapDemo::stackPop(vector<int> &prev)
 		return;
 	}
 }
+
+
+/*********
+ * Queue *
+ *********/
 
 void StackQueueMapDemo::qFront(vector<int> &prev)
 {
@@ -306,8 +316,8 @@ void StackQueueMapDemo::qBack(vector<int> &prev)
 
 void StackQueueMapDemo::qEnqueue(vector<int> &prev)
 {
-	cout << "(Enqueue)" << endl;
 	string data;
+	cout << "(Enqueue)" << endl;
 	cout << "Data: ";
 	getline(cin, data);
 	queue->enqueue(data);
@@ -315,7 +325,7 @@ void StackQueueMapDemo::qEnqueue(vector<int> &prev)
 
 void StackQueueMapDemo::qDequeue(vector<int> &prev)
 {
-	cout << "(Pop)" << endl;
+	cout << "(Dequeue)" << endl;
 	try
 	{
 		queue->dequeue();
@@ -328,9 +338,9 @@ void StackQueueMapDemo::qDequeue(vector<int> &prev)
 }
 
 
-/************************
- *    Stack and Queue   *
- ************************/
+/*******************
+ * Stack and Queue *
+ *******************/
 
 void StackQueueMapDemo::erase(vector<int> &prev)
 {

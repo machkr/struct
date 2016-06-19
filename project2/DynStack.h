@@ -47,7 +47,6 @@ public:
 	type top() const
 	{
 		if (this->empty()) throw underflow_error("Error: the stack is empty.");
-		
 		return stackArray[count - 1];
 	}
 

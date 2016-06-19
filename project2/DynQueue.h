@@ -49,15 +49,15 @@ public:
 
 	//Accessors
 
-	type front() const							//Returns object at front of queue. Underflow exception.		
+	type front()								//Returns object at front of queue. Underflow exception.		
 	{	
-		if (count==0) cerr << ("Error: the queue is empty.") << endl;
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 		return queueArray[ihead];
 	}
 
-	type back() const							//Returns object at bck of queue. Underflow exception.
+	type back()									//Returns object at bck of queue. Underflow exception.
 	{	
-		if (count==0) cerr << ("Error: the queue is empty.") << endl;
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 		return queueArray[itail];
 	}
 
@@ -82,11 +82,7 @@ public:
 
 		cout << "Attempting to display the queue..." << endl;
 
-		if (this->empty())
-		{
-			cerr << ("Error: the queue is empty.") << endl << endl;
-			return;
-		}
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		cout << "Here's the queue, from front to back:" << endl;
 
@@ -245,10 +241,7 @@ public:
 		//Erase Call
 		if (eraseFlag == true)
 		{
-			if (this->empty())
-			{
-				return;
-			}
+			if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 			for (int i = ihead; i <= itail; i++)
 			{
@@ -264,11 +257,7 @@ public:
 		//Non-Erase Call
 		cout << "Attempting to clear the queue..." << endl;
 
-		if (this->empty())
-		{
-			cerr << ("Error: the queue is already empty.") << endl;
-			return;
-		}
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		for (int i = this->ihead; i <= this->itail; i++)
 		{
@@ -291,30 +280,25 @@ public:
 
 		cout << "Attempting to erase \"" << data << "\"..." << endl;
 
-		if (this->empty())
-		{
-			cerr << ("Error: the queue is empty.") << endl;
-			//if (this->empty()) throw underflow_error("Error: the queue is empty.");
-			return 0;
-		}
+		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		for (int i = this->ihead; i <= this->itail; i++)
 		{
 			if (data == queueArray[i])
 			{
-				this->dequeue();
+				dequeue();
 				num++;
 			}
 			else
 			{
-				temp.enqueue(this->dequeue());
+				temp.enqueue(dequeue());
 			}
 
 		}
 
-		this->clear();
+		//this->clear();
 
-		for (int i = temp.ihead; i <= (temp.itail); i++)
+		for (int i = temp.ihead; i <= temp.itail; i++)
 		{
 			this->enqueue(temp.dequeue());
 			/*type tempData = temp.front();
@@ -322,7 +306,7 @@ public:
 			this->enqueue(tempData);*/
 		}
 
-		temp.clear();
+		//temp.clear();
 
 		if (num == 1)
 		{
@@ -334,7 +318,7 @@ public:
 		}
 
 		eraseFlag = false;
-		
+		temp.eraseFlag = false;
 		return num;
 	}
 };
