@@ -23,16 +23,16 @@ public:
 	{
 		if (size <= 0)
 		{
-			this->initialSize = 1;
+			initialSize = 1;
 		}
 		else 
 		{
-			this->initialSize = size;
+			initialSize = size;
 		}
 
-		this->arraySize = this->initialSize;
+		this->arraySize = initialSize;
 
-		queueArray = new type[this->initialSize];
+		queueArray = new type[initialSize];
 
 	}
 
@@ -104,106 +104,110 @@ public:
 	void enqueue(type const &data)				//Insert new element at the back of the queue. If array is full, size of array is first doubled. (O(1) on average)
 	{
 		//Erase Call
-		if (eraseFlag == true)
+		if (this->eraseFlag == true)
 		{
-
-		if (this->count == 0)
-		{
-			ihead = itail;
-			queueArray[ihead] = data;
-			count++;
-			return;
-
-		}
-
-		else if (this->count == this->arraySize)
-			{
-				int temp = 0;
-				type *newArray = new type[arraySize*2];
-
-				for (int i = this->ihead; i <= this->itail; i++)
-				{
-					if (temp < this->arraySize) newArray[i] = queueArray[i];
-					else newArray[i].clear();
-					temp++;
-				}
-
-				this->arraySize *= 2; 
-				queueArray = newArray;
-			}
-
-			
-
-			itail++;
-			queueArray[itail] = data;
-			this->count++;
-			return;
-		}
-
-		//Non-erase Call
-		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
 
 		if (count == 0)
 		{
 			ihead = itail;
 			queueArray[ihead] = data;
 			count++;
+			return;
+
+		}
+
+		else if (count == this->arraySize)
+			{
+				int temp = 0;
+				type *newArray = new type[arraySize*2];
+
+				for (int i = this->ihead; i <= this->itail; i++)
+				{
+					if (temp < this->count) { newArray[i] = this->queueArray[i]; }
+					else { newArray[i].clear(); }
+
+					temp++;
+				}
+
+				this->arraySize *= 2; 
+				this->queueArray = newArray;
+			}
+
+			
+
+			this->itail++;
+			this->queueArray[itail] = data;
+			count++;
+			return;
+		}
+
+		//Non-erase Call
+		cout << "Attempting to enqueue \"" << data << "\"..." << endl;
+
+		if (this->count == 0)
+		{
+			this->ihead = this->itail;
+			queueArray[ihead] = data;
+			this->count++;
 			cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 			return;
 
 		}
 
-		else if (count == arraySize)
+		else if (this->count == this->arraySize)
 		{
 			int temp = 0;
 			type *newArray = new type[arraySize * 2];
 
 			for (int i = this->ihead; i <= this->itail; i++)
 			{
-				if (temp < arraySize) newArray[i] = queueArray[i];
-				else newArray[i].clear();
+				if (temp < this->count) { newArray[i] = queueArray[i]; }
+				else { newArray[i].clear(); }
+
 				temp++;
 			}
 
-			arraySize *= 2;
+			this->arraySize *= 2;
 			queueArray = newArray;
 			cout << endl << "The array size has been doubled to accept " << arraySize << " elements." << endl << endl;
 		}
 
 
-		itail++;
-		queueArray[itail] = data;
-		count++;
+		this->itail++;
+		this->queueArray[itail] = data;
+		this->count++;
 		cout << "\"" << data << "\" enqueued successfully." << endl << endl;
 	}
 
 	type dequeue()								//Removes element at the front of the queue. If after it's removed, the array is 1/4 full and array size is greater than the initial size, size of the array is halved. This may throw an underflow. (O(1) on average)
 	{	
-		int tempNumber = 0;
-
 		//Erase Call
-		if (eraseFlag == true) 
+		if (this->eraseFlag == true) 
 		{
-			if (this->empty()) throw underflow_error("Error: the queue is empty.");
+			if (this->empty()) throw underflow_error("Error: the queue is empty."); 
 
 			type temp = this->front();
 			queueArray[ihead].clear();
 			count--;
 			ihead++;
 
-			if (((double)count / (double)arraySize <= 0.25) && (arraySize > initialSize))
+			if (((double)this->count / (double)this->arraySize <= 0.25) && (this->arraySize > this->initialSize))
 			{
-				type *newArray = new type[arraySize/2];
+				type *newArray = new type[this->arraySize/2];
+				int tempNumber = 0;
 
 				for (int i = this->ihead; i <= this->itail; i++)
 				{
-					if (tempNumber < initialSize) newArray[i] = queueArray[i];
-					else newArray[i].clear();
+					if (tempNumber < this->count) { newArray[i] = this->queueArray[i]; }
+					else { newArray[i].clear(); }	
+
 					tempNumber++;
 				}
-				arraySize /= 2;
-				queueArray = newArray;
-				}
+
+				this->arraySize /= 2;
+				this->queueArray = newArray;
+
+			}
 
 			return temp;
 		}
@@ -214,23 +218,25 @@ public:
 		if (this->empty()) throw underflow_error("Error: the queue is empty.");
 
 		type temp = this->front();
-		queueArray[ihead].clear();
-		count--;
-		ihead++;
+		this->queueArray[ihead].clear();
+		this->count--;
+		this->ihead++;
 
 		if (((double)count / (double)arraySize <= 0.25) && (arraySize > initialSize))
 		{
-			arraySize /= 2;
+		
 			type *newArray = new type[arraySize];
+			int tempNumber = 0;
 
-			for (int i = ihead; i < itail; i++)
+			for (int i = ihead; i <= itail; i++)
 			{
-				if (tempNumber < initialSize) newArray[i] = queueArray[i];
-				else newArray[i].clear();
+				if (tempNumber < count) { newArray[i] = queueArray[i]; }
+				else { newArray[i].clear(); }
+
 				tempNumber++;
 			}
 
-			arraySize /= 2;
+			this->arraySize /= 2;
 			queueArray = newArray;
 			cout << endl << "The array size has been halved to accept " << arraySize << " elements." << endl << endl;
 		}
@@ -250,7 +256,7 @@ public:
 				return;
 			}
 
-			for (int i = ihead; i <= itail; i++)
+			for (int i = this->ihead; i <= itail; i++)
 			{
 				queueArray[i].clear();
 				count--;
@@ -304,15 +310,15 @@ public:
 			{
 				this->dequeue();
 				num++;
+				this->display();
 			}
 			else
 			{
+				cout << "How many times does this print statement get called?" << endl;
 				temp.enqueue(this->dequeue());
 			}
 
 		}
-
-		this->clear();
 
 		for (int i = temp.ihead; i <= (temp.itail); i++)
 		{
@@ -334,6 +340,7 @@ public:
 		}
 
 		eraseFlag = false;
+		temp.eraseFlag = false;
 		
 		return num;
 	}
