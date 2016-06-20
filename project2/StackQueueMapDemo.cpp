@@ -54,13 +54,13 @@ void StackQueueMapDemo::createStack(vector<int>& prev)
 void StackQueueMapDemo::createQueue(vector<int>& prev)
 {
 	int size;
-	cout << endl << "Please enter the size of the queue: ";
+	cout << "Please enter the size of the queue: ";
 	cin >> size;
 	cin.ignore();
 
 	queue = new DynQueue<string>(size);
 
-	cout << endl << "Queue created successfully." << endl << endl;
+	cout << "Queue created successfully." << endl << endl;
 	
 	qMenu->remove("Create Queue");
 	qMenu->add("Enq Value", action(qEnqueue));
@@ -226,7 +226,6 @@ void StackQueueMapDemo::clear(vector<int> &prev)
 				cout << e.what();
 			}
 
-			cout << "Queue cleared.";
 			break;
 
 		case 3: // Map
@@ -234,6 +233,8 @@ void StackQueueMapDemo::clear(vector<int> &prev)
 			cout << "Hash Table cleared.";
 			break;
 	}
+
+	cout << endl << endl;
 }
 
 
