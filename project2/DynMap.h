@@ -26,6 +26,7 @@ class DynMap : public DynContainer {
 		int bucketsFilled;
 		int initialSize;
 		int arraySize;
+		double loadFactor;
 
 		/******************
 		 * Hash Functions *
@@ -55,12 +56,13 @@ class DynMap : public DynContainer {
 		}
 		
 	public:
-		DynMap() : 
+		DynMap(double loadFactor_) : 
 				array(new LinkedList<MapNode<K,V>>*[4]),
 				count(0), 
 				bucketsFilled(0),
 				initialSize(4),
-				arraySize(4)
+				arraySize(4),
+				loadFactor(loadFactor_)
 		{
 			initializeArray(array, arraySize);
 		}
@@ -68,7 +70,7 @@ class DynMap : public DynContainer {
 		void insert(K const &key, V const &val)  
 		{	
 			// Double array size if count > arraySize/2
-			if ( count > (arraySize / 2) )
+			if ( ((double)count / (double)arraySize) > loadFactor )
 				doubleSize();
 
 			unsigned int h = hash(key, arraySize);

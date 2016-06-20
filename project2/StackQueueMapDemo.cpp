@@ -77,7 +77,7 @@ void StackQueueMapDemo::createQueue(vector<int>& prev)
 
 void StackQueueMapDemo::createMap(vector<int>& prev)
 {
-	map = new DynMap<string,string>();
+	map = new DynMap<string,string>(0.8);
 
 	mapMenu->remove("Create Hash Table");	
 	mapMenu->add("Insert", action(mapInsert));
