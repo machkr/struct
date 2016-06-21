@@ -3,6 +3,12 @@
 
 using namespace std;
 
+Class AVLTree{
+  
+private:
+
+public:
+
 TreeNode getRoot()
 
 int getSize()
@@ -37,3 +43,4 @@ void insert(type data, int num) //open ended??
 
 void del(type data)
 
+};
