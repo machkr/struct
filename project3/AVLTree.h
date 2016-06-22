@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Class AVLTree{
+class AVLTree{
   
 private:
 
