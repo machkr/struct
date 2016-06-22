@@ -38,26 +38,26 @@ class TreeDemo
 		void createAvl(vector<int> &prev);
 		
 		// Common Methods
-		void root(vector<int> &prev) {};
-		void size(vector<int> &prev) {};
-		void height(vector<int> &prev) {};
-		void heightNode(vector<int> &prev) {};
-		void depth(vector<int> &prev) {};
-		void empty(vector<int> &prev) {};
-		void leaves(vector<int> &prev) {};
-		void siblings(vector<int> &prev) {};
-		void commonAncestor(vector<int> &prev) {};
-		void find(vector<int> &prev) {};
+		void root(vector<int> &prev);
+		void size(vector<int> &prev);
+		void height(vector<int> &prev);
+		void heightNode(vector<int> &prev);
+		void depth(vector<int> &prev);
+		void empty(vector<int> &prev);
+		void leaves(vector<int> &prev);
+		void siblings(vector<int> &prev);
+		void commonAncestor(vector<int> &prev);
+		void find(vector<int> &prev);
 
-		void preOrder(vector<int> &prev) {};
-		void postOrder(vector<int> &prev) {};
-		void levelOrder(vector<int> &prev) {};
-		void inOrder(vector<int> &prev) {};
+		void preOrder(vector<int> &prev);
+		void postOrder(vector<int> &prev);
+		void levelOrder(vector<int> &prev);
+		void inOrder(vector<int> &prev);
 
-		void build(vector<int> &prev) {};
-		void clear(vector<int> &prev) {};
-		void insert(vector<int> &prev) {};
-		void del(vector<int> &prev) {};
+		void build(vector<int> &prev);
+		void clear(vector<int> &prev);
+		void insert(vector<int> &prev);
+		void del(vector<int> &prev);
 
 	public: 
 		void run() 

@@ -110,3 +110,225 @@ void TreeDemo::createAvl(vector<int>& prev)
 	avlMutatorMenu->add("Insert", action(insert));
 	avlMutatorMenu->add("Delete", action(del));
 }
+
+
+void TreeDemo::root(vector<int> &prev) 
+{
+	cout << "(Root)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::size(vector<int> &prev) 
+{
+	cout << "(Size)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::height(vector<int> &prev) 
+{
+	cout << "(Height)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::heightNode(vector<int> &prev) 
+{
+	cout << "(Height of Node)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::depth(vector<int> &prev) 
+{
+	cout << "(Depth)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::empty(vector<int> &prev) 
+{
+	cout << "(Empty)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::leaves(vector<int> &prev) 
+{
+	cout << "(Leaves)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::siblings(vector<int> &prev) 
+{
+	cout << "(Siblings)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::commonAncestor(vector<int> &prev) 
+{
+
+}
+
+void TreeDemo::find(vector<int> &prev) 
+{
+	cout << "(Find)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::preOrder(vector<int> &prev) 
+{
+	cout << "(Preorder)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::postOrder(vector<int> &prev) 
+{
+	cout << "(Postorder)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::levelOrder(vector<int> &prev) 
+{
+	cout << "(Level Order)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::inOrder(vector<int> &prev) 
+{
+	cout << "(Inorder)" << endl;
+
+}
+
+void TreeDemo::build(vector<int> &prev) 
+{
+	cout << "(Build From File)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::clear(vector<int> &prev) 
+{
+	cout << "(Clear)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::insert(vector<int> &prev) 
+{
+	cout << "(Insert)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
+
+void TreeDemo::del(vector<int> &prev) 
+{
+	cout << "(Delete)" << endl;
+	switch (prev.back())
+	{
+		case 1: // Gen Tree
+			break;
+		case 2: // Heap
+			break;
+		case 3: // AVL
+			break;
+	}
+}
