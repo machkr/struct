@@ -77,7 +77,7 @@ void StackQueueMapDemo::createQueue(vector<int>& prev)
 
 void StackQueueMapDemo::createMap(vector<int>& prev)
 {
-	map = new DynMap<string,string>();
+	map = new DynMap<string,string>(0.8);
 
 	mapMenu->remove("Create Hash Table");	
 	mapMenu->add("Insert", action(mapInsert));
@@ -348,17 +348,21 @@ void StackQueueMapDemo::erase(vector<int> &prev)
 	cout << "(Erase)" << endl << "Data: ";
 	string data;
 	getline(cin, data);
+	try {
 
-	switch (prev.back())
-	{
+		switch (prev.back())
+		{
 
-	case 1: // Stack
-		stack->erase(data);
-		break;
+		case 1: // Stack
+			stack->erase(data);
+			break;
 
-	case 2: // Queue
-		queue->erase(data);
-		break;
+		case 2: // Queue
+			queue->erase(data);
+			break;
+		}
+	} catch (const underflow_error& e) {
+		cout << e.what() << endl << endl;
 	}
 }
 
