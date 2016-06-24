@@ -1,12 +1,11 @@
 #pragma once
 #include <iostream>
-#include <iterator>
 #include "SingleNode.h"
 //using namespace std;
 
 
 template <class Type>
-class LLIterator : std::iterator<std::forward_iterator_tag, Type> {
+class LLIterator {
 
 	private:
 		SingleNode<Type> * cur;
