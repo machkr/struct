@@ -2,11 +2,12 @@
 #include <iostream>
 #include <string>
 #include "MenuList.h"
+#include "GenTree.h"
 
 class TreeDemo 
 {
 	private:
-		void* gen;
+		GenTree<string> * gen;
 		void* heap;
 		void* avl;
 
