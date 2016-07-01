@@ -11,13 +11,11 @@ class GenTree {
 	private:
 		GenTreeNode<Type> * root;
 		int size;
-		int height;
 	
 	public: 
 		GenTree() :
 			root(nullptr),
-			size(0),
-			height(0)
+			size(0)
 		{}
 
 		~GenTree() {}
@@ -25,13 +23,39 @@ class GenTree {
 		GenTreeNode<Type>* getRoot() { return root; }
 
 		int getSize() { return size; }
-		int getHeight() { return height; }
+
+		int getHeight() { 
+			if (root == nullptr) {
+				throw underflow_error("Root doesn't exist");
+			}
+			return getHeight(root); 
+		}
 
 		int getHeight(int key) {
-							
+			GenTreeNode<Type>* node = findNodeByKey(key, root);
+			if (node == nullptr) {
+				throw underflow_error("Key doesn't exist.");
+			}
+			return getHeight(node);
+		}
+
+		int getHeight(GenTreeNode<Type>* node) {
+			if (node->children.getSize() == 0) {
+				return 0;
+			} 
+			typename LinkedList<GenTreeNode<Type>*>::iterator it;
+			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
+			int max = 0;
+			for (it = ll->begin(); it != ll->end(); it++) {
+				int count = getHeight( *it );
+				if (count > max) max = count;
+			}
+				
+			return 1 + max;
 		}
 
 		int getDepth(int key) {
+			
 			
 		}
 
@@ -48,11 +72,11 @@ class GenTree {
 
 			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
 			typename LinkedList<GenTreeNode<Type>*>::iterator it;
-			for (it = ll->begin(); it < ll->end(); it++) {
-				if ((*it).value = value) 
-					return &(*it);
+			for (it = ll->begin(); it != ll->end(); it++) {
+				if ((*it)->value = value) 
+					return *it;
 				else 
-					return findNode(value, &(*it));
+					return findNode(value, *it);
 			}
 
 			return nullptr;
@@ -66,13 +90,19 @@ class GenTree {
 			if (node->children.getSize() == 0) 
 				return nullptr;
 
+			if (node->key == key) 
+				return node;
+
 			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
 			typename LinkedList<GenTreeNode<Type>*>::iterator it;
-			for (it = ll->begin(); it < ll->end(); it++) {
-				if ((*it).key = key) 
-					return &(*it);
-				else 
-					return findNodeByKey(key, &(*it));
+			for (it = ll->begin(); it != ll->end(); it++) {
+				if ((*it)->key == key) {
+					return *it;
+				} else { 
+					GenTreeNode<Type> * child = findNodeByKey(key, *it);
+					if (child != nullptr) 
+						return child;
+				}
 			}
 
 			return nullptr;
@@ -84,7 +114,7 @@ class GenTree {
 		void levelorder(GenTreeNode<Type>* node) {}
 
 		void buildTree(string fileName) {
-			ifstream file("fileName");
+			ifstream file(fileName);
 			int level = -1;
 
 			GenTreeNode<Type> * parent = root = nullptr;
@@ -118,6 +148,9 @@ class GenTree {
 				string value;
 				ss >> key;
 				value = ss.str();
+				value = value.substr(value.find(" ") + 1, value.length() - value.find(" "));
+
+				if (value == "") break;
 
 				last = insert(key, value, parent);
 				level = newLevel;
@@ -126,6 +159,7 @@ class GenTree {
 
 		void clear() {
 			delete root;
+			size = 0;
 			root = nullptr;
 		}
 
@@ -135,6 +169,10 @@ class GenTree {
 			if (findNodeByKey(key, root) != nullptr) {
 				throw overflow_error("Key already exists!");
 			}
+			return insert(key,value,parent);
+		}
+
+		GenTreeNode<Type>* insert(int key, Type value, GenTreeNode<Type>* parent) {
 
 			GenTreeNode<Type> * newNode = new GenTreeNode<Type>(key, value, parent);
 			if (parent == nullptr) {

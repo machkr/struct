@@ -36,8 +36,8 @@ void TreeDemo::buildMenus()
 
 void TreeDemo::createGen(vector<int>& prev)
 {
-	// Create General Tree HERE
-	
+	gen = new GenTree<string>;	
+
 	genMenu->remove("Create General Tree");
 	genMenu->add("Access", MenuList::SubMenu(genAccessMenu), true);
 	genMenu->add("Traverse", MenuList::SubMenu(genTraversalMenu), true);
@@ -118,12 +118,14 @@ void TreeDemo::root(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			cout << "0x" << hex << long(gen->getRoot()) << endl;
 			break;
 		case 2: // Heap
 			break;
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::size(vector<int> &prev) 
@@ -132,12 +134,14 @@ void TreeDemo::size(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			cout << gen->getSize();
 			break;
 		case 2: // Heap
 			break;
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::height(vector<int> &prev) 
@@ -146,24 +150,39 @@ void TreeDemo::height(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			try {
+				cout << gen->getHeight();
+			} catch (...) {
+				cout << "Error.";
+			}
 			break;
 		case 2: // Heap
 			break;
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::heightNode(vector<int> &prev) 
 {
+	int key;
 	cout << "(Height of Node)" << endl;
+	cout << "Enter key of node: ";
+	cin >> key;
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			try {
+				cout << gen->getHeight(key);
+			} catch (...) {
+				cout << "Error";
+			}
 			break;
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::depth(vector<int> &prev) 
@@ -176,6 +195,7 @@ void TreeDemo::depth(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::empty(vector<int> &prev) 
@@ -184,12 +204,14 @@ void TreeDemo::empty(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			cout << gen->empty();
 			break;
 		case 2: // Heap
 			break;
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::leaves(vector<int> &prev) 
@@ -204,6 +226,7 @@ void TreeDemo::leaves(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::siblings(vector<int> &prev) 
@@ -216,6 +239,7 @@ void TreeDemo::siblings(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::commonAncestor(vector<int> &prev) 
@@ -226,6 +250,7 @@ void TreeDemo::commonAncestor(vector<int> &prev)
 void TreeDemo::find(vector<int> &prev) 
 {
 	cout << "(Find)" << endl;
+	
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
@@ -233,6 +258,7 @@ void TreeDemo::find(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::preOrder(vector<int> &prev) 
@@ -245,6 +271,7 @@ void TreeDemo::preOrder(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::postOrder(vector<int> &prev) 
@@ -257,6 +284,7 @@ void TreeDemo::postOrder(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::levelOrder(vector<int> &prev) 
@@ -269,12 +297,14 @@ void TreeDemo::levelOrder(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::inOrder(vector<int> &prev) 
 {
 	cout << "(Inorder)" << endl;
 
+	cout << endl << endl;
 }
 
 void TreeDemo::build(vector<int> &prev) 
@@ -283,12 +313,14 @@ void TreeDemo::build(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			gen->buildTree("genTree.txt");
 			break;
 		case 2: // Heap
 			break;
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::clear(vector<int> &prev) 
@@ -303,6 +335,7 @@ void TreeDemo::clear(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::insert(vector<int> &prev) 
@@ -317,6 +350,7 @@ void TreeDemo::insert(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }
 
 void TreeDemo::del(vector<int> &prev) 
@@ -331,4 +365,5 @@ void TreeDemo::del(vector<int> &prev)
 		case 3: // AVL
 			break;
 	}
+	cout << endl << endl;
 }

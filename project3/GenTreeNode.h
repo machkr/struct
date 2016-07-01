@@ -37,6 +37,8 @@ class GenTreeNode {
 			}
 		}	
 
+		GenTreeNode<Type>* getParent() {return parent;}
+
 		~GenTreeNode() {
 			deleteChildren(this);
 		}	
