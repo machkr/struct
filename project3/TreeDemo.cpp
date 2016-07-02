@@ -57,6 +57,7 @@ void TreeDemo::createGen(vector<int>& prev)
 	genTraversalMenu->add("Preorder", action(preOrder));
 	genTraversalMenu->add("Postorder", action(postOrder));
 	genTraversalMenu->add("Level Order", action(levelOrder));
+	genTraversalMenu->add("Save to File", action(toFile));
 	
 	genMutatorMenu->add("Build Tree From File", action(build));	
 	genMutatorMenu->add("Clear", action(clear));
@@ -152,8 +153,8 @@ void TreeDemo::height(vector<int> &prev)
 		case 1: // Gen Tree
 			try {
 				cout << gen->getHeight();
-			} catch (...) {
-				cout << "Error.";
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
 			}
 			break;
 		case 2: // Heap
@@ -214,7 +215,7 @@ void TreeDemo::empty(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
-			cout << gen->empty();
+			cout << ((gen->empty())?"True":"False");
 			break;
 		case 2: // Heap
 			break;
@@ -306,6 +307,7 @@ void TreeDemo::preOrder(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			gen->preorder();
 			break;
 		case 3: // AVL
 			break;
@@ -319,6 +321,7 @@ void TreeDemo::postOrder(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			gen->postorder();
 			break;
 		case 3: // AVL
 			break;
@@ -332,6 +335,7 @@ void TreeDemo::levelOrder(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			gen->levelorder();
 			break;
 		case 3: // AVL
 			break;
@@ -346,6 +350,22 @@ void TreeDemo::inOrder(vector<int> &prev)
 	cout << endl << endl;
 }
 
+void TreeDemo::toFile(vector<int> &prev)
+{
+	// GenTree
+	string fileName;
+	cout << "File Name: ";
+	getline(cin, fileName);
+	try {
+		gen->toFile(fileName);
+	} catch (const underflow_error& e) {
+		cout << "Error: " << e.what();
+		return;
+	}
+
+	cout << "Successfully wrote tree to: " << fileName << endl << endl;
+}
+
 void TreeDemo::build(vector<int> &prev) 
 {
 	cout << "(Build From File)" << endl;
@@ -357,7 +377,7 @@ void TreeDemo::build(vector<int> &prev)
 			cout << "File Name: ";
 			getline(cin, fileName);
 			try {
-				gen->buildTree("genTree.txt");
+				gen->buildTree(fileName);
 				cout << "Success fully opened " << fileName;
 			} catch (...) {
 				cout << "Error opening " << fileName;
@@ -396,9 +416,11 @@ void TreeDemo::insert(vector<int> &prev)
 	{
 		case 1: // Gen Tree
 		{ 		
+
 			int key;
 			string value;
 			int parent;
+
 			cout << "Key: ";
 			cin >> key;
 			cin.ignore();
@@ -406,13 +428,26 @@ void TreeDemo::insert(vector<int> &prev)
 			getline(cin, value);	
 			cout << "Parent: ";
 			cin >> parent;
+
 			try {
-				gen->insert(key, value, parent);
-				cout << "Success";
-			} catch (...) {
-				cout << "Error";
+				gen->insert(key, value, parent, false);
+			} catch (const overflow_error& e) {
+				cout << "Key already exists! Overwrite? (y/n): ";
+				char overwrite;
+				cin >> overwrite;
+				if (overwrite == 'y') {
+					gen->insert(key,value,parent,true);
+				} else {
+					break;
+				}
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+				break;
 			}
+
+			cout << "Successfully inserted";
 			break;
+
 		}
 		case 2: // Heap
 			break;

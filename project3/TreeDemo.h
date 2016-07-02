@@ -54,6 +54,7 @@ class TreeDemo
 		void postOrder(vector<int> &prev);
 		void levelOrder(vector<int> &prev);
 		void inOrder(vector<int> &prev);
+		void toFile(vector<int> &prev);
 
 		void build(vector<int> &prev);
 		void clear(vector<int> &prev);

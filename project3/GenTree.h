@@ -174,13 +174,75 @@ class GenTree {
 			return nullptr;
 		}
 
-		void preorder(GenTreeNode<Type>* node) {}
-		void postorder(GenTreeNode<Type>* node) {}
-		void levelorder(GenTreeNode<Type>* node) {}
+		void preorder() {
+			preorder(cout, root);
+		}
+
+		void toFile(string fileName) {
+			ofstream file(fileName, ios::out);
+
+			if (!file)
+				throw underflow_error("File could not be opened");
+
+			preorder(file, root);
+			file.close();
+		}
+		
+		void preorder(ostream& os, GenTreeNode<Type>* node) {
+
+			os << node->getKey() << " " << node->getValue() << endl;
+
+			if (node->children.getSize() == 0) {
+				return;
+			}
+			int depth = getDepth(node);
+
+			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
+			typename LinkedList<GenTreeNode<Type>*>::iterator it;
+			for (it = ll->begin(); it != ll->end(); it++) {
+				os << string(depth, '\t');
+				preorder(os, *it);
+			}
+		}
+
+		void postorder() {
+			postorder(root);
+		}
+
+		void postorder(GenTreeNode<Type>* node) {
+
+			int depth = getDepth(node);
+			if (node->children.getSize() == 0) {
+				cout << string(depth, '\t');
+				cout << node->getKey() << " " << node->getValue() << endl;	
+				return;
+			}
+
+			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
+			typename LinkedList<GenTreeNode<Type>*>::iterator it;
+			for (it = ll->begin(); it != ll->end(); it++) {
+				postorder(*it);
+			}
+
+			cout << string(depth, '\t');
+			cout << node->getKey() << " " << node->getValue() << endl;	
+		}
+		
+		void levelorder() {
+			levelorder(root);
+		}
+
+		void levelorder(GenTreeNode<Type>* node) {
+			
+		}
 
 		void buildTree(string fileName) {
-			ifstream file(fileName);
+			ifstream file;
+			file.open(fileName, ios::in);
 			int level = -1;
+
+			if (!file) 
+				throw underflow_error("Error opening file");
 
 			GenTreeNode<Type> * parent = root = nullptr;
 			GenTreeNode<Type> * last = root;
@@ -200,8 +262,11 @@ class GenTree {
 
 				if (newLevel > level)
 					parent = last;
-				if (newLevel < level) 
-					parent = parent->getParent();
+				if (newLevel < level) {
+					for (int i = 0; i < level - newLevel; i++) {
+						parent = parent->getParent();
+					}
+				}
 				if (root == nullptr) {
 					parent = root;
 				} 
@@ -217,9 +282,10 @@ class GenTree {
 
 				if (value == "") break;
 
-				last = insert(key, value, parent);
+				last = insert(key, value, parent, false);
 				level = newLevel;
 			}
+			file.close();
 		}
 
 		void clear() {
@@ -228,16 +294,20 @@ class GenTree {
 			root = nullptr;
 		}
 
-		GenTreeNode<Type>* insert(int key, Type value, int parentKey) {
+		GenTreeNode<Type>* insert(int key, Type value, int parentKey, bool overwrite) {
 			GenTreeNode<Type> * parent = findNodeByKey(parentKey, root);
 
-			if (findNodeByKey(key, root) != nullptr) {
+			if (!overwrite && findNodeByKey(key, root) != nullptr) {
 				throw overflow_error("Key already exists!");
 			}
-			return insert(key,value,parent);
+			return insert(key, value, parent, overwrite);
 		}
 
-		GenTreeNode<Type>* insert(int key, Type value, GenTreeNode<Type>* parent) {
+		GenTreeNode<Type>* insert(int key, Type value, GenTreeNode<Type>* parent, 
+				bool overwrite) {
+			if (overwrite) {
+				parent->children.erase(findNodeByKey(key, root));
+			}
 
 			GenTreeNode<Type> * newNode = new GenTreeNode<Type>(key, value, parent);
 			if (parent == nullptr) {
