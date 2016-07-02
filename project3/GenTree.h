@@ -55,14 +55,83 @@ class GenTree {
 		}
 
 		int getDepth(int key) {
-			
-			
+			GenTreeNode<Type> * node = findNodeByKey(key, root);
+			if (node == nullptr) 
+				throw underflow_error("Key not found");
+
+			return getDepth(node);
+		}
+
+		int getDepth(GenTreeNode<Type> * node) {
+			if (node->parent == nullptr) {
+				return 0;
+			}
+			return 1 + getDepth(node->parent);
 		}
 
 		bool empty() { return size==0; }
-		int leaves() {}
-		int siblings(int key) {}
-		GenTreeNode<Type>* findCommonAncestor(int key1, int key2) {}
+
+		int leaves(GenTreeNode<Type>* node) {
+			if (node->children.getSize() == 0) {
+				return 1;
+			}
+			typename LinkedList<GenTreeNode<Type>*>::iterator it;
+			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
+			int numLeaves = 0;
+			for (it = ll->begin(); it != ll->end(); it++) {
+				numLeaves += leaves(*it);
+			}
+			return numLeaves;
+
+		}
+		
+		int leaves() {
+			if (root == nullptr)
+				throw underflow_error("Root doesn't exist");
+
+			return leaves(root);
+				
+		}
+
+		int siblings(int key) {
+			GenTreeNode<Type>* node = findNodeByKey(key, root);
+			if (node == nullptr) 
+				throw underflow_error("Key not found");
+
+			return node->parent->children.getSize() - 1;
+		}
+
+		GenTreeNode<Type>* findCommonAncestor(int key1, int key2) {
+			GenTreeNode<Type> * n1 = findNodeByKey(key1,root);
+			GenTreeNode<Type> * n2 = findNodeByKey(key2,root);
+
+			if (n1 == nullptr || n2 == nullptr) 
+				throw underflow_error("Key not found");
+
+			n1 = n1->parent;
+			n2 = n2->parent;
+
+			if (n1 == nullptr || n2 == nullptr) 
+				return root;
+
+			GenTreeNode<Type> * p1;
+			GenTreeNode<Type> * p2;
+
+			for (p1=n1->parent; p1 != nullptr; p1=p1->parent) {
+				for (p2=n1->parent; p2 != nullptr; p2=p2->parent) {
+					if (p1==p2) 
+						return p1;
+				}
+			}	
+			return nullptr;
+			
+		}
+
+
+		GenTreeNode<Type>* findNode(Type& value) {
+			findNode(value, root);
+		}
+
 		GenTreeNode<Type>* findNode(Type& value, GenTreeNode<Type>* node) {
 			if (node == nullptr) 
 				return nullptr;
@@ -78,9 +147,7 @@ class GenTree {
 				else 
 					return findNode(value, *it);
 			}
-
 			return nullptr;
-
 		}
 
 		GenTreeNode<Type>* findNodeByKey(int key, GenTreeNode<Type>* node) {
@@ -104,9 +171,7 @@ class GenTree {
 						return child;
 				}
 			}
-
 			return nullptr;
-
 		}
 
 		void preorder(GenTreeNode<Type>* node) {}
@@ -135,20 +200,20 @@ class GenTree {
 
 				if (newLevel > level)
 					parent = last;
-
 				if (newLevel < level) 
 					parent = parent->getParent();
-
 				if (root == nullptr) {
 					parent = root;
 				} 
 	
+				// Parse line
 				istringstream ss(line);
 				int key;
 				string value;
 				ss >> key;
 				value = ss.str();
-				value = value.substr(value.find(" ") + 1, value.length() - value.find(" "));
+				int spacePos = value.find(" ");
+				value = value.substr(spacePos + 1, value.length() - spacePos);
 
 				if (value == "") break;
 

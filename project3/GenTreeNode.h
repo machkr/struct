@@ -28,16 +28,19 @@ class GenTreeNode {
 		void deleteChildren(GenTreeNode<Type> * node) {
 			typename LinkedList<GenTreeNode<Type>*>::iterator it;
 
-			if (node->children.getSize == 0)
+			if (node->children.getSize() == 0)
 				delete node;
 				return;
 					
-			for (it = children.begin(); it < children.end(); it++) {
-				deleteChildren(&(*it));
+			for (it = children.begin(); it != children.end(); it++) {
+				deleteChildren(*it);
 			}
 		}	
 
 		GenTreeNode<Type>* getParent() {return parent;}
+
+		int getKey() { return key; }
+		Type getValue() { return value; }
 
 		~GenTreeNode() {
 			deleteChildren(this);

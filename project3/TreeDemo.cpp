@@ -191,7 +191,17 @@ void TreeDemo::depth(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+		{
+			int key; 
+			cout << "Key: ";
+			cin >> key;
+			try {
+				cout << gen->getDepth(key);
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
 			break;
+		}
 		case 3: // AVL
 			break;
 	}
@@ -220,6 +230,11 @@ void TreeDemo::leaves(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			try {
+				cout << gen->leaves();
+			} catch (...) {
+				cout << "Error";
+			}
 			break;
 		case 2: // Heap
 			break;
@@ -235,7 +250,17 @@ void TreeDemo::siblings(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+		{
+			int key;
+			cout << "Key: ";
+			cin >> key;
+			try {
+				cout << gen->siblings(key);
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
 			break;
+		}
 		case 3: // AVL
 			break;
 	}
@@ -244,7 +269,21 @@ void TreeDemo::siblings(vector<int> &prev)
 
 void TreeDemo::commonAncestor(vector<int> &prev) 
 {
-
+	cout << "(Common Ancestor)" << endl;
+	int key1; 
+	int key2;
+	cout << "Key 1: ";
+	cin >> key1;
+	cout << "Key 2: ";
+	cin >> key2;
+	try {
+		GenTreeNode<string> * node = gen->findCommonAncestor(key1, key2);
+		cout << "\n" << node << "\nKey: " << node->getKey() << "\nValue: " << 
+			node->getValue();
+	} catch (const underflow_error& e) {
+		cout << "Error: " << e.what();
+	}
+	cout << endl << endl;
 }
 
 void TreeDemo::find(vector<int> &prev) 
@@ -313,8 +352,18 @@ void TreeDemo::build(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
-			gen->buildTree("genTree.txt");
+		{
+			string fileName;
+			cout << "File Name: ";
+			getline(cin, fileName);
+			try {
+				gen->buildTree("genTree.txt");
+				cout << "Success fully opened " << fileName;
+			} catch (...) {
+				cout << "Error opening " << fileName;
+			}
 			break;
+		}
 		case 2: // Heap
 			break;
 		case 3: // AVL
@@ -329,6 +378,8 @@ void TreeDemo::clear(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+			gen->clear();
+			cout << "General Tree cleared";
 			break;
 		case 2: // Heap
 			break;
@@ -344,7 +395,25 @@ void TreeDemo::insert(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+		{ 		
+			int key;
+			string value;
+			int parent;
+			cout << "Key: ";
+			cin >> key;
+			cin.ignore();
+			cout << "Value: ";
+			getline(cin, value);	
+			cout << "Parent: ";
+			cin >> parent;
+			try {
+				gen->insert(key, value, parent);
+				cout << "Success";
+			} catch (...) {
+				cout << "Error";
+			}
 			break;
+		}
 		case 2: // Heap
 			break;
 		case 3: // AVL
