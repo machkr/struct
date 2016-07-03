@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include "GenTreeNode.h"
+#include "SimpleQueue.h"
 
 using namespace std;
 
@@ -11,34 +12,9 @@ class GenTree {
 	private:
 		GenTreeNode<Type> * root;
 		int size;
-	
-	public: 
-		GenTree() :
-			root(nullptr),
-			size(0)
-		{}
 
-		~GenTree() {}
-
-		GenTreeNode<Type>* getRoot() { return root; }
-
-		int getSize() { return size; }
-
-		int getHeight() { 
-			if (root == nullptr) {
-				throw underflow_error("Root doesn't exist");
-			}
-			return getHeight(root); 
-		}
-
-		int getHeight(int key) {
-			GenTreeNode<Type>* node = findNodeByKey(key, root);
-			if (node == nullptr) {
-				throw underflow_error("Key doesn't exist.");
-			}
-			return getHeight(node);
-		}
-
+		// Private Recursive Methods
+		
 		int getHeight(GenTreeNode<Type>* node) {
 			if (node->children.getSize() == 0) {
 				return 0;
@@ -53,23 +29,13 @@ class GenTree {
 				
 			return 1 + max;
 		}
-
-		int getDepth(int key) {
-			GenTreeNode<Type> * node = findNodeByKey(key, root);
-			if (node == nullptr) 
-				throw underflow_error("Key not found");
-
-			return getDepth(node);
-		}
-
+	
 		int getDepth(GenTreeNode<Type> * node) {
 			if (node->parent == nullptr) {
 				return 0;
 			}
 			return 1 + getDepth(node->parent);
 		}
-
-		bool empty() { return size==0; }
 
 		int leaves(GenTreeNode<Type>* node) {
 			if (node->children.getSize() == 0) {
@@ -83,53 +49,6 @@ class GenTree {
 			}
 			return numLeaves;
 
-		}
-		
-		int leaves() {
-			if (root == nullptr)
-				throw underflow_error("Root doesn't exist");
-
-			return leaves(root);
-				
-		}
-
-		int siblings(int key) {
-			GenTreeNode<Type>* node = findNodeByKey(key, root);
-			if (node == nullptr) 
-				throw underflow_error("Key not found");
-
-			return node->parent->children.getSize() - 1;
-		}
-
-		GenTreeNode<Type>* findCommonAncestor(int key1, int key2) {
-			GenTreeNode<Type> * n1 = findNodeByKey(key1,root);
-			GenTreeNode<Type> * n2 = findNodeByKey(key2,root);
-
-			if (n1 == nullptr || n2 == nullptr) 
-				throw underflow_error("Key not found");
-
-			n1 = n1->parent;
-			n2 = n2->parent;
-
-			if (n1 == nullptr || n2 == nullptr) 
-				return root;
-
-			GenTreeNode<Type> * p1;
-			GenTreeNode<Type> * p2;
-
-			for (p1=n1->parent; p1 != nullptr; p1=p1->parent) {
-				for (p2=n1->parent; p2 != nullptr; p2=p2->parent) {
-					if (p1==p2) 
-						return p1;
-				}
-			}	
-			return nullptr;
-			
-		}
-
-
-		GenTreeNode<Type>* findNode(Type& value) {
-			findNode(value, root);
 		}
 
 		GenTreeNode<Type>* findNode(Type& value, GenTreeNode<Type>* node) {
@@ -174,20 +93,6 @@ class GenTree {
 			return nullptr;
 		}
 
-		void preorder() {
-			preorder(cout, root);
-		}
-
-		void toFile(string fileName) {
-			ofstream file(fileName, ios::out);
-
-			if (!file)
-				throw underflow_error("File could not be opened");
-
-			preorder(file, root);
-			file.close();
-		}
-		
 		void preorder(ostream& os, GenTreeNode<Type>* node) {
 
 			os << node->getKey() << " " << node->getValue() << endl;
@@ -205,15 +110,9 @@ class GenTree {
 			}
 		}
 
-		void postorder() {
-			postorder(root);
-		}
-
 		void postorder(GenTreeNode<Type>* node) {
 
-			int depth = getDepth(node);
 			if (node->children.getSize() == 0) {
-				cout << string(depth, '\t');
 				cout << node->getKey() << " " << node->getValue() << endl;	
 				return;
 			}
@@ -224,17 +123,175 @@ class GenTree {
 				postorder(*it);
 			}
 
-			cout << string(depth, '\t');
 			cout << node->getKey() << " " << node->getValue() << endl;	
 		}
 		
+		void levelorder(GenTreeNode<Type>* node) {
+
+			SimpleQueue<GenTreeNode<Type>*> q(32);
+			q.enqueue(node);
+			while (!q.empty()) {
+				GenTreeNode<Type> * n = q.dequeue();
+				cout << n->key << " " << n->value << endl;
+
+				// Enqueue children
+				if (n->children.getSize() == 0) continue;
+				LinkedList<GenTreeNode<Type>*> * ll = &(n->children);
+				typename LinkedList<GenTreeNode<Type>*>::iterator it;
+				for (it = ll->begin(); it != ll->end(); it++) {
+					q.enqueue(*it);
+				}
+			}
+
+		}
+
+		GenTreeNode<Type>* insert(int key, Type value, GenTreeNode<Type>* parent, 
+				bool overwrite) {
+			if (overwrite) {
+				parent->children.erase(findNodeByKey(key, root));
+			}
+
+			GenTreeNode<Type> * newNode = new GenTreeNode<Type>(key, value, parent);
+			if (parent == nullptr) {
+				root = newNode;
+			} else {
+				parent->children.push_back(newNode);
+			}
+			size++;
+			return newNode;
+		}
+
+
+	public: 
+		
+		GenTree() :
+			root(nullptr),
+			size(0)
+		{}
+
+		~GenTree() {
+			delete root;
+		}
+		
+
+		// Public Accessors
+
+		GenTreeNode<Type>* getRoot() { return root; }
+
+		int getSize() { return size; }
+
+		int getHeight() { 
+			if (root == nullptr) {
+				throw underflow_error("Root doesn't exist");
+			}
+			return getHeight(root); 
+		}
+
+		int getHeight(int key) {
+			GenTreeNode<Type>* node = findNodeByKey(key, root);
+			if (node == nullptr) {
+				throw underflow_error("Key doesn't exist.");
+			}
+			return getHeight(node);
+		}
+
+
+		int getDepth(int key) {
+			GenTreeNode<Type> * node = findNodeByKey(key, root);
+			if (node == nullptr) 
+				throw underflow_error("Key not found");
+
+			return getDepth(node);
+		}
+
+
+		bool empty() { return size==0; }
+
+		
+		int leaves() {
+			if (root == nullptr)
+				throw underflow_error("Root doesn't exist");
+
+			return leaves(root);
+				
+		}
+
+		int siblings(int key) {
+			GenTreeNode<Type>* node = findNodeByKey(key, root);
+			if (node == nullptr) 
+				throw underflow_error("Key not found");
+
+			return node->parent->children.getSize() - 1;
+		}
+
+		GenTreeNode<Type>* findCommonAncestor(int key1, int key2) {
+			GenTreeNode<Type> * n1 = findNodeByKey(key1,root);
+			GenTreeNode<Type> * n2 = findNodeByKey(key2,root);
+
+			if (n1 == nullptr || n2 == nullptr) 
+				throw underflow_error("Key not found");
+
+			n1 = n1->parent;
+			n2 = n2->parent;
+
+			if (n1 == nullptr || n2 == nullptr) 
+				return root;
+
+			GenTreeNode<Type> * p1;
+			GenTreeNode<Type> * p2;
+
+			for (p1=n1->parent; p1 != nullptr; p1=p1->parent) {
+				for (p2=n1->parent; p2 != nullptr; p2=p2->parent) {
+					if (p1==p2) 
+						return p1;
+				}
+			}	
+			return nullptr;
+			
+		}
+
+		GenTreeNode<Type>* findNode(Type& value) {
+			findNode(value, root);
+		}
+
+
+		void toFile(string fileName) {
+			ofstream file(fileName, ios::out);
+
+			if (!file)
+				throw underflow_error("File could not be opened");
+
+			preorder(file, root);
+			file.close();
+		}
+
+
+		// Public Traversal
+		
+		void preorder() {
+			if (root == nullptr) 
+				throw underflow_error("Root doesn't exist");
+
+			preorder(cout, root);
+		}
+
+		void postorder() {
+			if (root == nullptr)
+				throw underflow_error("Root is empty");
+
+			postorder(root);
+		}
+
+		
 		void levelorder() {
+			if (root == nullptr) 
+				throw underflow_error("Root is empty");
+
 			levelorder(root);
 		}
 
-		void levelorder(GenTreeNode<Type>* node) {
-			
-		}
+
+		// Public Mutators
 
 		void buildTree(string fileName) {
 			ifstream file;
@@ -259,7 +316,8 @@ class GenTree {
 					else
 						break;
 				}
-
+				
+				// Determine parent
 				if (newLevel > level)
 					parent = last;
 				if (newLevel < level) {
@@ -294,7 +352,8 @@ class GenTree {
 			root = nullptr;
 		}
 
-		GenTreeNode<Type>* insert(int key, Type value, int parentKey, bool overwrite) {
+		GenTreeNode<Type>* insert(int key, Type value, int parentKey, 
+				bool overwrite) {
 			GenTreeNode<Type> * parent = findNodeByKey(parentKey, root);
 
 			if (!overwrite && findNodeByKey(key, root) != nullptr) {
@@ -303,29 +362,9 @@ class GenTree {
 			return insert(key, value, parent, overwrite);
 		}
 
-		GenTreeNode<Type>* insert(int key, Type value, GenTreeNode<Type>* parent, 
-				bool overwrite) {
-			if (overwrite) {
-				parent->children.erase(findNodeByKey(key, root));
-			}
-
-			GenTreeNode<Type> * newNode = new GenTreeNode<Type>(key, value, parent);
-			if (parent == nullptr) {
-				root = newNode;
-			} else {
-				parent->children.push_back(newNode);
-			}
-			size++;
-			return newNode;
-		}
 
 		int del(Type value) {
-			//try { 
-				delete findNode(value);
-			//} catch (const underflow_error& e) {
-			//	throw e;
-			//}
+			delete findNode(value);
 		}
-	
 
 };

@@ -307,7 +307,11 @@ void TreeDemo::preOrder(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
-			gen->preorder();
+			try {
+				gen->preorder();
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
 			break;
 		case 3: // AVL
 			break;
@@ -321,7 +325,12 @@ void TreeDemo::postOrder(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
-			gen->postorder();
+			try {
+				gen->postorder();
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
+			break;
 			break;
 		case 3: // AVL
 			break;
@@ -335,7 +344,11 @@ void TreeDemo::levelOrder(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
-			gen->levelorder();
+			try {
+				gen->levelorder();
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
 			break;
 		case 3: // AVL
 			break;
