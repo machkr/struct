@@ -30,14 +30,14 @@ public:
 		return heap[1];
 	}
 
-	int getCount()																				// Returns the number of elements in the binary heap
+	int getSize()																				// Returns the number of elements in the binary heap
 	{
 		return count;
 	}
 
 	int getHeight(int i)																		// Returns the height of binary heap
 	{
-		if (heap[i] == NULL) return -1;
+		if (heap[i] == NULL) throw underflow_error("Root doesn't exist.");
 
 		int leftHeight = getHeight(left(i));
 		int rightHeight = getHeight(right(i));
@@ -96,24 +96,21 @@ public:
 
 	int leaves()																				// Returns the number of leaves in the binary heap
 	{
+		if(empty()) throw underflow_error("Error: the heap is empty.")
 		return ceil(double(count) / double(2));
 	}
 
 	//----------//
 	// Mutators //
 	//----------//
-	void buildTree()																			// Builds a new binary heap from text file
+	void buildTree(string filename)																			// Builds a new binary heap from text file
 	{
 		int key;
 		type data;
 
-		ifstream istream("Heap.txt");
+		ifstream istream(filename);
 
-		if (!istream.is_open())
-		{
-			cout << "Error: unable to open file." << endl << endl;
-			return;
-		}
+		if (!istream.is_open()) { throw underflow_error("Error: unable to open file."); }
 
 		heap = new HeapTreeNode<type>[size + 1];
 

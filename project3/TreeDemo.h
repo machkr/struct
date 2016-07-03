@@ -3,12 +3,13 @@
 #include <string>
 #include "MenuList.h"
 #include "GenTree.h"
+#include "MaxHeapTree.h"
 
 class TreeDemo 
 {
 	private:
-		GenTree<string> * gen;
-		void* heap;
+		GenTree<string> *gen;
+		MaxHeapTree<string> *heap;
 		void* avl;
 
 		MenuList * mainMenu;
