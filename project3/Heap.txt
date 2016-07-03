@@ -1,0 +1,12 @@
+14
+Dog
+2
+Cat
+15
+Rat
+8
+Lat
+22
+Bat
+17
+Fat

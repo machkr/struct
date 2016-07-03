@@ -19,7 +19,7 @@ public:
 	MaxHeapTree() : heap(NULL), size(1), count(0) {}											// Default
 	MaxHeapTree(int _size) : heap(NULL), size(_size), count(0) {}								// Given a size parameter
 
-																								//Destructor
+																								// Destructor
 	~MaxHeapTree() { clear(); }
 
 	//-----------//
@@ -46,7 +46,7 @@ public:
 		else return (rightHeight + 1);
 	}
 
-	int left(int parentIndex)													// Returns the index of a node's left child, given its index
+	int left(int parentIndex)																	// Returns the index of a node's left child, given its index
 	{
 		int left = (2 * parentIndex);
 
@@ -60,7 +60,7 @@ public:
 		}
 	}
 
-	int right(int parentIndex)													// Returns the index of a node's right child, given its index
+	int right(int parentIndex)																	// Returns the index of a node's right child, given its index
 	{
 		int right = ((2 * parentIndex) + 1);
 
@@ -75,7 +75,7 @@ public:
 
 	}
 
-	int parent(int childIndex)													// Returns the index of a node's parent, given its index
+	int parent(int childIndex)																	// Returns the index of a node's parent, given its index
 	{
 		int parent = childIndex / 2;
 
@@ -227,7 +227,7 @@ public:
 	//----------//
 	// Displays //
 	//----------//
-	void displayArray()																			//Displays the binary heap as an array of keys
+	void displayArray()																			// Displays the binary heap as an array of keys
 	{
 		if (empty())
 		{
