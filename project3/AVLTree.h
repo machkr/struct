@@ -1,46 +1,480 @@
-#include <iostream>
+#pragma once
 #include "TreeNode.h"
+#include <fstream>
+
+int max(int num1, int num2)
+{
+	if (num1 >= num2)
+	{
+		return num1;
+	}
+
+	if (num2 >= num1)
+	{
+		return num2;
+	}
+
+	else return 0;
+}
 
 using namespace std;
 
-class AVLTree{
-  
+template <class Type>
+class AVLTree {
 private:
+	int count = 0; //Used for Siblings Function 
 
 public:
+	AVLTree() : size(0), root(nullptr) { }
 
-TreeNode getRoot()
+	TreeNode<Type> * root;
+	AVLTree<int> * A;
+	int size;
 
-int getSize()
+	TreeNode<Type> getRoot()
+	{
+		return this->root;
+	}
 
-int getHeight(TreeNode & node)
+	int getSize() //private vs protected, think about whether or not we should do it this way. 
+	{
+		return this->size;
+	}
 
-int getDepth(TreeNode & node)
+	int getHeight()
+	{
+		int height = 0;
+		TreeNode<Type> * temp = root;
 
-bool empty()
+		if (temp == nullptr)
+		{
+			return height;
+		}
 
-int leaves()
+		while (temp->left != nullptr && temp->right != nullptr)
+		{
+			if (temp->left != nullptr)
+			{
+				temp = temp->left;
+				height++;
+			}
 
-int siblings(TreeNode & node)
+			if (temp->right != nullptr)
+			{
+				temp = temp->right;
+				height++;
+			}
+		}
 
-TreeNode findCommonAncestor(TreeNode & node1, TreeNode &node2)
+		return height;
+	}
 
-TreeNode findNode(TreeNode & node)
+	int getHeight(TreeNode<Type> * node)
+	{
+		int max_height = 0;
 
-void preorder()
+		if (node == nullptr)
+		{
+			return max_height + 1;
+		}
 
-void postorder()
+		if (node != nullptr)
+		{
+			int left_height = getHeight(node->left);
+			int right_height = getHeight(node->right);
+			max_height = max(left_height, right_height); //make max function, dont use library.
+		}
 
-void levelorder()
+		return max_height + 1;
+	}
 
-//Mutators
+	int getDepth(TreeNode<Type> * node)
+	{
+		TreeNode<Type> * pointer = node;
+		int depth = 0;
+		while ((pointer->parent != nullptr))
+		{
+			pointer = pointer->parent;
+			depth++;
 
-void buildTree()
+		}
+		return depth;
+	}
 
-void clear()
+	bool empty()
+	{
+		return (root == nullptr);
+	}
 
-void insert(type data, int num) //open ended??
+	int leavesWrapper(TreeNode<Type> * node) {
+		int num = leaves(node);
+		count = 0;
+		return num;
+	}
 
-void del(type data)
+	int leaves(TreeNode<Type> * node)
+	{
+		if ((node->left == nullptr) && (node->right == nullptr))
+		{
+			count++;
+		}
+
+		if (node->left != nullptr)
+		{
+			leaves(node->left);
+		}
+
+		if (node->right != nullptr)
+		{
+			leaves(node->right);
+		}
+
+		return count;
+	}
+
+	//SIBLINGS!
+	int siblingsWrapper(TreeNode<Type> * root)
+	{
+		int num = siblings(TreeNode<Type> * root, TreeNode<Type> * node1)
+			count = 0;
+		return num;
+	}
+
+	int siblings(TreeNode<Type> * node, TreeNode<Type> * node1)
+	{
+		if ((getHeight(node1) == (getHeight(node))))
+		{
+			count++;
+		}
+
+		if (node->left != nullptr)
+		{
+			siblings(node->left, *node1);
+		}
+
+		if (node->right != nullptr)
+		{
+			siblings(node->right, *node1)
+		}
+
+	}
+
+
+	TreeNode<Type> * find(int key, Type data)
+	{
+		cout << "Boop" << endl;
+
+		TreeNode<Type> * pointer = this->root;
+		pointer->key = key;
+
+		if (pointer->value == data)
+		{
+			cout << "Found Node! Key: " << key << "  Data: " << data << endl;
+			cout << "It has a height of " << getHeight(pointer) - 1 << " and a depth of " << getDepth(pointer) + 1 << endl;
+			return pointer;
+		}
+
+		TreeNode<Type> * tempLeft = nullptr;
+		TreeNode<Type> * tempRight = nullptr;
+
+
+		if (pointer->left != nullptr)
+		{
+			cout << "We're at left." << endl;
+			tempLeft = find(pointer->left->key, data);
+			cout << "We've gone through left WOOHOO SHIA LEBOUF." << endl;
+
+		}
+
+		if (pointer->right != nullptr)
+		{
+			cout << "ROGJTROGJTEJWEOGJAEOGJKAOGJAOG" << endl;
+			tempRight = find(pointer->right->key, data);
+			cout << "WHAT THE FUCK?!?!!?" << endl;
+		}
+
+		return tempLeft != nullptr ? tempLeft : tempRight;
+	}
+
+
+	void buildTree(string file)
+	{
+		Type value;
+		int key;
+
+		ifstream input;
+		input.open(file);
+
+		if (!input.is_open()) { throw underflow_error("Error: unable to open file."); }
+
+		TreeNode<Type> * root = nullptr;
+
+		while (!input.eof())
+		{
+			input >> key;
+			input.ignore();
+			getline(input, value);
+			A.insert(key, value);
+		}
+
+		input.close();
+	}
+
+
+	void clear()
+	{
+		delete this->root;
+		this->root = nullptr;
+		this->size = 0;
+
+	}
+
+	void display(TreeNode<Type> * currentNode, int height)
+	{
+		TreeNode<Type> * pointer = currentNode;
+		if (pointer != nullptr)
+		{
+			display(pointer->right, height + 1);
+			cout << endl;
+			if (pointer == this->root) cout << "Root: ";
+			int iterator = 0;
+			for (iterator = 0; (pointer != this->root) && (iterator < height); iterator++) cout << "\t\t";
+
+			cout << pointer->key << "," << pointer->value;
+			cout << ", h=" << this->getHeight(pointer) << " d =" << getDepth(pointer);
+
+			display(pointer->left, height + 1);
+		}
+	}
+
+	TreeNode<Type> * left_Left_Rotation(TreeNode<Type> * node) //Right Rotation
+
+	{
+
+		TreeNode<Type>  *pointer;
+
+		pointer = node->left;
+
+		node->left = pointer->right;
+
+		pointer->right = node;
+
+		node->parent = pointer;
+
+		pointer->parent = nullptr;
+
+		return pointer;
+
+	}
+
+	TreeNode<Type> * left_Right_Rotation(TreeNode<Type> * node) //Left Right Rotation
+
+	{
+
+		TreeNode<Type> *pointer;
+
+		pointer = node->left;
+
+		node->left = right_Right_Rotation(pointer);
+
+		return left_Left_Rotation(node);
+
+	}
+
+	TreeNode<Type> * right_Right_Rotation(TreeNode<Type> * node) //Left Rotation
+	{
+
+		TreeNode<Type> *pointer;
+
+		pointer = node->right;
+
+		node->right = pointer->left;
+
+		pointer->left = node;
+
+		node->parent = pointer;
+
+		pointer->parent = nullptr;
+
+		return pointer;
+
+	}
+
+	TreeNode<Type> * right_Left_Rotation(TreeNode<Type> * node)  //Right Left Rotation
+
+	{
+
+		TreeNode<Type> *pointer;
+
+		pointer = node->right;
+
+		node->right = left_Left_Rotation(pointer);
+
+		return right_Right_Rotation(node);
+
+	}
+
+	int balanceFactor(TreeNode<Type> * node)
+	{
+		int left_height = getHeight(node->left);
+		int right_height = getHeight(node->right);
+		return (left_height - right_height);
+	}
+
+	TreeNode<Type> * balance(TreeNode<Type> * node)
+	{
+		int bal = balanceFactor(node);
+
+		if (bal > 1)
+		{
+			if (balanceFactor(root->left) > 0)
+			{
+				node = left_Left_Rotation(node);
+			}
+			else
+			{
+				node = left_Right_Rotation(node);
+			}
+		}
+		else if (bal < -1)
+		{
+
+			if (balanceFactor(node->right) > 0)
+			{
+				node = right_Left_Rotation(node);
+			}
+			else
+			{
+				node = right_Right_Rotation(node);
+			}
+		}
+		return node;
+	}
+
+
+	TreeNode<Type> * insert(int key, Type data)
+	{
+		TreeNode<Type> * ptr = this->root;
+		TreeNode<Type> * newNode = new TreeNode<Type>;
+		newNode->key = key;
+		newNode->value = data;
+
+		if (root == nullptr)
+		{
+			root = newNode;
+			root->left = root->right = root->parent = nullptr;
+			size++;
+			return root;
+		}
+
+		while (key < ptr->key && ptr->left != nullptr)
+		{
+			ptr = ptr->left;
+		}
+
+		while (key >= ptr->key && ptr->right != nullptr)
+		{
+			ptr = ptr->right;
+		}
+
+		while (key < ptr->key && ptr->left != nullptr)
+		{
+			ptr = ptr->left;
+		}
+
+		while (key >= ptr->key && ptr->right != nullptr)
+		{
+			ptr = ptr->right;
+		}
+
+		if (key < ptr->key)
+		{
+			newNode->parent = ptr;
+			ptr->left = newNode;
+		}
+
+		else if (key >= ptr->key)
+		{
+			newNode->parent = ptr;
+			ptr->right = newNode;
+		}
+
+
+		size++;
+		root = balance(root);
+		return root;
+	}
+
+
+	//Delete Attempts
+
+	/*void Delete(TreeNode<Type> * node)
+	{
+	if (node != nullptr)
+	{
+	Delete(node->left);
+	Delete(node->right);
+
+	delete node;
+	node = nullptr;
+	}
+	}
+
+	int Min(TreeNode<Type> * node)
+	{
+	return node->left == nullptr ? node->key : Min(node->left);
+	}
+
+
+	TreeNode<Type> del(int key, TreeNode<Type> * node)
+	{
+	if (node == nullptr)
+	{
+	return * root;
+	}
+
+	if (key < node->key) return del(key, node->left);
+
+	else if (key > node->key) return del(key, node->right);
+
+	else
+	{
+	if ((node->left == nullptr) && (node->right == nullptr))
+	{
+	Delete(node);
+	}
+	else if ((node->left != nullptr) && (node->right != nullptr))
+	{
+	TreeNode<Type> * pointer = node;
+	int min_key = Min(node->right);
+	del(min_key, node);
+
+	return * pointer;
+	}
+	else
+	{
+	TreeNode<Type> * temp = node;
+
+	if (node->left == nullptr)
+	{
+	node = temp->right;
+	temp->right = nullptr;
+	}
+	else
+	{
+	node = temp->left;
+	temp->left = nullptr;
+	}
+
+	Delete(nullptr);
+
+	}
+
+	}
+	root = balance(root);
+	return * root;
+	} */
+
+	~AVLTree() {};
 
 };
