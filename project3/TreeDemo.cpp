@@ -24,6 +24,7 @@ void TreeDemo::buildMenus()
 	avlMutatorMenu = new MenuList("Please choose a mutator method: AVL Tree");
 
 	heapDisplayMenu = new MenuList("Please choose a display method: Heap");
+	avlDisplayMenu = new MenuList("Please choose a display method: AVL Tree");
 
 	// Main Menu
 	mainMenu->setIsMain(true);
@@ -101,6 +102,7 @@ void TreeDemo::createAvl(vector<int>& prev)
 	avlMenu->remove("Create AVL Tree");
 	avlMenu->add("Access", MenuList::SubMenu(avlAccessMenu), true);
 	avlMenu->add("Traverse", MenuList::SubMenu(avlTraversalMenu), true);
+	avlMenu->add("Display", MenuList::SubMenu(avlDisplayMenu), true);
 	avlMenu->add("Mutate", MenuList::SubMenu(avlMutatorMenu), true);
 	
 	avlAccessMenu->add("Root", action(root));
@@ -117,6 +119,10 @@ void TreeDemo::createAvl(vector<int>& prev)
 	avlTraversalMenu->add("Postorder", action(postOrder));
 	avlTraversalMenu->add("Level Order", action(levelOrder));
 	avlTraversalMenu->add("In Order", action(inOrder));
+
+	avlDisplayMenu->add("Array", action(array));
+	avlDisplayMenu->add("List", action(list));
+	avlDisplayMenu->add("Tree", action(tree));
 	
 	avlMutatorMenu->add("Build Tree From File", action(build));	
 	avlMutatorMenu->add("Clear", action(clear));
@@ -607,22 +613,48 @@ void TreeDemo::del(vector<int> &prev)
 void TreeDemo::array(vector<int> &prev)
 {
 	cout << "(Display - Array)" << endl << endl;
-	try { heap->displayArray(); }
-	catch (const underflow_error& e) { cout << e.what(); }
+
+	switch (prev.back())
+	{
+	case 2: // Heap
+		try { heap->displayArray(); }
+		catch (const underflow_error& e) { cout << e.what(); }
+		break;
+	case 3: // AVL
+		break;
+	}
+
 	cout << endl << endl;
 }
 
 void TreeDemo::list(vector<int> &prev)
 {
 	cout << "(Display - List)" << endl << endl;
-	try { heap->displayList(); }
-	catch (const underflow_error& e) { cout << e.what(); }
+
+	switch (prev.back())
+	{
+	case 2: // Heap
+		try { heap->displayList(); }
+		catch (const underflow_error& e) { cout << e.what(); }
+		break;
+	case 3: // AVL
+		break;
+	}
+
 	cout << endl << endl;
 }
 
 void TreeDemo::tree(vector<int> &prev)
 {
 	cout << "(Display - Tree)" << endl << endl;
-	try { heap->displayTree(); }
-	catch (const underflow_error& e) { cout << e.what() << endl << endl; }
+
+	switch (prev.back())
+	{
+	case 2: // Heap
+		try { heap->displayTree(); }
+		catch (const underflow_error& e) { cout << e.what() << endl << endl; }
+		break;
+	case 3: // AVL
+		break;
+	}
 }

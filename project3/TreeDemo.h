@@ -30,6 +30,7 @@ class TreeDemo
 		MenuList * avlMutatorMenu;
 
 		MenuList * heapDisplayMenu;
+		MenuList * avlDisplayMenu;
 
 		void buildMenus();
 
