@@ -9,6 +9,7 @@ using namespace std;
 template<class Type>
 class TreeNode{
 //private:  
+
 public:
 
 int key;
@@ -25,6 +26,11 @@ TreeNode<Type> * right;
 	TreeNode(const Type & value) : key(0), parent(0), left(0), right(0) 
 	{
 		this->value = value;
+	}
+
+	TreeNode(Type value, int key) : key(key), parent(0), left(0), right(0)
+	{
+		this->value = value; 
 	}
 
 	void visit() {
@@ -46,10 +52,11 @@ TreeNode<Type> * right;
 		if (right != nullptr) right->postorder();
 		this->visit();
 	}
-	void levelorder() {
-		if (this == nullptr) return;
-	}
 
+	int getKey()
+	{
+		return this->key;
+	}
 ~TreeNode() {};
 
 };

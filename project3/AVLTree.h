@@ -1,6 +1,7 @@
 #pragma once
 #include "TreeNode.h"
 #include <fstream>
+#include <string>
 
 int max(int num1, int num2)
 {
@@ -28,7 +29,6 @@ public:
 	AVLTree() : size(0), root(nullptr) { }
 
 	TreeNode<Type> * root;
-	AVLTree<int> * A;
 	int size;
 
 	TreeNode<Type> getRoot()
@@ -104,7 +104,7 @@ public:
 
 		if (node == nullptr)
 		{
-			return max_height + 1;
+			return -1;
 		}
 
 		if (node != nullptr)
@@ -229,16 +229,28 @@ public:
 		ifstream input;
 		input.open(file);
 
-		if (!input.is_open()) { throw underflow_error("Error: unable to open file."); }
-
-		TreeNode<Type> * root = nullptr;
+		if (!input) { throw underflow_error("Error: unable to open file."); }
 
 		while (!input.eof())
 		{
+			if (root == nullptr)
+			{
+				input >> key;
+				input.ignore();
+				getline(input, value);
+				TreeNode<Type> * lol = new TreeNode<Type>(value);
+				lol->key = key;
+				root = lol;
+			}
+
 			input >> key;
 			input.ignore();
 			getline(input, value);
-			A.insert(key, value);
+			TreeNode<Type> * cake = new TreeNode<Type>(value,key);
+			//TreeNode<Type> * pointer = new TreeNode<Type>();
+			//pointer->key = key;
+			//pointer->value = value;
+			insert(cake->key, cake->value); 
 		}
 
 		input.close();
@@ -267,7 +279,7 @@ public:
 			cout << pointer->key << "," << pointer->value;
 			cout << ", h=" << this->getHeight(pointer) << " d =" << getDepth(pointer);
 
-			display(pointer->left, height + 1);
+			display(pointer->left, height+1);
 		}
 	}
 
@@ -378,10 +390,8 @@ public:
 
 	TreeNode<Type> * insert(int key, Type data)
 	{
-		TreeNode<Type> * ptr = this->root;
-		TreeNode<Type> * newNode = new TreeNode<Type>;
-		newNode->key = key;
-		newNode->value = data;
+		TreeNode<Type> * ptr = root;
+		TreeNode<Type> * newNode = new TreeNode<Type>(data, key);
 
 		if (root == nullptr)
 		{
@@ -428,6 +438,8 @@ public:
 		root = balance(root);
 		return root;
 	}
+
+	
 
 
 	//Delete Attempts
@@ -495,6 +507,8 @@ public:
 	}
 
 	}
+
+	size--;
 	root = balance(root);
 	return * root;
 	} */
