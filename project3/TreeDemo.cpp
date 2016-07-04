@@ -430,7 +430,6 @@ void TreeDemo::insert(vector<int> &prev)
 	{
 		case 1: // Gen Tree
 		{ 		
-
 			int key;
 			string value;
 			int parent;
@@ -477,7 +476,18 @@ void TreeDemo::del(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+		{
+			string value;
+			cout << "Value: ";
+			getline(cin, value);
+			try {
+				gen->del(value);
+				cout << "Successfully deleted";
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
 			break;
+		}
 		case 2: // Heap
 			break;
 		case 3: // AVL
