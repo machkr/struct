@@ -1,21 +1,22 @@
 #pragma once
 #include "TreeNode.h"
 #include <fstream>
+#include <string>
 
-int max(int num1, int num2)
-{
-	if (num1 >= num2)
-	{
-		return num1;
-	}
-
-	if (num2 >= num1)
-	{
-		return num2;
-	}
-
-	else return 0;
-}
+//int max(int num1, int num2)
+//{
+//	if (num1 >= num2)
+//	{
+//		return num1;
+//	}
+//
+//	if (num2 >= num1)
+//	{
+//		return num2;
+//	}
+//
+//	else return 0;
+//}
 
 using namespace std;
 
@@ -28,7 +29,6 @@ public:
 	AVLTree() : size(0), root(nullptr) { }
 
 	TreeNode<Type> * root;
-	AVLTree<int> * A;
 	int size;
 
 	TreeNode<Type> getRoot()
@@ -40,6 +40,35 @@ public:
 	{
 		return this->size;
 	}
+
+	void levelOrder(TreeNode<Type> * node)
+	{
+		int height = getHeight(node);
+		int i;
+		for (i = 1; i <= height; i++) 
+		{
+			leveling(node, i);
+		}
+	}
+
+	void leveling(TreeNode<Type> * node, int level)
+	{
+		if (node == nullptr)
+		{
+			return;
+		}
+		if (level == 1)
+		{
+			cout << node->key << ", " << node->value << endl;
+		}
+		else if (level > 1)
+		{
+			leveling(node->left, level - 1);
+			leveling(node->right, level - 1);
+		}
+	}
+
+
 
 	int getHeight()
 	{
@@ -75,7 +104,7 @@ public:
 
 		if (node == nullptr)
 		{
-			return max_height + 1;
+			return -1;
 		}
 
 		if (node != nullptr)
@@ -83,6 +112,24 @@ public:
 			int left_height = getHeight(node->left);
 			int right_height = getHeight(node->right);
 			max_height = max(left_height, right_height); //make max function, dont use library.
+		}
+
+		return max_height + 1;
+	}
+
+
+	int getHeight(int key)
+	{
+		int max_height = 0;
+		if (root == nullptr)
+		{
+			return -1;
+		}
+		else if (root != nullptr)
+		{
+			int left_height = getHeight(root->left);
+			int right_height = getHeight(root->right);
+			max_height = max(left_height, right_height);
 		}
 
 		return max_height + 1;
@@ -133,10 +180,11 @@ public:
 	}
 
 	//SIBLINGS!
-	int siblingsWrapper(TreeNode<Type> * root)
+	int siblingsWrapper(TreeNode<Type> * node1)
 	{
-		int num = siblings(TreeNode<Type> * root, TreeNode<Type> * node1)
-			count = 0;
+		TreeNode<Type> * temp = root; 
+		int num = siblings(temp, node1);
+		count = 0;
 		return num;
 	}
 
@@ -149,15 +197,22 @@ public:
 
 		if (node->left != nullptr)
 		{
-			siblings(node->left, *node1);
+			siblings(node->left, node1);
 		}
 
 		if (node->right != nullptr)
 		{
-			siblings(node->right, *node1)
+			 siblings(node->right, node1);
 		}
 
+		return count;
+
 	}
+
+	/*int siblings(int key)
+	{
+		getHeight(key)
+	}*/
 
 
 	TreeNode<Type> * find(int key, Type data)
@@ -180,17 +235,12 @@ public:
 
 		if (pointer->left != nullptr)
 		{
-			cout << "We're at left." << endl;
 			tempLeft = find(pointer->left->key, data);
-			cout << "We've gone through left WOOHOO SHIA LEBOUF." << endl;
-
 		}
 
 		if (pointer->right != nullptr)
 		{
-			cout << "ROGJTROGJTEJWEOGJAEOGJKAOGJAOG" << endl;
 			tempRight = find(pointer->right->key, data);
-			cout << "WHAT THE FUCK?!?!!?" << endl;
 		}
 
 		return tempLeft != nullptr ? tempLeft : tempRight;
@@ -205,16 +255,28 @@ public:
 		ifstream input;
 		input.open(file);
 
-		if (!input.is_open()) { throw underflow_error("Error: unable to open file."); }
-
-		TreeNode<Type> * root = nullptr;
+		if (!input) { throw underflow_error("Error: unable to open file."); }
 
 		while (!input.eof())
 		{
+			if (root == nullptr)
+			{
+				input >> key;
+				input.ignore();
+				getline(input, value);
+				TreeNode<Type> * lol = new TreeNode<Type>(value);
+				lol->key = key;
+				root = lol;
+			}
+
 			input >> key;
 			input.ignore();
 			getline(input, value);
-			A.insert(key, value);
+			TreeNode<Type> * cake = new TreeNode<Type>(value,key);
+			//TreeNode<Type> * pointer = new TreeNode<Type>();
+			//pointer->key = key;
+			//pointer->value = value;
+			insert(cake->key, cake->value); 
 		}
 
 		input.close();
@@ -243,7 +305,7 @@ public:
 			cout << pointer->key << "," << pointer->value;
 			cout << ", h=" << this->getHeight(pointer) << " d =" << getDepth(pointer);
 
-			display(pointer->left, height + 1);
+			display(pointer->left, height+1);
 		}
 	}
 
@@ -354,10 +416,8 @@ public:
 
 	TreeNode<Type> * insert(int key, Type data)
 	{
-		TreeNode<Type> * ptr = this->root;
-		TreeNode<Type> * newNode = new TreeNode<Type>;
-		newNode->key = key;
-		newNode->value = data;
+		TreeNode<Type> * ptr = root;
+		TreeNode<Type> * newNode = new TreeNode<Type>(data, key);
 
 		if (root == nullptr)
 		{
@@ -405,10 +465,12 @@ public:
 		return root;
 	}
 
+	
+
 
 	//Delete Attempts
 
-	/*void Delete(TreeNode<Type> * node)
+	void Delete(TreeNode<Type> * node)
 	{
 	if (node != nullptr)
 	{
@@ -471,9 +533,11 @@ public:
 	}
 
 	}
+
+	size--;
 	root = balance(root);
 	return * root;
-	} */
+	} 
 
 	~AVLTree() {};
 
