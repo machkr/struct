@@ -568,7 +568,18 @@ void TreeDemo::del(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+		{
+			string value;
+			cout << "Value: ";
+			getline(cin, value);
+			try { 
+				gen->del(value); 
+			} catch (const underflow_error& e) { 
+				cout << "Error: " << e.what(); break; 
+			}
+			cout << "Successfully deleted";
 			break;
+		}
 		case 2: // Heap
 			try { heap->deleteMax(); }
 			catch (const underflow_error& e) { cout << "Error" << e.what(); }
