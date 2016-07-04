@@ -3,12 +3,13 @@
 #include <string>
 #include "MenuList.h"
 #include "GenTree.h"
+#include "MaxHeapTree.h"
 
 class TreeDemo 
 {
 	private:
-		GenTree<string> * gen;
-		void* heap;
+		GenTree<string> *gen;
+		MaxHeapTree<string> *heap;
 		void* avl;
 
 		MenuList * mainMenu;
@@ -26,6 +27,8 @@ class TreeDemo
 		MenuList * genMutatorMenu;
 		MenuList * heapMutatorMenu;
 		MenuList * avlMutatorMenu;
+
+		MenuList * heapDisplayMenu;
 
 		void buildMenus();
 
@@ -61,23 +64,14 @@ class TreeDemo
 		void insert(vector<int> &prev);
 		void del(vector<int> &prev);
 
+		void array(vector<int> &prev);
+		void list(vector<int> &prev);
+		void tree(vector<int> &prev);
+
 	public: 
 		void run() 
 		{
 			buildMenus();
 			mainMenu->run();
 		}
-
 };
-
-
-
-
-
-
-
-
-
-
-
-	
