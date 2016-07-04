@@ -35,15 +35,17 @@ public:
 		return count;
 	}
 
-	int getHeight(int i)																		// Returns the height of binary heap
+	int getHeight(int index)																		// Returns the height of binary heap
 	{
-		if (heap[i].getKey() == NULL) throw underflow_error("Root doesn't exist.");
+		int height = 0;
 
-		int leftHeight = getHeight(left(i));
-		int rightHeight = getHeight(right(i));
+		while (left(index) != -1)
+		{
+			index = left(index);
+			height++;
+		}
 
-		if (leftHeight > rightHeight) return (leftHeight + 1);
-		else return (rightHeight + 1);
+		return height;
 	}
 
 	int left(int parentIndex)																	// Returns the index of a node's left child, given its index
@@ -236,8 +238,6 @@ public:
 		{
 			cout << heap[i].getKey() << " ";
 		}
-
-		cout << endl << endl;
 	}
 
 	void displayList()																			// Displays the binary heap as a list of nodes
@@ -253,8 +253,6 @@ public:
 			cout << setfill('0') << setw(2) << i << ". Key: " << heap[i].getKey() << endl;
 			cout << "\t Data: " << heap[i].getData() << endl;
 		}
-
-		cout << endl << endl;
 	}
 
 	void displayTree()																			// Displays the binary heap as a tree
