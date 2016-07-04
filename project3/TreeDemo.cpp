@@ -120,6 +120,7 @@ void TreeDemo::root(vector<int> &prev)
 	{
 		case 1: // Gen Tree
 			cout << "0x" << hex << long(gen->getRoot()) << endl;
+			cout << dec;
 			break;
 		case 2: // Heap
 			break;
