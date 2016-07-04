@@ -620,8 +620,6 @@ void TreeDemo::array(vector<int> &prev)
 		try { heap->displayArray(); }
 		catch (const underflow_error& e) { cout << e.what(); }
 		break;
-	case 3: // AVL
-		break;
 	}
 
 	cout << endl << endl;
@@ -638,6 +636,9 @@ void TreeDemo::list(vector<int> &prev)
 		catch (const underflow_error& e) { cout << e.what(); }
 		break;
 	case 3: // AVL
+		try { avl->root->inorder(); }
+		catch (const underflow_error& e) { cout << "Error: " << e.what(); }
+		cout << endl << endl;
 		break;
 	}
 
@@ -655,6 +656,8 @@ void TreeDemo::tree(vector<int> &prev)
 		catch (const underflow_error& e) { cout << e.what() << endl << endl; }
 		break;
 	case 3: // AVL
+		try { avl->display(avl->root, 0); }
+		catch (const underflow_error& e) { cout << e.what() << endl << endl; }
 		break;
 	}
 }
