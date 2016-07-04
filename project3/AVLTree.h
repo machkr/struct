@@ -30,7 +30,7 @@ public:
 	void levelOrder(TreeNode<Type> * node)
 	{
 		int height = getHeight(node);
-		int i;
+		int i = 1;
 		for (i = 1; i <= height; i++) 
 		{
 			leveling(node, i);
@@ -54,8 +54,6 @@ public:
 		}
 	}
 
-
-
 	int getHeight()
 	{
 		int height = 0;
@@ -66,19 +64,10 @@ public:
 			return height;
 		}
 
-		while (temp->left != nullptr && temp->right != nullptr)
+		while (temp->left != nullptr)
 		{
-			if (temp->left != nullptr)
-			{
 				temp = temp->left;
 				height++;
-			}
-
-			if (temp->right != nullptr)
-			{
-				temp = temp->right;
-				height++;
-			}
 		}
 
 		return height+1;
@@ -97,16 +86,41 @@ public:
 		{
 			int left_height = getHeight(node->left);
 			int right_height = getHeight(node->right);
-			max_height = max(left_height, right_height); //make max function, dont use library.
+			max_height = max(left_height, right_height); 
 		}
-
 		return max_height + 1;
-	}
 
+	}
 
 	int getHeight(int key)
 	{
-		int max_height = 0;
+		int height = getHeight(root);
+
+		TreeNode<Type> * pointer = root;
+
+		while (pointer->key != key && pointer != nullptr)
+		{
+			if (key >= pointer->key)
+			{
+				pointer = pointer->right;
+				height--;
+			}
+
+			if (key < pointer->key)
+			{
+				pointer = pointer->left;
+				height--;
+			}
+		}
+
+		if (key == pointer->key)
+		{
+			return height;
+		}
+	
+		return height;
+
+		/*int max_height = 0;
 		if (root == nullptr)
 		{
 			return -1;
@@ -118,18 +132,48 @@ public:
 			max_height = max(left_height, right_height);
 		}
 
-		return max_height + 1;
+		return max_height;*/
+	}
+
+	int getDepth(int key) 
+	{
+		int depth = 0;
+
+		TreeNode<Type> * pointer = root;
+
+		while (pointer->key != key && pointer != nullptr)
+		{
+			if (key >= pointer->key)
+			{
+				pointer = pointer->right;
+				depth++;
+			}
+
+			if (key < pointer->key)
+			{
+				pointer = pointer->left;
+				depth++;
+			}
+		}
+
+		if (key == pointer->key)
+		{
+			return depth;
+		}
+
+		return depth;
 	}
 
 	int getDepth(TreeNode<Type> * node)
 	{
 		TreeNode<Type> * pointer = node;
+		TreeNode<Type> * parent = node->parent;
 		int depth = 0;
-		while ((pointer->parent != nullptr))
+		while ((parent != nullptr))
 		{
-			pointer = pointer->parent;
+			pointer = parent;
+			parent = parent->parent;
 			depth++;
-
 		}
 		return depth;
 	}
@@ -139,7 +183,8 @@ public:
 		return (root == nullptr);
 	}
 
-	int leavesWrapper(TreeNode<Type> * node) {
+	int leavesWrapper(TreeNode<Type> * node) 
+	{
 		int num = leaves(node);
 		count = 0;
 		return num;
@@ -176,7 +221,7 @@ public:
 
 	int siblings(TreeNode<Type> * node, TreeNode<Type> * node1)
 	{
-		if ((getHeight(node1) == (getHeight(node))))
+		if ((getHeight(node1->key) == (getHeight(node->key))))
 		{
 			count++;
 		}
@@ -203,15 +248,12 @@ public:
 
 	TreeNode<Type> * find(int key, Type data)
 	{
-		cout << "Boop" << endl;
-
 		TreeNode<Type> * pointer = this->root;
 		pointer->key = key;
 
 		if (pointer->value == data)
 		{
 			cout << "Found Node! Key: " << key << "  Data: " << data << endl;
-			cout << "It has a height of " << getHeight(pointer) - 1 << " and a depth of " << getDepth(pointer) + 1 << endl;
 			return pointer;
 		}
 
@@ -259,9 +301,6 @@ public:
 			input.ignore();
 			getline(input, value);
 			TreeNode<Type> * cake = new TreeNode<Type>(value,key);
-			//TreeNode<Type> * pointer = new TreeNode<Type>();
-			//pointer->key = key;
-			//pointer->value = value;
 			insert(cake->key, cake->value); 
 		}
 
@@ -289,8 +328,6 @@ public:
 			for (iterator = 0; (pointer != this->root) && (iterator < height); iterator++) cout << "\t\t";
 
 			cout << pointer->key << "," << pointer->value;
-			cout << ", h=" << this->getHeight(pointer) << " d =" << getDepth(pointer);
-
 			display(pointer->left, height+1);
 		}
 	}
@@ -364,9 +401,24 @@ public:
 
 	int balanceFactor(TreeNode<Type> * node)
 	{
-		int left_height = getHeight(node->left);
-		int right_height = getHeight(node->right);
-		return (left_height - right_height);
+		if (node->right != nullptr && node->left != nullptr)
+		{
+			int left_height = getHeight(node->left);
+			int right_height = getHeight(node->right);
+			return (left_height - right_height);
+		}
+
+		if (node->left == nullptr) 
+		{
+			return (0 - getHeight(node->right));
+		}
+
+		if (node->right == nullptr)
+		{
+			return (getHeight(node->left));
+		}
+		
+		return 0;
 	}
 
 	TreeNode<Type> * balance(TreeNode<Type> * node)
@@ -445,85 +497,115 @@ public:
 			ptr->right = newNode;
 		}
 
-
 		size++;
+		root = balance(root);
 		root = balance(root);
 		return root;
 	}
 
+	void del(int key)
+	{
+				TreeNode<Type> * node = root;
+				TreeNode<Type> * parent = nullptr;
+		
+			//While we're not reaching nullptr, we traverse the tree, going left or right depending on the key's value in comaprison to the current node's key's value.
+			while (node != nullptr)
+			{
+					if (node->key == key)
+					{
+						break;	
+					}
+
+					else
+					{
+						parent = node;
+
+						if (key < node->key && node->left!= nullptr) //If the key is less than the current node's key, we go point to the left child.
+						{
+							node = node->left;
+						}
+
+						else if (key >= node->key && node->right!= nullptr)//If the key is greater than or equal to the current node's key, we go point to the right child.
+						{
+							node = node->right;
+						}
+					}
+			}
+		
+			if (node != nullptr && node->key == key)
+			{
+				
+					if (node == root) 
+					{
+						deleteNode(root);						
+					}
+				
+					else if (parent->left == node) 
+					{
+						deleteNode(parent->left);
+					}
+				
+					else 
+					{
+						deleteNode(parent->right);
+					}
+			}
+
+			else
+			{
+				cout << "The key could not be located." << endl << endl;
+			}
+
+			root = balance(root);	
+			size--;
+	}
 	
+		void deleteNode(TreeNode<Type> * & node)
+		{
+		
+			TreeNode<Type> * parent = node;
+			TreeNode<Type> * temp = node;
+		
+			//If the node being deleted's right is null, we want to point the node to the left. 
+			if (node->right == nullptr) 
+			{
+				node = node->left;
+			}
+			//If the node being deleted's left is null, we want to point the node to the right.
+			else if (node->left == nullptr) 
+			{
+				node = node->right;
+			}
+		
+			//If neither are null, then assign temp to the deleted node's left, and make the deleted node the parent. 
+			else
+			{
+				temp = node->left;
+				parent = node;
 
+				//While temp right isn't null, make the parent the temp, and make the temp go onwards to the right. 
+				while (temp->right != nullptr)
+				{
+					parent = temp;
+					temp = temp->right;
+				}
 
-	//Delete Attempts
+				//After the above loop, we've found temp->right is now null, so we make the node equal to temp itself. 
+				node = temp;
 
-	void Delete(TreeNode<Type> * node)
-	{
-	if (node != nullptr)
-	{
-	Delete(node->left);
-	Delete(node->right);
+				//if the parent is equal to the deleted node, then we know that temp->left needs to go into parent's left. Else, it needs to go to the right. At this point, temp left can still be nullptr without issue.
+				if (parent == node)
+				{
+					parent->left = temp->left;
+				}
 
-	delete node;
-	node = nullptr;
+				else
+				{
+					parent->right = temp->left;
+				}
+			}
+			delete temp;
 	}
-	}
-
-	int Min(TreeNode<Type> * node)
-	{
-	return node->left == nullptr ? node->key : Min(node->left);
-	}
-
-
-	TreeNode<Type> del(int key, TreeNode<Type> * node)
-	{
-	if (node == nullptr)
-	{
-	return * root;
-	}
-
-	if (key < node->key) return del(key, node->left);
-
-	else if (key > node->key) return del(key, node->right);
-
-	else
-	{
-	if ((node->left == nullptr) && (node->right == nullptr))
-	{
-	Delete(node);
-	}
-	else if ((node->left != nullptr) && (node->right != nullptr))
-	{
-	TreeNode<Type> * pointer = node;
-	int min_key = Min(node->right);
-	del(min_key, node);
-
-	return * pointer;
-	}
-	else
-	{
-	TreeNode<Type> * temp = node;
-
-	if (node->left == nullptr)
-	{
-	node = temp->right;
-	temp->right = nullptr;
-	}
-	else
-	{
-	node = temp->left;
-	temp->left = nullptr;
-	}
-
-	Delete(nullptr);
-
-	}
-
-	}
-
-	size--;
-	root = balance(root);
-	return * root;
-	} 
 
 	~AVLTree() {};
 

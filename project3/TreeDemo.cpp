@@ -227,7 +227,7 @@ void TreeDemo::depth(vector<int> &prev)
 			int key;
 			cout << "Key: ";
 			cin >> key;
-			try { cout << avl->getDepth(avl->root); }
+			try { cout << avl->getDepth(key); }
 			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 	}
@@ -591,17 +591,9 @@ void TreeDemo::del(vector<int> &prev)
 			break;
 		case 3: // AVL
 			int key;
-			string value;
 			cout << "Key: ";
 			cin >> key;
-			cout << "Value: ";
-			getline(cin, value);
-
-			TreeNode<string> *temp = new TreeNode<string>();
-			temp->value = value;
-			temp->key = key;
-		
-			try { avl->del(key, temp); }
+			try { avl->del(key); }
 			catch (const underflow_error& e) { cout << "Error" << e.what(); }
 			break;
 	
@@ -652,6 +644,7 @@ void TreeDemo::tree(vector<int> &prev)
 	case 3: // AVL
 		try { avl->display(avl->root, 0); }
 		catch (const underflow_error& e) { cout << e.what() << endl << endl; }
+		cout << endl;
 		break;
 	}
 }
