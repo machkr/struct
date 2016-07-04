@@ -120,7 +120,6 @@ void TreeDemo::createAvl(vector<int>& prev)
 	avlTraversalMenu->add("Level Order", action(levelOrder));
 	avlTraversalMenu->add("In Order", action(inOrder));
 
-	avlDisplayMenu->add("Array", action(array));
 	avlDisplayMenu->add("List", action(list));
 	avlDisplayMenu->add("Tree", action(tree));
 	
@@ -614,13 +613,8 @@ void TreeDemo::array(vector<int> &prev)
 {
 	cout << "(Display - Array)" << endl << endl;
 
-	switch (prev.back())
-	{
-	case 2: // Heap
-		try { heap->displayArray(); }
-		catch (const underflow_error& e) { cout << e.what(); }
-		break;
-	}
+	try { heap->displayArray(); }
+	catch (const underflow_error& e) { cout << e.what(); }
 
 	cout << endl << endl;
 }
