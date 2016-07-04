@@ -478,7 +478,7 @@ void TreeDemo::clear(vector<int> &prev)
 			break;
 		case 3: // AVL
 			avl->clear();
-			cout << "AVL Tree clearred.";
+			cout << "AVL Tree cleared.";
 			break;
 	}
 	cout << endl << endl;

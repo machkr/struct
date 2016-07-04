@@ -24,7 +24,7 @@ public:
 
 	int getSize() //private vs protected, think about whether or not we should do it this way. 
 	{
-		return this->size;
+		return this->size+1;
 	}
 
 	void levelOrder(TreeNode<Type> * node)
@@ -81,7 +81,7 @@ public:
 			}
 		}
 
-		return height;
+		return height+1;
 	}
 
 	int getHeight(TreeNode<Type> * node)

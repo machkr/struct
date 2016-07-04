@@ -353,8 +353,9 @@ class GenTree {
 		}
 
 
-		int del(Type value) {
+		void del(Type value) {
 			delete findNode(value, root);
+
 		}
 
 };
