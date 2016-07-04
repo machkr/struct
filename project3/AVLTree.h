@@ -41,6 +41,35 @@ public:
 		return this->size;
 	}
 
+	void levelOrder(TreeNode<Type> * node)
+	{
+		int height = getHeight(node);
+		int i;
+		for (i = 1; i <= height; i++) 
+		{
+			leveling(node, i);
+		}
+	}
+
+	void leveling(TreeNode<Type> * node, int level)
+	{
+		if (node == nullptr)
+		{
+			return;
+		}
+		if (level == 1)
+		{
+			cout << node->key << ", " << node->value << endl;
+		}
+		else if (level > 1)
+		{
+			leveling(node->left, level - 1);
+			leveling(node->right, level - 1);
+		}
+	}
+
+
+
 	int getHeight()
 	{
 		int height = 0;
@@ -180,17 +209,12 @@ public:
 
 		if (pointer->left != nullptr)
 		{
-			cout << "We're at left." << endl;
 			tempLeft = find(pointer->left->key, data);
-			cout << "We've gone through left WOOHOO SHIA LEBOUF." << endl;
-
 		}
 
 		if (pointer->right != nullptr)
 		{
-			cout << "ROGJTROGJTEJWEOGJAEOGJKAOGJAOG" << endl;
 			tempRight = find(pointer->right->key, data);
-			cout << "WHAT THE FUCK?!?!!?" << endl;
 		}
 
 		return tempLeft != nullptr ? tempLeft : tempRight;
