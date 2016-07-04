@@ -140,8 +140,15 @@ void TreeDemo::root(vector<int> &prev)
 			cout << dec;
 			break;
 		case 2: // Heap
-			cout << "Key: " << heap->getMax().getKey()
-				<< ", Value: " << heap->getMax().getData();
+			try
+			{
+				cout << "Key: " << heap->getMax().getKey()
+					<< ", Value: " << heap->getMax().getData();
+			}
+			catch (const underflow_error& e)
+			{
+				cout << e.what();
+			}
 			break;
 		case 3: // AVL
 			cout << avl->root->getKey();
@@ -263,7 +270,7 @@ void TreeDemo::leaves(vector<int> &prev)
 			break;
 		case 2: // Heap
 			try { cout << heap->leaves(); }
-			catch (...) { cout << "Error"; }
+			catch (const underflow_error& e) { cout << e.what(); }
 			break;
 		case 3: // AVL
 			try { cout << avl->leavesWrapper(avl->root); }
@@ -587,7 +594,7 @@ void TreeDemo::del(vector<int> &prev)
 		}
 		case 2: // Heap
 			try { heap->deleteMax(); }
-			catch (const underflow_error& e) { cout << "Error" << e.what(); }
+			catch (const underflow_error& e) { cout << e.what(); }
 			break;
 		case 3: // AVL
 			int key;
@@ -611,7 +618,7 @@ void TreeDemo::del(vector<int> &prev)
 
 void TreeDemo::array(vector<int> &prev)
 {
-	cout << "(Display - Array)" << endl << endl;
+	cout << "(Display - Array)" << endl;
 
 	try { heap->displayArray(); }
 	catch (const underflow_error& e) { cout << e.what(); }
@@ -621,7 +628,7 @@ void TreeDemo::array(vector<int> &prev)
 
 void TreeDemo::list(vector<int> &prev)
 {
-	cout << "(Display - List)" << endl << endl;
+	cout << "(Display - List)" << endl;
 
 	switch (prev.back())
 	{
@@ -641,7 +648,7 @@ void TreeDemo::list(vector<int> &prev)
 
 void TreeDemo::tree(vector<int> &prev)
 {
-	cout << "(Display - Tree)" << endl << endl;
+	cout << "(Display - Tree)" << endl;
 
 	switch (prev.back())
 	{
