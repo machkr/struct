@@ -88,7 +88,7 @@ void TreeDemo::createHeap(vector<int>& prev)
 	heapDisplayMenu->add("List", action(list));
 	heapDisplayMenu->add("Tree", action(tree));
 
-	heapMutatorMenu->add("Build Tree From File", action(build));	
+	heapMutatorMenu->add("Build Heap From File", action(build));	
 	heapMutatorMenu->add("Clear", action(clear));
 	heapMutatorMenu->add("Insert", action(insert));
 	heapMutatorMenu->add("Delete Max", action(del));
@@ -490,6 +490,7 @@ void TreeDemo::insert(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+		{
 			int key;
 			string value;
 			int parent;
@@ -623,9 +624,5 @@ void TreeDemo::tree(vector<int> &prev)
 {
 	cout << "(Display - Tree)" << endl << endl;
 	try { heap->displayTree(); }
-<<<<<<< HEAD
-	catch (const underflow_error& e) { cout << e.what(); }
-=======
 	catch (const underflow_error& e) { cout << e.what() << endl << endl; }
->>>>>>> master
 }
