@@ -22,6 +22,8 @@ void TreeDemo::buildMenus()
 	heapMutatorMenu = new MenuList("Please choose a mutator method: Heap");
 	avlMutatorMenu = new MenuList("Please choose a mutator method: AVL Tree");
 
+	heapDisplayMenu = new MenuList("Please choose a display method: Heap");
+
 	// Main Menu
 	mainMenu->setIsMain(true);
 	mainMenu->add("General Tree", MenuList::SubMenu(genMenu), true);
@@ -72,6 +74,7 @@ void TreeDemo::createHeap(vector<int>& prev)
 
 	heapMenu->remove("Create Heap");
 	heapMenu->add("Access", MenuList::SubMenu(heapAccessMenu), true);
+	heapMenu->add("Display", MenuList::SubMenu(heapDisplayMenu), true);
 	heapMenu->add("Mutate", MenuList::SubMenu(heapMutatorMenu), true);
 	
 	heapAccessMenu->add("Max", action(root));
@@ -79,6 +82,10 @@ void TreeDemo::createHeap(vector<int>& prev)
 	heapAccessMenu->add("Height", action(height));
 	heapAccessMenu->add("Empty", action(empty));
 	heapAccessMenu->add("Leaves", action(leaves));
+
+	heapDisplayMenu->add("Array", action(array));
+	heapDisplayMenu->add("List", action(list));
+	heapDisplayMenu->add("Tree", action(tree));
 
 	heapMutatorMenu->add("Build Tree From File", action(build));	
 	heapMutatorMenu->add("Clear", action(clear));
@@ -501,4 +508,27 @@ void TreeDemo::del(vector<int> &prev)
 			break;
 	}
 	cout << endl << endl;
+}
+
+void TreeDemo::array(vector<int> &prev)
+{
+	cout << "(Display - Array)" << endl << endl;
+	try { heap->displayArray(); }
+	catch (const underflow_error& e) { cout << e.what(); }
+	cout << endl << endl;
+}
+
+void TreeDemo::list(vector<int> &prev)
+{
+	cout << "(Display - List)" << endl << endl;
+	try { heap->displayList(); }
+	catch (const underflow_error& e) { cout << e.what(); }
+	cout << endl << endl;
+}
+
+void TreeDemo::tree(vector<int> &prev)
+{
+	cout << "(Display - Tree)" << endl << endl;
+	try { heap->displayTree(); }
+	catch (const underflow_error& e) { cout << e.what(); }
 }

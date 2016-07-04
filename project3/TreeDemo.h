@@ -28,6 +28,8 @@ class TreeDemo
 		MenuList * heapMutatorMenu;
 		MenuList * avlMutatorMenu;
 
+		MenuList * heapDisplayMenu;
+
 		void buildMenus();
 
 		/********************
@@ -62,23 +64,14 @@ class TreeDemo
 		void insert(vector<int> &prev);
 		void del(vector<int> &prev);
 
+		void array(vector<int> &prev);
+		void list(vector<int> &prev);
+		void tree(vector<int> &prev);
+
 	public: 
 		void run() 
 		{
 			buildMenus();
 			mainMenu->run();
 		}
-
 };
-
-
-
-
-
-
-
-
-
-
-
-	

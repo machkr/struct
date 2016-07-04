@@ -229,9 +229,7 @@ public:
 	{
 		if (empty())
 		{
-			//throw underflow_error("Error: the heap is empty.")
-			cout << "Error: the heap is empty." << endl << endl;
-			return;
+			throw underflow_error("Error: the heap is empty.");
 		}
 
 		for (int i = 1; i <= count; i++)
@@ -246,9 +244,7 @@ public:
 	{
 		if (empty())
 		{
-			//throw underflow_error("Error: the heap is empty.")
-			cout << "Error: the heap is empty." << endl << endl;
-			return;
+			throw underflow_error("Error: the heap is empty.");
 		}
 
 		for (int i = 1; i <= count; i++)
@@ -265,9 +261,7 @@ public:
 	{
 		if (empty())
 		{
-			//throw underflow_error("Error: the heap is empty.")
-			cout << "Error: the heap is empty." << endl << endl;
-			return;
+			throw underflow_error("Error: the heap is empty.");
 		}
 
 		int start = 1;																			// Index of first node on level	
