@@ -55,9 +55,6 @@ class GenTree {
 			if (node == nullptr) 
 				return nullptr;
 
-			if (node->children.getSize() == 0) 
-				return nullptr;
-
 			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
 			typename LinkedList<GenTreeNode<Type>*>::iterator it;
 			for (it = ll->begin(); it != ll->end(); it++) {
@@ -71,9 +68,6 @@ class GenTree {
 
 		GenTreeNode<Type>* findNodeByKey(int key, GenTreeNode<Type>* node) {
 			if (node == nullptr) 
-				return nullptr;
-
-			if (node->children.getSize() == 0) 
 				return nullptr;
 
 			if (node->key == key) 
@@ -97,15 +91,12 @@ class GenTree {
 
 			os << node->getKey() << " " << node->getValue() << endl;
 
-			if (node->children.getSize() == 0) {
-				return;
-			}
 			int depth = getDepth(node);
 
 			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
 			typename LinkedList<GenTreeNode<Type>*>::iterator it;
 			for (it = ll->begin(); it != ll->end(); it++) {
-				os << string(depth, '\t');
+				os << string(depth + 1, '\t');
 				preorder(os, *it);
 			}
 		}
@@ -135,7 +126,6 @@ class GenTree {
 				cout << n->key << " " << n->value << endl;
 
 				// Enqueue children
-				if (n->children.getSize() == 0) continue;
 				LinkedList<GenTreeNode<Type>*> * ll = &(n->children);
 				typename LinkedList<GenTreeNode<Type>*>::iterator it;
 				for (it = ll->begin(); it != ll->end(); it++) {
@@ -240,8 +230,8 @@ class GenTree {
 			GenTreeNode<Type> * p1;
 			GenTreeNode<Type> * p2;
 
-			for (p1=n1->parent; p1 != nullptr; p1=p1->parent) {
-				for (p2=n1->parent; p2 != nullptr; p2=p2->parent) {
+			for (p1=n1; p1 != nullptr; p1=p1->parent) {
+				for (p2=n2; p2 != nullptr; p2=p2->parent) {
 					if (p1==p2) 
 						return p1;
 				}
