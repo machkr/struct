@@ -27,6 +27,7 @@ public:
 	//-----------//
 	HeapTreeNode<type> getMax()																	// Returns the node with the maximum value (in max heap tree, the root)
 	{
+		if (empty()) { throw underflow_error("Error: the heap is empty."); }
 		return heap[1];
 	}
 
@@ -184,7 +185,7 @@ public:
 			heap = newHeap;
 
 			cout << "The size of the heap has been halved to accept "
-				<< size << " elements." << endl;
+				<< size << " elements." << endl << endl;
 		}
 
 		swap(1, count);
@@ -237,7 +238,7 @@ public:
 	{
 		if (empty()) { throw underflow_error("Error: the heap is empty."); }
 
-		cout << "[";
+		cout << endl << "[";
 
 		for (int i = 1; i <= count; i++)
 		{
@@ -251,6 +252,8 @@ public:
 	void displayList()																			// Displays the binary heap as a list of nodes
 	{
 		if (empty()) { throw underflow_error("Error: the heap is empty."); }
+
+		cout << endl;
 
 		for (int i = 1; i <= count; i++)
 		{
@@ -268,6 +271,8 @@ public:
 		int end = 1;																			// Index of last node on level
 		int length;																				// Length of current row
 		int numLevels = int(ceil(log(float(count)) / log(2.0)));								// Number of levels, calculated by number of nodes
+
+		cout << endl;
 
 		for (int curLevel = 0; curLevel < numLevels; curLevel++)								// Iterate through the levels of the tree
 		{
