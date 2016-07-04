@@ -117,6 +117,24 @@ public:
 		return max_height + 1;
 	}
 
+
+	int getHeight(int key)
+	{
+		int max_height = 0;
+		if (root == nullptr)
+		{
+			return -1;
+		}
+		else if (root != nullptr)
+		{
+			int left_height = getHeight(root->left);
+			int right_height = getHeight(root->right);
+			max_height = max(left_height, right_height);
+		}
+
+		return max_height + 1;
+	}
+
 	int getDepth(TreeNode<Type> * node)
 	{
 		TreeNode<Type> * pointer = node;
@@ -162,10 +180,11 @@ public:
 	}
 
 	//SIBLINGS!
-	int siblingsWrapper(TreeNode<Type> * root)
+	int siblingsWrapper(TreeNode<Type> * node1)
 	{
-		int num = siblings(TreeNode<Type> * root, TreeNode<Type> * node1)
-			count = 0;
+		TreeNode<Type> * temp = root; 
+		int num = siblings(temp, node1);
+		count = 0;
 		return num;
 	}
 
@@ -178,15 +197,22 @@ public:
 
 		if (node->left != nullptr)
 		{
-			siblings(node->left, *node1);
+			siblings(node->left, node1);
 		}
 
 		if (node->right != nullptr)
 		{
-			siblings(node->right, *node1)
+			 siblings(node->right, node1);
 		}
 
+		return count;
+
 	}
+
+	/*int siblings(int key)
+	{
+		getHeight(key)
+	}*/
 
 
 	TreeNode<Type> * find(int key, Type data)
@@ -444,7 +470,7 @@ public:
 
 	//Delete Attempts
 
-	/*void Delete(TreeNode<Type> * node)
+	void Delete(TreeNode<Type> * node)
 	{
 	if (node != nullptr)
 	{
@@ -511,7 +537,7 @@ public:
 	size--;
 	root = balance(root);
 	return * root;
-	} */
+	} 
 
 	~AVLTree() {};
 

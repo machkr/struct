@@ -1,5 +1,6 @@
 #define action(f) bind(static_cast<void (TreeDemo::*)(vector<int>&)> (&TreeDemo::f) ,this,_1)
 #include "TreeDemo.h"
+#include <string>
 
 using namespace std;
 
@@ -95,6 +96,8 @@ void TreeDemo::createHeap(vector<int>& prev)
 
 void TreeDemo::createAvl(vector<int>& prev)
 {
+	avl = new AVLTree<string>;
+
 	avlMenu->remove("Create AVL Tree");
 	avlMenu->add("Access", MenuList::SubMenu(avlAccessMenu), true);
 	avlMenu->add("Traverse", MenuList::SubMenu(avlTraversalMenu), true);
@@ -135,6 +138,7 @@ void TreeDemo::root(vector<int> &prev)
 			cout << heap->getMax().getKey();
 			break;
 		case 3: // AVL
+			cout << avl->root->getKey();
 			break;
 	}
 	cout << endl << endl;
@@ -152,6 +156,7 @@ void TreeDemo::size(vector<int> &prev)
 			cout << heap->getSize();
 			break;
 		case 3: // AVL
+			cout << avl->getSize();
 			break;
 	}
 	cout << endl << endl;
@@ -162,16 +167,18 @@ void TreeDemo::height(vector<int> &prev)
 	cout << "(Height)" << endl;
 	switch (prev.back())
 	{
-		case 1: // Gen Tree
-			try { cout << gen->getHeight(); }
-			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
-			break;
-		case 2: // Heap
-			try { cout << heap->getHeight(1); }
-			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
-			break;
-		case 3: // AVL
-			break;
+	case 1: // Gen Tree
+		try { cout << gen->getHeight(); }
+		catch (const underflow_error& e) { cout << "Error: " << e.what(); }
+		break;
+	case 2: // Heap
+		try { cout << heap->getHeight(1); }
+		catch (const underflow_error& e) { cout << "Error: " << e.what(); }
+		break;
+	case 3: // AVL
+		try { cout << avl->getHeight(); }
+		catch (const underflow_error& e) { cout << "Error: " << e.what(); }
+		break;
 	}
 	cout << endl << endl;
 }
@@ -189,6 +196,8 @@ void TreeDemo::heightNode(vector<int> &prev)
 			catch (...) { cout << "Error"; }
 			break;
 		case 3: // AVL
+			try { cout << avl->getHeight(key); }
+			catch (...) { cout << "Error";  }
 			break;
 	}
 	cout << endl << endl;
@@ -209,6 +218,11 @@ void TreeDemo::depth(vector<int> &prev)
 			break;
 		}
 		case 3: // AVL
+			int key;
+			cout << "Key: ";
+			cin >> key;
+			try { cout << avl->getDepth(avl->root); }
+			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 	}
 	cout << endl << endl;
@@ -226,6 +240,7 @@ void TreeDemo::empty(vector<int> &prev)
 			cout << ((heap->empty()) ? "True" : "False");
 			break;
 		case 3: // AVL
+			cout << ((avl->empty()) ? "True" : "False");
 			break;
 	}
 	cout << endl << endl;
@@ -245,6 +260,8 @@ void TreeDemo::leaves(vector<int> &prev)
 			catch (...) { cout << "Error"; }
 			break;
 		case 3: // AVL
+			try { cout << avl->leavesWrapper(avl->root); }
+			catch (...) { cout << "Error"; }
 			break;
 	}
 	cout << endl << endl;
@@ -265,6 +282,20 @@ void TreeDemo::siblings(vector<int> &prev)
 			break;
 		}
 		case 3: // AVL
+
+			int key;
+			string value;
+			cout << "Key: ";
+			cin >> key;
+			cout << "Value: ";
+			getline(cin, value);
+
+			TreeNode<string> * temp;
+			temp->value = value;
+			temp->key = key;
+					
+			try { cout << avl->siblingsWrapper(temp); }
+			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 	}
 	cout << endl << endl;
@@ -301,6 +332,13 @@ void TreeDemo::find(vector<int> &prev)
 		case 1: // Gen Tree
 			break;
 		case 3: // AVL
+			cout << "Key: ";
+			int key;
+			cin >> key;
+			string value;
+			getline(cin, value);
+			try { cout << avl->find(key, value); }
+			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 	}
 	cout << endl << endl;
@@ -316,6 +354,8 @@ void TreeDemo::preOrder(vector<int> &prev)
 			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 		case 3: // AVL
+			try { avl->root->preorder(); }
+			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 	}
 	cout << endl << endl;
@@ -332,6 +372,9 @@ void TreeDemo::postOrder(vector<int> &prev)
 			break;
 			break;
 		case 3: // AVL
+			try { avl->root->postorder(); }
+			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
+			break;
 			break;
 	}
 	cout << endl << endl;
@@ -347,6 +390,8 @@ void TreeDemo::levelOrder(vector<int> &prev)
 			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 		case 3: // AVL
+			try { avl->levelOrder(avl->root); }
+			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 	}
 	cout << endl << endl;
@@ -356,7 +401,8 @@ void TreeDemo::inOrder(vector<int> &prev)
 {
 	// AVL
 	cout << "(Inorder)" << endl;
-
+	try { avl->root->inorder(); }
+	catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 	cout << endl << endl;
 }
 
@@ -404,6 +450,12 @@ void TreeDemo::build(vector<int> &prev)
 			catch (...) { cout << "Error opening " << fileName; }
 			break;
 		case 3: // AVL
+			try
+			{
+				avl->buildTree(fileName);
+				cout << "Successfully opened " << fileName;
+			}
+			catch (...) { cout << "Error opening " << fileName; }
 			break;
 	}
 	cout << endl << endl;
@@ -423,6 +475,8 @@ void TreeDemo::clear(vector<int> &prev)
 			cout << "Max Heap Tree cleared.";
 			break;
 		case 3: // AVL
+			avl->clear();
+			cout << "AVL Tree clearred.";
 			break;
 	}
 	cout << endl << endl;
@@ -489,6 +543,18 @@ void TreeDemo::insert(vector<int> &prev)
 		}
 
 		case 3: // AVL
+
+			int key;
+			string value;
+			cout << "Key: ";
+			cin >> key;
+			cin.ignore();
+			cout << "Value: ";
+			getline(cin, value);
+
+			avl->insert(key, value);
+
+			cout << "Successfully inserted.";
 			break;
 	}
 	cout << endl << endl;
@@ -506,7 +572,22 @@ void TreeDemo::del(vector<int> &prev)
 			catch (const underflow_error& e) { cout << "Error" << e.what(); }
 			break;
 		case 3: // AVL
+
+			int key;
+			string value;
+			cout << "Key: ";
+			cin >> key;
+			cout << "Value: ";
+			getline(cin, value);
+
+			TreeNode<string> * temp;
+			temp->value = value;
+			temp->key = key;
+		
+			try { avl->del(key, temp); }
+			catch (const underflow_error& e) { cout << "Error" << e.what(); }
 			break;
+	
 	}
 	cout << endl << endl;
 }
