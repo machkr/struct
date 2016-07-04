@@ -58,7 +58,7 @@ class GenTree {
 			LinkedList<GenTreeNode<Type>*> * ll = &(node->children);
 			typename LinkedList<GenTreeNode<Type>*>::iterator it;
 			for (it = ll->begin(); it != ll->end(); it++) {
-				if ((*it)->value = value) 
+				if ((*it)->value == value) 
 					return *it;
 				else 
 					return findNode(value, *it);
@@ -354,7 +354,7 @@ class GenTree {
 
 
 		int del(Type value) {
-			delete findNode(value);
+			delete findNode(value, root);
 		}
 
 };
