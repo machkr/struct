@@ -135,7 +135,8 @@ void TreeDemo::root(vector<int> &prev)
 			cout << dec;
 			break;
 		case 2: // Heap
-			cout << heap->getMax().getKey();
+			cout << "Key: " << heap->getMax().getKey()
+				<< ", Value: " << heap->getMax().getData();
 			break;
 		case 3: // AVL
 			cout << avl->root->getKey();
@@ -282,7 +283,7 @@ void TreeDemo::siblings(vector<int> &prev)
 			break;
 		}
 		case 3: // AVL
-
+		{
 			int key;
 			string value;
 			cout << "Key: ";
@@ -290,13 +291,14 @@ void TreeDemo::siblings(vector<int> &prev)
 			cout << "Value: ";
 			getline(cin, value);
 
-			TreeNode<string> * temp;
+			TreeNode<string> *temp = new TreeNode<string>();
 			temp->value = value;
 			temp->key = key;
-					
+
 			try { cout << avl->siblingsWrapper(temp); }
 			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
+		}
 	}
 	cout << endl << endl;
 }
@@ -572,7 +574,6 @@ void TreeDemo::del(vector<int> &prev)
 			catch (const underflow_error& e) { cout << "Error" << e.what(); }
 			break;
 		case 3: // AVL
-
 			int key;
 			string value;
 			cout << "Key: ";
@@ -580,7 +581,7 @@ void TreeDemo::del(vector<int> &prev)
 			cout << "Value: ";
 			getline(cin, value);
 
-			TreeNode<string> * temp;
+			TreeNode<string> *temp = new TreeNode<string>();
 			temp->value = value;
 			temp->key = key;
 		
@@ -612,5 +613,5 @@ void TreeDemo::tree(vector<int> &prev)
 {
 	cout << "(Display - Tree)" << endl << endl;
 	try { heap->displayTree(); }
-	catch (const underflow_error& e) { cout << e.what(); }
+	catch (const underflow_error& e) { cout << e.what() << endl << endl; }
 }
