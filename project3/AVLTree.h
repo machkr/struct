@@ -119,20 +119,6 @@ public:
 		}
 	
 		return height;
-
-		/*int max_height = 0;
-		if (root == nullptr)
-		{
-			return -1;
-		}
-		else if (root != nullptr)
-		{
-			int left_height = getHeight(root->left);
-			int right_height = getHeight(root->right);
-			max_height = max(left_height, right_height);
-		}
-
-		return max_height;*/
 	}
 
 	int getDepth(int key) 
@@ -295,21 +281,6 @@ public:
 			return nullptr;
 		}
 	}
-		/*TreeNode<Type> * tempLeft = nullptr;
-		TreeNode<Type> * tempRight = nullptr;
-
-
-		if (pointer->left != nullptr)
-		{
-			tempLeft = find(pointer->left->key, data);
-		}
-
-		if (pointer->right != nullptr)
-		{
-			tempRight = find(pointer->right->key, data);
-		}
-
-		return tempLeft != nullptr ? tempLeft : tempRight;*/
 
 
 	void buildTree(string file)
