@@ -56,7 +56,8 @@ void TreeDemo::createGen(vector<int>& prev)
 	genAccessMenu->add("Leaves", action(leaves));
 	genAccessMenu->add("Siblings", action(siblings));
 	genAccessMenu->add("Common Ancestor", action(commonAncestor));
-	genAccessMenu->add("Find", action(find));
+	genAccessMenu->add("Find by Value", action(find));
+	genAccessMenu->add("Find by Key", action(findByKey));
 
 	genTraversalMenu->add("Preorder", action(preOrder));
 	genTraversalMenu->add("Postorder", action(postOrder));
@@ -338,7 +339,18 @@ void TreeDemo::find(vector<int> &prev)
 	switch (prev.back())
 	{
 		case 1: // Gen Tree
+		{
+			string value;
+			cout << "Value: ";
+			getline(cin, value);
+			try {
+				GenTreeNode<string> * node = gen->findNode(value);
+				cout << "\n" << node << "\nKey: " << node->getKey();
+			} catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
 			break;
+		}
 		case 3: // AVL
 			cout << "Key: ";
 			int key;
@@ -646,4 +658,19 @@ void TreeDemo::tree(vector<int> &prev)
 		cout << endl;
 		break;
 	}
+}
+
+void TreeDemo::findByKey(vector<int> &prev)
+{
+	cout << "(Find by Key)" << endl;
+	int key;
+	cout << "Key: ";
+	cin >> key;
+	try {
+		GenTreeNode<string> * node = gen->findNodeByKey(key);
+		cout << "\n" << node << "\nValue: " << node->getValue();
+	} catch (const underflow_error& e) {
+		cout << "Error: " << e.what();
+	}	
+	cout << endl << endl;
 }

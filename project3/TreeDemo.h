@@ -54,6 +54,7 @@ class TreeDemo
 		void siblings(vector<int> &prev);
 		void commonAncestor(vector<int> &prev);
 		void find(vector<int> &prev);
+		void findByKey(vector<int> &prev);
 
 		void preOrder(vector<int> &prev);
 		void postOrder(vector<int> &prev);
