@@ -119,20 +119,6 @@ public:
 		}
 	
 		return height;
-
-		/*int max_height = 0;
-		if (root == nullptr)
-		{
-			return -1;
-		}
-		else if (root != nullptr)
-		{
-			int left_height = getHeight(root->left);
-			int right_height = getHeight(root->right);
-			max_height = max(left_height, right_height);
-		}
-
-		return max_height;*/
 	}
 
 	int getDepth(int key) 
@@ -211,10 +197,34 @@ public:
 	}
 
 	//SIBLINGS!
-	/*int siblingsWrapper(TreeNode<Type> * node1)
+	int siblingsWrapper(int key)
 	{
 		TreeNode<Type> * temp = root; 
-		int num = siblings(temp, node1);
+		while (key != temp->key)
+		{
+			if (key < temp->key)
+			{
+				temp = temp->left;
+			}
+
+			if (key > temp->key)
+			{
+				temp = temp->right;
+			}
+
+			if (key == temp->key)
+			{
+				break;
+			}
+
+			if (temp == nullptr)
+			{
+				cout << "Could not locate the key!" << endl;
+				return 0;
+			}
+		}
+
+		int num = siblings(root, temp);
 		count = 0;
 		return num;
 	}
@@ -236,26 +246,9 @@ public:
 			 siblings(node->right, node1);
 		}
 
-		return count;
+		return count-1;
 
 	}
-
-	int siblings(int key)
-	{
-		TreeNode<Type> * node = root;
-		while (key != node->key && node!= nullptr)
-		{
-			if (node->next)
-		}
-
-		if (node == nullptr)
-		{
-			cout << "Could not find key!" << endl;
-			return 0;
-		}
-		getHeight(key)
-	}*/
-
 
 	Type find(int key)
 	{
@@ -288,21 +281,6 @@ public:
 			return nullptr;
 		}
 	}
-		/*TreeNode<Type> * tempLeft = nullptr;
-		TreeNode<Type> * tempRight = nullptr;
-
-
-		if (pointer->left != nullptr)
-		{
-			tempLeft = find(pointer->left->key, data);
-		}
-
-		if (pointer->right != nullptr)
-		{
-			tempRight = find(pointer->right->key, data);
-		}
-
-		return tempLeft != nullptr ? tempLeft : tempRight;*/
 
 
 	void buildTree(string file)
@@ -596,12 +574,12 @@ public:
 			TreeNode<Type> * parent = node;
 			TreeNode<Type> * temp = node;
 		
-			//If the node being deleted's right is null, we want to point the node to the left. 
+			//If the node being deleted's right child is null, we want to point the node to the left. 
 			if (node->right == nullptr) 
 			{
 				node = node->left;
 			}
-			//If the node being deleted's left is null, we want to point the node to the right.
+			//If the node being deleted's left child is null, we want to point the node to the right.
 			else if (node->left == nullptr) 
 			{
 				node = node->right;
@@ -613,7 +591,7 @@ public:
 				temp = node->left;
 				parent = node;
 
-				//While temp right isn't null, make the parent the temp, and make the temp go onwards to the right. 
+				//While the right-child isn't null, make the parent the temp, and make the temp go onwards to the right. 
 				while (temp->right != nullptr)
 				{
 					parent = temp;
