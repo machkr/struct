@@ -241,7 +241,19 @@ class GenTree {
 		}
 
 		GenTreeNode<Type>* findNode(Type& value) {
-			findNode(value, root);
+			GenTreeNode<Type> * node = findNode(value, root);
+			if (node == nullptr) 
+				throw underflow_error("Value Doesn't exist");
+
+			return node;
+		}
+
+		GenTreeNode<Type>* findNodeByKey(int key) {
+			GenTreeNode<Type> * node = findNodeByKey(key, root);
+			if (node == nullptr) 
+				throw underflow_error("Key Doesn't exist");
+
+			return node;
 		}
 
 

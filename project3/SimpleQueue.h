@@ -41,6 +41,8 @@ class SimpleQueue {
 			for (int i = 0; i < size; i++) {
 				newArray[i] = dequeue();
 			}
+			front = 0;
+			back = size - 1;
 			arraySize = arraySize*2;
 			array = newArray;
 			count = size;
