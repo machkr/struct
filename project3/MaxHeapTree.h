@@ -19,7 +19,7 @@ public:
 	MaxHeapTree() : heap(NULL), size(1), count(0) {}											// Default
 	MaxHeapTree(int _size) : heap(NULL), size(_size), count(0) {}								// Given a size parameter
 
-																								// Destructor
+	// Destructor
 	~MaxHeapTree() { clear(); }
 
 	//-----------//
@@ -215,19 +215,19 @@ public:
 
 	void heapify_down(int index)																// Sorting algorithm for deletion (top >> bottom)
 	{
-		int lChild = left(index);																// Storing left child's index
-		int rChild = right(index);																// Storing right child's index
+		int child1 = left(index);																// Storing left child's index
+		int child2 = right(index);																// Storing right child's index
 
-		if (lChild >= 1 && rChild >= 1 &&														// Check to make sure the children indices are valid
-			heap[lChild].getKey() < heap[rChild].getKey())										// If the left child's key is less than the right child's key
+		if (child1 >= 1 && child2 >= 1 &&														// Check to make sure the children indices are valid
+			heap[child1].getKey() < heap[child2].getKey())										// If the left child's key is less than the right child's key
 		{
-			lChild = rChild;																	// Set the left child index to that of the right (not swap)
+			child1 = child2;																	// Set the left child index to that of the right (not swap)
 		}
 
-		if (lChild > 1)																			
+		if (child1 > 1)																			
 		{
-			swap(index, lChild);																// Swap the node called on with the index in lChild
-			heapify_down(lChild);																// And continue heapifying, recursively
+			swap(index, child1);																// Swap the node called on with the index in lChild
+			heapify_down(child1);																// And continue heapifying, recursively
 		}
 	}
 
