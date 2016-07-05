@@ -1,10 +1,10 @@
 14
 Dog
-2
+3
 Cat
 15
 Fish
-8
+10
 Frog
 22
 Ferret
@@ -16,3 +16,9 @@ Raccoon
 Giraffe
 25
 Monkey
+7
+Penguin
+23
+Rabbit
+36
+Cow
