@@ -297,19 +297,13 @@ void TreeDemo::siblings(vector<int> &prev)
 		case 3: // AVL
 		{
 			int key;
-			string value;
 			cout << "Key: ";
-			cin >> key;
-			cout << "Value: ";
-			getline(cin, value);
+			cin >> key;	
 
-			TreeNode<string> *temp = new TreeNode<string>();
-			temp->value = value;
-			temp->key = key;
-
-			try { cout << avl->siblingsWrapper(temp); }
+			
+			/*try { cout << avl->siblings(key); }
 			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
-			break;
+			break;*/
 		}
 	}
 	cout << endl << endl;
@@ -349,9 +343,7 @@ void TreeDemo::find(vector<int> &prev)
 			cout << "Key: ";
 			int key;
 			cin >> key;
-			string value;
-			getline(cin, value);
-			try { cout << avl->find(key, value); }
+			try { cout << avl->find(key); }
 			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
 			break;
 	}

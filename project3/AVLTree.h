@@ -30,8 +30,8 @@ public:
 	void levelOrder(TreeNode<Type> * node)
 	{
 		int height = getHeight(node);
-		int i = 1;
-		for (i = 1; i <= height; i++) 
+		int i;
+		for (i = 0; i <= height+2; i++) 
 		{
 			leveling(node, i);
 		}
@@ -211,7 +211,7 @@ public:
 	}
 
 	//SIBLINGS!
-	int siblingsWrapper(TreeNode<Type> * node1)
+	/*int siblingsWrapper(TreeNode<Type> * node1)
 	{
 		TreeNode<Type> * temp = root; 
 		int num = siblings(temp, node1);
@@ -240,24 +240,55 @@ public:
 
 	}
 
-	/*int siblings(int key)
+	int siblings(int key)
 	{
+		TreeNode<Type> * node = root;
+		while (key != node->key && node!= nullptr)
+		{
+			if (node->next)
+		}
+
+		if (node == nullptr)
+		{
+			cout << "Could not find key!" << endl;
+			return 0;
+		}
 		getHeight(key)
 	}*/
 
 
-	TreeNode<Type> * find(int key, Type data)
+	Type find(int key)
 	{
-		TreeNode<Type> * pointer = this->root;
-		pointer->key = key;
+		if (root == nullptr) return nullptr;
 
-		if (pointer->value == data)
+		TreeNode<Type> * pointer = root;
+
+		while (key != pointer->key)
 		{
-			cout << "Found Node! Key: " << key << "  Data: " << data << endl;
-			return pointer;
+			if (key < pointer->key)
+			{
+				pointer = pointer->left;
+			}
+
+			if (key > pointer->key)
+			{
+				pointer = pointer->right;
+			}
 		}
 
-		TreeNode<Type> * tempLeft = nullptr;
+		if (pointer->key == key)
+		{
+			cout << "Node has been located! The data is: ";
+			return pointer->value;
+		}
+
+		else
+		{
+			cout << "Could not locate the node! Sorry!" << endl;
+			return nullptr;
+		}
+	}
+		/*TreeNode<Type> * tempLeft = nullptr;
 		TreeNode<Type> * tempRight = nullptr;
 
 
@@ -271,8 +302,7 @@ public:
 			tempRight = find(pointer->right->key, data);
 		}
 
-		return tempLeft != nullptr ? tempLeft : tempRight;
-	}
+		return tempLeft != nullptr ? tempLeft : tempRight;*/
 
 
 	void buildTree(string file)
