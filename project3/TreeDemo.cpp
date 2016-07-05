@@ -301,9 +301,9 @@ void TreeDemo::siblings(vector<int> &prev)
 			cin >> key;	
 
 			
-			/*try { cout << avl->siblings(key); }
+			try { cout << avl->siblingsWrapper(key); }
 			catch (const underflow_error& e) { cout << "Error: " << e.what(); }
-			break;*/
+			break;
 		}
 	}
 	cout << endl << endl;
