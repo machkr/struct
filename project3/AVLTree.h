@@ -457,7 +457,7 @@ public:
 
 		if (bal > 1)
 		{
-			if (balanceFactor(root->left) > 0)
+			if (balanceFactor(node->left) > 0)
 			{
 				node = left_Left_Rotation(node);
 			}
