@@ -562,6 +562,7 @@ public:
 			else
 			{
 				cout << "The key could not be located." << endl << endl;
+				return; 
 			}
 
 			root = balance(root);	
