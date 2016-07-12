@@ -20,7 +20,7 @@ class DynMap  {
 	public:
 		static const int INITIAL_SIZE = 8;
 	private:
-		LinkedList<MapNode<K,V>> ** array;
+		LinkedList< MapNode<K,V> > ** array;
 		int count;
 		int bucketsFilled;
 		int initialSize;
@@ -56,7 +56,7 @@ class DynMap  {
 		
 	public:
 		DynMap(double loadFactor_) : 
-				array(new LinkedList<MapNode<K,V>>*[4]),
+				array(new LinkedList< MapNode<K,V> >*[4]),
 				count(0), 
 				bucketsFilled(0),
 				initialSize(4),
@@ -78,7 +78,7 @@ class DynMap  {
 				bucketsFilled++;
 			} else { 
 				// Find duplicate keys
-				SingleNode<MapNode<K,V>> * curNode = array[h]->getHead();
+				SingleNode< MapNode<K,V> > * curNode = array[h]->getHead();
 				while(curNode!=nullptr)
 				{
 					if (curNode->getData().key == key)
