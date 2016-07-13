@@ -3,7 +3,8 @@
 
 using namespace std;
 
-void GraphDemo::buildMenus() {
+void GraphDemo::buildMenus()
+{
 
 	mainMenu = new MenuList("Please select a graph:");
 	graphMenu = new MenuList("Select an option for: Graph");
@@ -11,14 +12,15 @@ void GraphDemo::buildMenus() {
 
 	mainMenu->setIsMain(true);
 	mainMenu->add("Graph", MenuList::SubMenu(graphMenu), true);
-	mainMenu->add("Diraph", MenuList::SubMenu(digraphMenu), true);
+	mainMenu->add("Digraph", MenuList::SubMenu(digraphMenu), true);
 
 	graphMenu->add("Create Graph", action(createGraph));
 	digraphMenu->add("Create Digraph", action(createDigraph));
 
 }
 
-void GraphDemo::createGraph(vector<int>& prev) {
+void GraphDemo::createGraph(vector<int>& prev)
+{
 	// Create graph
 	
 	graphMenu->remove("Create Graph");
@@ -38,7 +40,8 @@ void GraphDemo::createGraph(vector<int>& prev) {
 
 }
 
-void GraphDemo::createDigraph(vector<int>& prev) {
+void GraphDemo::createDigraph(vector<int>& prev)
+{
 	// Create digraph
 	
 	digraphMenu->remove("Create Digraph");
@@ -60,7 +63,8 @@ void GraphDemo::createDigraph(vector<int>& prev) {
 
 }
 
-void GraphDemo::empty(vector<int> &prev) {
+void GraphDemo::empty(vector<int> &prev)
+{
 	cout << "(Empty)" << endl;
 
 	switch(prev.back()) 
@@ -74,7 +78,8 @@ void GraphDemo::empty(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::edgeCount(vector<int> &prev) {
+void GraphDemo::edgeCount(vector<int> &prev)
+{
 	cout << "(Edge Count)" << endl;
 
 	switch(prev.back()) 
@@ -88,7 +93,8 @@ void GraphDemo::edgeCount(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::adjacent(vector<int> &prev) {
+void GraphDemo::adjacent(vector<int> &prev)
+{
 	cout << "(Adjacent)" << endl;
 
 	switch(prev.back()) 
@@ -102,7 +108,8 @@ void GraphDemo::adjacent(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::dfs(vector<int> &prev) {
+void GraphDemo::dfs(vector<int> &prev)
+{
 	cout << "(DFS)" << endl;
 
 	switch(prev.back()) 
@@ -116,7 +123,8 @@ void GraphDemo::dfs(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::bfs(vector<int> &prev) {
+void GraphDemo::bfs(vector<int> &prev)
+{
 	cout << "(BFS)" << endl;
 
 	switch(prev.back()) 
@@ -130,7 +138,8 @@ void GraphDemo::bfs(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::buildGraph(vector<int> &prev) {
+void GraphDemo::buildGraph(vector<int> &prev)
+{
 	cout << "(Build Graph)" << endl;
 
 	switch(prev.back()) 
@@ -144,7 +153,8 @@ void GraphDemo::buildGraph(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::clear(vector<int> &prev) {
+void GraphDemo::clear(vector<int> &prev)
+{
 	cout << "(Clear)" << endl;
 
 	switch(prev.back()) 
@@ -158,7 +168,8 @@ void GraphDemo::clear(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::reset(vector<int> &prev) {
+void GraphDemo::reset(vector<int> &prev)
+{
 	cout << "(Reset)" << endl;
 
 	switch(prev.back()) 
@@ -172,7 +183,8 @@ void GraphDemo::reset(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::insert(vector<int> &prev) {
+void GraphDemo::insert(vector<int> &prev)
+{
 	cout << "(Insert)" << endl;
 
 	switch(prev.back()) 
@@ -186,7 +198,8 @@ void GraphDemo::insert(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::del(vector<int> &prev) {
+void GraphDemo::del(vector<int> &prev)
+{
 	cout << "(Delete)" << endl;
 
 	switch(prev.back()) 
@@ -200,49 +213,56 @@ void GraphDemo::del(vector<int> &prev) {
 	cout << endl << endl;
 }
 
-void GraphDemo::degree(vector<int> &prev) {
+void GraphDemo::degree(vector<int> &prev)
+{
 	cout << "(Degree)" << endl;
 
 	
 	cout << endl << endl;
 }
 
-void GraphDemo::isConnected(vector<int> &prev) {
+void GraphDemo::isConnected(vector<int> &prev)
+{
 	cout << "(Is Connected)" << endl;
 
 	
 	cout << endl << endl;
 }
 
-void GraphDemo::mst(vector<int> &prev) {
+void GraphDemo::mst(vector<int> &prev)
+{
 	cout << "(MST)" << endl;
 
 	
 	cout << endl << endl;
 }
 
-void GraphDemo::indegree(vector<int> &prev) {
+void GraphDemo::indegree(vector<int> &prev)
+{
 	cout << "(In-Degree)" << endl;
 
 	
 	cout << endl << endl;
 }
 
-void GraphDemo::outdegree(vector<int> &prev) {
+void GraphDemo::outdegree(vector<int> &prev)
+{
 	cout << "(Out-Degree)" << endl;
 
 	
 	cout << endl << endl;
 }
 
-void GraphDemo::shortPath(vector<int> &prev) {
-	cout << "(Short Path)" << endl;
+void GraphDemo::shortestPath(vector<int> &prev)
+{
+	cout << "(Shortest Path)" << endl;
 
 	
 	cout << endl << endl;
 }
 
-void GraphDemo::distance(vector<int> &prev) {
+void GraphDemo::distance(vector<int> &prev)
+{
 	cout << "(Distance)" << endl;
 
 	

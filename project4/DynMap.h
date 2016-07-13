@@ -11,18 +11,20 @@ template <class K, class V>
 class DynMap;
 
 template <class K, class V>
-struct MapNode {
+struct MapNode
+{
 	K key;
 	V val;
-	bool operator==(const MapNode& right) {
+	bool operator==(const MapNode& right)
+	{
 		return (key == right.key);
 	}
 };
 
 // https://xkcd.com/974/
 template <class K, class V>
-class MapIterator {
-
+class MapIterator
+{
 	private:
 		DynMap<K,V> * map;
 		MapNode<K,V> * cur;
@@ -50,7 +52,8 @@ class MapIterator {
 			curIndex(obj.curIndex) 
 		{}
 
-		MapIterator<K,V>& operator=(const MapIterator<K,V>& rhs) {
+		MapIterator<K,V>& operator=(const MapIterator<K,V>& rhs)
+		{
 			cur = rhs.cur;
 			map = rhs.map;
 			curIndex = rhs.curIndex;
@@ -62,8 +65,10 @@ class MapIterator {
 		bool operator!=(const MapIterator<K,V>& rhs) { return cur != rhs.cur; }
 
 		// Incrementors
-		MapIterator<K,V>& operator++() { 
-			if (++curIt == nullptr) {
+		MapIterator<K,V>& operator++()
+		{ 
+			if (++curIt == nullptr)
+			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
 			}
@@ -71,8 +76,10 @@ class MapIterator {
 			return *this; 
 		}
 
-		MapIterator<K,V>& operator++(int) { 
-			if (++curIt == nullptr) {
+		MapIterator<K,V>& operator++(int)
+		{ 
+			if (++curIt == nullptr) 
+			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
 			}
@@ -81,18 +88,21 @@ class MapIterator {
 		}
 
 		// Dereferencers
-		V operator*() { 
+		V operator*()
+		{ 
 			V data = cur->val;
 			return data;
 		}
-		V operator->() { 
+		V operator->()
+		{ 
 			V data = cur->val;
 			return data; 
 		}
 };
 
 template <class K, class V>
-class DynMap  {
+class DynMap
+{
 	public:
 		static const int INITIAL_SIZE = 8;
 	private:
@@ -147,13 +157,16 @@ class DynMap  {
 		void insert(K const &key, V const &val)  
 		{	
 			// Double array size if count > arraySize/2
-			if ( ((double)count / (double)arraySize) > loadFactor )
-				doubleSize();
+			if ( ((double)count / (double)arraySize) > loadFactor ) doubleSize();
 
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr) {
+
+			if (array[h] == nullptr)
+			{
 				array[h] = new LinkedList<MapNode<K,V>>();
-			} else { 
+			}
+			else
+			{ 
 				// Find duplicate keys
 				SingleNode< MapNode<K,V> > * curNode = array[h]->getHead();
 				while(curNode!=nullptr)
@@ -163,6 +176,7 @@ class DynMap  {
 						array[h]->erase(curNode->getData());
 						break;
 					}
+
 					curNode = curNode->getNext();
 				}
 			}
@@ -176,14 +190,12 @@ class DynMap  {
 		V search(K const &key) 
 		{
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr) 
-				throw underflow_error("Key not found");
+			if (array[h] == nullptr) { throw underflow_error("Key not found"); }
 
 			SingleNode<MapNode<K,V>> * curNode = array[h]->getHead();
 			while (curNode != nullptr) 
 			{
-				if (curNode->getData().key == key)
-					return curNode->getData().val;
+				if (curNode->getData().key == key) return curNode->getData().val;
 				
 				curNode = curNode->getNext();
 			}
@@ -193,16 +205,14 @@ class DynMap  {
 		LinkedList<MapNode<K,V>>* getLL(K const &key)
 		{
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr) 
-				throw underflow_error("Key not found");
+			if (array[h] == nullptr) { throw underflow_error("Key not found"); }
 			return array[h];
 		}
 
 		void del(K const &key) 
 		{
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr)
-				throw underflow_error("Key not found");
+			if (array[h] == nullptr) { throw underflow_error("Key not found"); }
 
 			SingleNode<MapNode<K,V>> * curNode = array[h]->getHead();
 			while (curNode != nullptr) 
@@ -210,13 +220,17 @@ class DynMap  {
 				if (curNode->getData().key == key) 
 				{
 					array[h]->erase({key,curNode->getData().val});
-					if (array[h]->empty()) {
+					if (array[h]->empty())
+					{
 						delete array[h];
 						
 						// Delete from filled entry
-						for (int i = 0; i < bucketsFilled; i++) {
-							if (filled[i] == h) {
-								while (i < bucketsFilled) {
+						for (int i = 0; i < bucketsFilled; i++)
+						{
+							if (filled[i] == h)
+							{
+								while (i < bucketsFilled)
+								{
 									filled[i] = filled[i+1];
 									i++;
 								}
@@ -245,8 +259,7 @@ class DynMap  {
 					while (curNode != nullptr) 
 					{
 						unsigned int h = hash(curNode->getData().key, arraySize*2);
-						if (newArray[h] == nullptr) 
-							newArray[h] = new LinkedList<MapNode<K,V>>();
+						if (newArray[h] == nullptr) newArray[h] = new LinkedList<MapNode<K,V>>();
 						newArray[h]->push_back(curNode->getData());
 						curNode = curNode->getNext();
 					}
@@ -256,7 +269,8 @@ class DynMap  {
 			
 			// Double filled array
 			int * newFilled = new int[arraySize*2];
-			for (int i=0; i < bucketsFilled; i++) {
+			for (int i=0; i < bucketsFilled; i++)
+			{
 				newFilled[i] = filled[i];
 			}
 
@@ -272,15 +286,15 @@ class DynMap  {
 
 		void display() const 
 		{
-			if (empty())
-				throw underflow_error("Hash Table is empty");
+			if (empty()) { throw underflow_error("Hash Table is empty"); }
 
 			for (int i = 0; i < arraySize; i++) 
 			{
 				if (array[i] == nullptr) continue;
 				
 				SingleNode<MapNode<K,V>> * curNode = array[i]->getHead();
-				while(curNode != nullptr) {
+				while(curNode != nullptr)
+				{
 					MapNode<K,V> curMapNode = curNode->getData();
 					unsigned int h = hash(curMapNode.key, arraySize);
 					cout << "Key: " << curMapNode.key << endl;
@@ -298,6 +312,7 @@ class DynMap  {
 				if (array[i] != nullptr)
 					delete array[i];
 			}
+
 			delete array;
 			array = new LinkedList<MapNode<K,V>>*[initialSize];	
 			arraySize = initialSize;
@@ -315,7 +330,6 @@ class DynMap  {
 		typedef MapIterator<const K, const V> const_iterator;
 
 		iterator begin() { return iterator(this, array[filled[0]]); }
-		iterator end() { return nullptr; }
-		
+		iterator end() { return nullptr; }	
 };
 

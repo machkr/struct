@@ -30,7 +30,8 @@ class Graph
 		{
 			Vertex<Type> v;
 			try { v = vertices.search(name); }
-			catch(const underflow_error& e) { 
+			catch(const underflow_error& e)
+			{
 				throw underflow_error("Vertex " + name + " cannot be found");
 			}
 
@@ -39,7 +40,10 @@ class Graph
 
 		int edgeCount() { return numEdges; }
 
-		bool isConnected() {}
+		bool isConnected( string name1, string name2)
+		{
+
+		}
 
 		double adjacent( string name1, string name2 )
 		{
@@ -47,12 +51,14 @@ class Graph
 			Vertex<Type> v1;
 			Vertex<Type> v2;
 			try { v1 = vertices.search(name1); }
-			catch (const underflow_error& e) {
+			catch (const underflow_error& e)
+			{
 				throw underflow_error("Vertex " + name1 + " cannot be found");
 			}
 				
 			try { v2 = vertices.search(name2); }
-			catch (const underflow_error& e) {
+			catch (const underflow_error& e)
+			{
 				throw underflow_error("Vertex " + name2 + " cannot be found");
 			}
 
@@ -77,23 +83,25 @@ class Graph
 
 		void MST(string name) {}
 
+		void shortestPath(string name) {}
+
 		void buildGraph() {}
 
 		void clear() {}
 
-		void reset() {
+		void reset()
+		{
 			MapIterator it = vertices.begin();
-			for(it = vertices.begin(); it != vertices.end(); it++) {
+			for(it = vertices.begin(); it != vertices.end(); it++)
+			{
 				if (it->visited)
 					it->visited = false;
 			}
-		
 		}
 
 		void insert(string name1, string name2, double weight) {}
 
 		void del(string name) {}
-
 };
 
 		
