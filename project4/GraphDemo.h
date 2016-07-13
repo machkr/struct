@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "MenuList.h"
+#include "Graph.h"
 
 class GraphDemo {
 	private: 
