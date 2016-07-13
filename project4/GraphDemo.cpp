@@ -1,6 +1,8 @@
 #define action(f) bind(static_cast<void (GraphDemo::*)(vector<int>&)> (&GraphDemo::f) ,this,_1)
 #include "GraphDemo.h"
 
+using namespace std;
+
 void GraphDemo::buildMenus() {
 
 	mainMenu = new MenuList("Please select a graph:");
@@ -57,3 +59,193 @@ void GraphDemo::createDigraph(vector<int>& prev) {
 	digraphMenu->add("Delete", action(del));
 
 }
+
+void GraphDemo::empty(vector<int> &prev) {
+	cout << "(Empty)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::edgeCount(vector<int> &prev) {
+	cout << "(Edge Count)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::adjacent(vector<int> &prev) {
+	cout << "(Adjacent)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::dfs(vector<int> &prev) {
+	cout << "(DFS)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::bfs(vector<int> &prev) {
+	cout << "(BFS)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::buildGraph(vector<int> &prev) {
+	cout << "(Build Graph)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::clear(vector<int> &prev) {
+	cout << "(Clear)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::reset(vector<int> &prev) {
+	cout << "(Reset)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::insert(vector<int> &prev) {
+	cout << "(Insert)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::del(vector<int> &prev) {
+	cout << "(Delete)" << endl;
+
+	switch(prev.back()) 
+	{
+		case 1: // Graph
+			break;
+		case 2: // Digraph 
+			break;
+	}
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::degree(vector<int> &prev) {
+	cout << "(Degree)" << endl;
+
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::isConnected(vector<int> &prev) {
+	cout << "(Is Connected)" << endl;
+
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::mst(vector<int> &prev) {
+	cout << "(MST)" << endl;
+
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::indegree(vector<int> &prev) {
+	cout << "(In-Degree)" << endl;
+
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::outdegree(vector<int> &prev) {
+	cout << "(Out-Degree)" << endl;
+
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::shortPath(vector<int> &prev) {
+	cout << "(Short Path)" << endl;
+
+	
+	cout << endl << endl;
+}
+
+void GraphDemo::distance(vector<int> &prev) {
+	cout << "(Distance)" << endl;
+
+	
+	cout << endl << endl;
+}
+
