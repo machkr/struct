@@ -135,7 +135,6 @@ class BaseGraph
 					insertVertex(name, data);
 				}
 			}
-
 			// Return to beginning of file
 			file.clear();
 			file.seekg(0, ios::beg);
@@ -185,9 +184,13 @@ class BaseGraph
 		void reset() 
 		{
 			MapIterator it;
-			for(it = vertices.begin(); it != vertices.end(); it++) {
-				if (it->visited)
-					it->visited = false;
+			for(
+					it = vertices.begin(); 
+					it != vertices.end(); 
+					it++) 
+			{
+				if (it->isVisited())
+					it->setVisited(false);
 			}
 		
 		}
@@ -203,12 +206,3 @@ class BaseGraph
 		}
 
 };
-
-		
-
-			
-
-	
-
-
-

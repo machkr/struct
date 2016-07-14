@@ -65,7 +65,7 @@ class Graph : public BaseGraph<Type>
 
 			// Push edges into appropriate vertex
 			v1->edges.push_back(newEdge1);
-			v1->edges.push_back(newEdge2);
+			v2->edges.push_back(newEdge2);
 
 			this->numEdges++;
 		
