@@ -19,7 +19,8 @@ void GraphDemo::buildMenus() {
 }
 
 void GraphDemo::createGraph(vector<int>& prev) {
-	// Create graph
+
+	graph = new Graph<double>();
 	
 	graphMenu->remove("Create Graph");
 	graphMenu->add("Empty", action(empty));
@@ -66,6 +67,7 @@ void GraphDemo::empty(vector<int> &prev) {
 	switch(prev.back()) 
 	{
 		case 1: // Graph
+			cout << ((graph->empty()) ? "True":"False");
 			break;
 		case 2: // Digraph 
 			break;
@@ -80,6 +82,7 @@ void GraphDemo::edgeCount(vector<int> &prev) {
 	switch(prev.back()) 
 	{
 		case 1: // Graph
+			cout << graph->edgeCount();
 			break;
 		case 2: // Digraph 
 			break;
@@ -108,7 +111,17 @@ void GraphDemo::dfs(vector<int> &prev) {
 	switch(prev.back()) 
 	{
 		case 1: // Graph
+		{
+			cout << "Name: ";
+			string name;
+			getline(cin, name);
+			try { graph->DFS(name); }
+			catch (const underflow_error& e) {
+				cout << "Error: " << e.what();
+			}
 			break;
+		}
+
 		case 2: // Digraph 
 			break;
 	}
@@ -136,7 +149,16 @@ void GraphDemo::buildGraph(vector<int> &prev) {
 	switch(prev.back()) 
 	{
 		case 1: // Graph
+		{
+			string fileName;
+			cout << "Filename: ";
+			getline(cin, fileName);
+			try { graph->buildGraph(fileName); }
+			catch ( const underflow_error& e) 
+			{ cout << "Error: " << e.what(); }
 			break;
+		}
+
 		case 2: // Digraph 
 			break;
 	}
@@ -202,7 +224,6 @@ void GraphDemo::del(vector<int> &prev) {
 
 void GraphDemo::degree(vector<int> &prev) {
 	cout << "(Degree)" << endl;
-
 	
 	cout << endl << endl;
 }

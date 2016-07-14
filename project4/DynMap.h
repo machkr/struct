@@ -153,6 +153,7 @@ class DynMap  {
 			unsigned int h = hash(key, arraySize);
 			if (array[h] == nullptr) {
 				array[h] = new LinkedList<MapNode<K,V>>();
+				filled[bucketsFilled++] = h;
 			} else { 
 				// Find duplicate keys
 				SingleNode< MapNode<K,V> > * curNode = array[h]->getHead();
@@ -167,7 +168,6 @@ class DynMap  {
 				}
 			}
 				
-			filled[bucketsFilled++] = h;
 			array[h]->push_back({key,val});
 			count++;
 			
@@ -188,6 +188,16 @@ class DynMap  {
 				curNode = curNode->getNext();
 			}
 			throw underflow_error("Key not found");
+		}
+
+		bool exists(K const &key) 
+		{
+			try {
+				search(key);
+			} catch (const underflow_error& e) {
+				return false;
+			}
+			return true;
 		}
 
 		LinkedList<MapNode<K,V>>* getLL(K const &key)
@@ -234,6 +244,13 @@ class DynMap  {
 		
 		void doubleSize() 
 		{
+			// Double filled array
+			int * newFilled = new int[arraySize*2];
+			delete[] filled;
+			filled = newFilled;
+
+			bucketsFilled = 0;
+
 			LinkedList<MapNode<K,V>> ** newArray = new LinkedList<MapNode<K,V>>*[arraySize*2];
 			initializeArray(newArray, arraySize*2);
 			for (int i=0; i < arraySize; i++) 
@@ -245,8 +262,10 @@ class DynMap  {
 					while (curNode != nullptr) 
 					{
 						unsigned int h = hash(curNode->getData().key, arraySize*2);
-						if (newArray[h] == nullptr) 
+						if (newArray[h] == nullptr) {
 							newArray[h] = new LinkedList<MapNode<K,V>>();
+							filled[bucketsFilled++] = h;
+						}
 						newArray[h]->push_back(curNode->getData());
 						curNode = curNode->getNext();
 					}
@@ -254,12 +273,6 @@ class DynMap  {
 				}
 			}
 			
-			// Double filled array
-			int * newFilled = new int[arraySize*2];
-			for (int i=0; i < bucketsFilled; i++) {
-				newFilled[i] = filled[i];
-			}
-
 			LinkedList<MapNode<K,V>> ** temp = array;
 			array = newArray;
 			delete temp;

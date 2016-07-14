@@ -6,8 +6,13 @@
 using namespace std;
 
 template <class Type>
+class Graph;
+
+template <class Type>
 class Vertex 
 {
+	friend class Graph<Type>;
+
 	private:
 		string name;
 		Type data;
@@ -26,6 +31,10 @@ class Vertex
 		string getName() { return name; }
 
 		Type getData() { return data; }
+
+		bool isVisited() { return visited; }
+
+		void setVisited(bool value) { visited = value; }
 
 };
 

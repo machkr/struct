@@ -5,7 +5,7 @@
 
 class GraphDemo {
 	private: 
-		// Graph * graph;
+		 Graph<double> * graph;
 		// Digraph * digraph;
 		
 		MenuList * mainMenu;
