@@ -181,7 +181,10 @@ class BaseGraph
 			}
 		}
 
-		void clear() {}
+		void clear() 
+		{
+			
+		}
 
 		void reset() 
 		{

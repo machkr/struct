@@ -40,17 +40,29 @@ class Digraph : public BaseGraph<Type>
 				}
 			}
 
-			v1->edges.push_back(newEdge1);
+			v1->edges.push_back(newEdge);
 
 			this->numEdges++;
 		}
 		
 		int indegree(string name) {}
 
-		int outdegree(string name) {}
+		int outdegree(string name)
+		{
+			Vertex<Type> * v1 = this->vertices.search(name);
+			return v1.getDegree();
+		}
 
 		void shortestPath(string name1, string name2) {}
 
-		double distance(string name1, string name2) {}
+		double distance(string name1, string name2) 
+		{
+			double totalWeight = 0;
+
+			//pseudocode: determine all of the edges from vertex(name1) to vertex(name2)
+			//pseudocode: totalWeight = weight of all edges found from above iteration.
+
+			return totalWeight;
+		}
 
 };
