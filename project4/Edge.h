@@ -26,11 +26,13 @@ class Edge
 			weight(other.weight)
 		{}
 
-		bool operator==(const Edge<Type>& rhs) {
+		bool operator==(const Edge<Type>& rhs)
+		{
 			return (v == rhs.v && weight == rhs.weight);
 		}
 
-		Edge<Type>& operator=(const Edge<Type>& rhs) {
+		Edge<Type>& operator=(const Edge<Type>& rhs)
+		{
 			v = rhs.v;
 			weight = rhs.weight;
 			return *this;

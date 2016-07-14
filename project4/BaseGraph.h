@@ -15,8 +15,6 @@ using namespace std;
 template <class Type> 
 class BaseGraph
 {
-
-
 	protected:
 		// Typedefs
 		typedef DynMap<string, Vertex<Type>*> Map;
@@ -107,7 +105,10 @@ class BaseGraph
 
 		}
 
-		void BFS(string name) {}
+		void BFS(string name)
+		{
+			
+		}
 
 		void buildGraph(string fileName) 
 		{
@@ -185,30 +186,30 @@ class BaseGraph
 		void reset() 
 		{
 			MapIterator it;
-			for(it = vertices.begin(); it != vertices.end(); it++) {
+			for (it = vertices.begin(); it != vertices.end(); it++)
+			{
 				if (it->visited)
 					it->visited = false;
 			}
 		
 		}
 
-		virtual void insert(string name1, string name2, double weight) = 0;
+		void del(string name)
+		{
+			LLIterator lit;
+			MapIterator mit;
 
-		virtual void del(string name) = 0;
+			for (mit = vertices.begin(); mit != vertices.end; mit++)
+			{
+				for(lit = (*mit).v)
+			}
+		}
 
-		void insertVertex(string name, Type data) 
+		void insertVertex(string name, Type data)
 		{
 			vertices.insert(name, new Vertex<Type>(name, data));
 			numVertices++;
 		}
 
+		virtual void insert(string name1, string name2, double weight) = 0;
 };
-
-		
-
-			
-
-	
-
-
-

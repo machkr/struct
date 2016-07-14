@@ -43,31 +43,20 @@ public:
 	}
 
 	//Accessor Methods
-
 	type top() const
 	{
 		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 		return stackArray[count - 1];
 	}
 
-	int size() const
-	{
-		return count;
-	}
+	int size() const { return count; }
 
-	bool empty() const
-	{
-		return count == 0;
-	}
+	bool empty() const { return count == 0; }
 
-	int capacity() const
-	{
-		return arraySize;
-	}
+	int capacity() const { return arraySize; }
 
 	void display() const
 	{
-
 		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		for(int i = count - 1; i >= 0; i--)
@@ -80,8 +69,7 @@ public:
 
 	//Mutator Methods
 	void push(type const &data)
-	{
-		
+	{	
 		if (count == arraySize)
 		{
 			type *newArray = new type[2 * arraySize];
@@ -97,12 +85,10 @@ public:
 
 		stackArray[count] = data;
 		count++;
-
 	}
 
 	type pop()
-	{
-		
+	{	
 		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		type temp = this->top();
@@ -126,7 +112,6 @@ public:
 
 	void clear()
 	{
-
 		if (this->empty()) throw underflow_error("Error: the stack is empty.");
 
 		count = 0;

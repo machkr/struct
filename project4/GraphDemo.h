@@ -36,13 +36,14 @@ class GraphDemo {
 		// Digraph
 		void indegree(vector<int> &prev);
 		void outdegree(vector<int> &prev);
-		void shortPath(vector<int> &prev);
+		void shortestPath(vector<int> &prev);
 		void distance(vector<int> &prev);
 
 		void buildMenus();
 
 	public: 
-		void run() {
+		void run()
+		{
 			buildMenus();
 			mainMenu->run();
 		}
