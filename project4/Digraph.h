@@ -3,14 +3,12 @@
 template <class Type>
 class Digraph : public BaseGraph<Type>
 {
-
 	// Typedefs
 	typedef DynMap<string, Vertex<Type>*> Map;
 	typedef typename LinkedList<Edge<Type>>::iterator LLIterator;
 	typedef typename DynMap<string, Vertex<Type>*>::iterator MapIterator;
 
 	public:
-
 		Digraph() :
 			BaseGraph<Type>()
 		{}
@@ -35,9 +33,7 @@ class Digraph : public BaseGraph<Type>
 			LLIterator it;
 			for (it = v1->edges.begin(); it != v1->edges.end(); it++)
 			{
-				if ((*it).v == v2) {
-					v1->edges.erase(*it);
-				}
+				if ((*it).v == v2) { v1->edges.erase(*it); }
 			}
 
 			v1->edges.push_back(newEdge);
@@ -45,7 +41,10 @@ class Digraph : public BaseGraph<Type>
 			this->numEdges++;
 		}
 		
-		int indegree(string name) {}
+		int indegree(string name)
+		{
+		
+		}
 
 		int outdegree(string name)
 		{
@@ -54,7 +53,9 @@ class Digraph : public BaseGraph<Type>
 		}
 
 		void shortestPath(string name1, string name2) // Djikstra's Algorithm
-		{}
+		{
+		
+		}
 
 		double distance(string name1, string name2) 
 		{
@@ -65,5 +66,4 @@ class Digraph : public BaseGraph<Type>
 
 			return totalWeight;
 		}
-
 };

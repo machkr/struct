@@ -3,14 +3,12 @@
 template <class Type>
 class Graph : public BaseGraph<Type>
 {
-
 	// Typedefs
 	typedef DynMap<string, Vertex<Type>*> Map;
 	typedef typename LinkedList<Edge<Type>>::iterator LLIterator;
 	typedef typename DynMap<string, Vertex<Type>*>::iterator MapIterator;
 
 	public:
-
 		Graph() :
 			BaseGraph<Type>()
 		{}
@@ -64,6 +62,5 @@ class Graph : public BaseGraph<Type>
 			v2->edges.push_back(newEdge2);
 
 			this->numEdges++;
-		
 		}
 };
