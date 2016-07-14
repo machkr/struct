@@ -93,12 +93,12 @@ void GraphDemo::edgeCount(vector<int> &prev) {
 
 void GraphDemo::adjacent(vector<int> &prev) {
 	cout << "(Adjacent)" << endl;
-	Graph<double>* g;
+	BaseGraph<double>* g;
 
 	if (prev.back() == 1)
 		g = graph;
 	else 
-		g = nullptr;
+		g = digraph;
 
 	string name1;
 	string name2;

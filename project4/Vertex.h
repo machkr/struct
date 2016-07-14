@@ -17,7 +17,6 @@ class Vertex
 		string name;
 		Type data;
 		bool visited;
-		LinkedList<Edge<Type>> edges;
 	
 	public:
 		Vertex(string name_, Type data_) :
@@ -36,6 +35,7 @@ class Vertex
 
 		void setVisited(bool value) { visited = value; }
 
+		LinkedList<Edge<Type>> edges;
 };
 
 
