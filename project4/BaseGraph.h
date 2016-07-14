@@ -124,7 +124,7 @@ class BaseGraph
 				count++;
 				queue.dequeue();
 
-				// Enqueue next unvisited child onto stack
+				// Visit adjacent nodes and enqueue them
 				LLIterator it;
 				for (it = v->edges.begin(); it != v->edges.end(); it++)
 				{
