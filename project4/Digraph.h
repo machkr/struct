@@ -53,7 +53,8 @@ class Digraph : public BaseGraph<Type>
 			return v1.getDegree();
 		}
 
-		void shortestPath(string name1, string name2) {}
+		void shortestPath(string name1, string name2) // Djikstra's Algorithm
+		{}
 
 		double distance(string name1, string name2) 
 		{

@@ -25,7 +25,8 @@ class Graph : public BaseGraph<Type>
 
 		bool isConnected() {}
 
-		void MST(string name) {}
+		void MST(string name) // Prim's Algorithm
+		{}
 
 		// Overloaded insert
 		void insert(string name1, string name2, double weight) 
