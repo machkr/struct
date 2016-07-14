@@ -15,10 +15,10 @@ using namespace std;
 template <class Type> 
 class Graph
 {
-	friend class Vertex<Type>;
 
-	typedef typename LinkedList<Edge<Type>>::iterator LLIterator;
+	// Typedefs
 	typedef DynMap<string, Vertex<Type>*> Map;
+	typedef typename LinkedList<Edge<Type>>::iterator LLIterator;
 	typedef typename DynMap<string, Vertex<Type>*>::iterator MapIterator;
 
 	private:
@@ -70,36 +70,44 @@ class Graph
 					return it->weight;
 			}
 
-			// 1000 represents infinity. No connection between v1 and v2
-			return 1000;
+			// 65536 represents infinity. There's no connection between v1 and v2
+			return 65536;
 		}
 
-		void DFS(string name) {
+		void DFS(string name) 
+		{
 			DynStack<Vertex<Type>*> stack;
-			if (!vertices.exists(name)) 
-				throw underflow_error("Vertex " + name + " doesn't exist");
 
+			if (!vertices.exists(name)) 
+				throw underflow_error("Vertex " + name + " cannot be found");
+
+			// Push first vertex onto stack
 			stack.push(vertices.search(name));
 			
 			outer:
-			while (!stack.empty()) {
-
+			while (!stack.empty()) 
+			{
 				Vertex<Type>* v = stack.top();
 				
-				// Visit
-				if (!v->isVisited()) {
+				// Visit vertex at top of stack
+				if (!v->isVisited()) 
+				{
 					cout << v->getName() << " " << v->getData() << endl;
 					v->setVisited(true);
 				}	
 
-				// Push child to stack
+				// Push next unvisited child onto stack
 				LLIterator it;
-				for (it = v->edges.begin(); it != v->edges.end(); it++) {
-					if (!(*it).v->isVisited()) { 
+				for (it = v->edges.begin(); it != v->edges.end(); it++) 
+				{
+					if (!(*it).v->isVisited()) 
+					{ 
 						stack.push((*it).v);
 						goto outer; // Continue while loop
 					}
 				}
+
+				// Remove vertex from stack if it has no unvisited children
 				stack.pop();
 			}
 
@@ -117,7 +125,7 @@ class Graph
 			if (!file)
 				throw underflow_error("Error opening file: " + fileName);
 
-			// Read vertices
+			// Read vertices from file
 			int l = 0;
 			string line;
 			while(getline(file, line)) 
@@ -129,9 +137,10 @@ class Graph
 
 				istringstream ss(line);
 
+				// Read name and data, insert new vertex
 				if (getline(ss, name, ',') && getline(ss, dataStr, ';')) {
 					data = stod(dataStr);
-					insertNode(name, data);
+					insertVertex(name, data);
 				}
 			}
 
@@ -139,7 +148,7 @@ class Graph
 			file.clear();
 			file.seekg(0, ios::beg);
 
-			// Read edges
+			// Read edges from file
 			l = 0;
 			while(getline(file, line))
 			{
@@ -149,11 +158,12 @@ class Graph
 				istringstream ss(line);
 				if (!getline(ss, name1, ',')) 
 					continue;
-				Vertex<Type>* v1 = vertices.search(name1);
 
+				// Ignore anything after name1 until it hits the ';'
 				ss.ignore(numeric_limits<streamsize>::max(), ';');
 				ss.ignore();
 				
+				// Get each edge name and weight and insert it into the graph
 				string weightStr;
 				string name2;
 				double weight;
@@ -163,12 +173,15 @@ class Graph
 					getline(ss, name2, ',');
 					ss.ignore();
 
+					// If name2 vertex doesn't exist, throw error w/ line number
 					if (!vertices.exists(name2)) {
 						ostringstream errorSs;
-						errorSs << "Parse error on line " << l << ": " << name2 << " vertex does not exist";
+						errorSs << "Parse error on line " << l << ": \"" << 
+							name2 << "\" vertex does not exist";
 						throw underflow_error(errorSs.str());
 					}
 
+					// Insert edge
 					insert(name1, name2, weight);
 				}
 				
@@ -187,6 +200,7 @@ class Graph
 		
 		}
 
+		// Overload for DiGraph
 		void insert(string name1, string name2, double weight) 
 		{
 
@@ -200,26 +214,37 @@ class Graph
 			if (weight == 0 )
 				throw invalid_argument("Weight cannot be 0");
 
+			// Create new edges
 			Vertex<Type>* v1 = vertices.search(name1); 
 			Vertex<Type>* v2 = vertices.search(name2);
 
-			Edge<Type> newEdge(v2, weight);
+			Edge<Type> newEdge1(v2, weight);
+			Edge<Type> newEdge2(v1, weight);
 
-			// Remove existing edge 
+			// Remove existing edge from v1 
 			LLIterator it;
 			for (it = v1->edges.begin(); it != v1->edges.end(); it++) {
 				if ((*it).v == v2) {
 					v1->edges.erase(*it);
 				}
 			}
+			
+			// Remove existing edge from v2
+			for (it = v2->edges.begin(); it != v2->edges.end(); it++) {
+				if ((*it).v == v1) {
+					v2->edges.erase(*it);
+				}
+			}
 
-			v1->edges.push_front(newEdge);
+			// Push edges into appropriate vertex
+			v1->edges.push_back(newEdge1);
+			v1->edges.push_back(newEdge2);
 
 			numEdges++;
 		
 		}
 
-		void insertNode(string name, Type data) 
+		void insertVertex(string name, Type data) 
 		{
 			vertices.insert(name, new Vertex<Type>(name, data));
 			numVertices++;
