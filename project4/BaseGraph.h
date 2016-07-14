@@ -165,7 +165,6 @@ class BaseGraph
 					insertVertex(name, data);
 				}
 			}
-
 			// Return to beginning of file
 			file.clear();
 			file.seekg(0, ios::beg);

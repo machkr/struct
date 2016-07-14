@@ -25,74 +25,88 @@ class MapIterator {
 
 	private:
 		DynMap<K,V> * map;
-		MapNode<K,V> * cur;
 		int curIndex;
 		typename LinkedList<MapNode<K,V>>::iterator curIt;
 
 	public:	
 		// Constructors
 		MapIterator() : 
-			cur(nullptr), 
 			map(nullptr), 
 			curIndex(0) 
 		{}
 
-		MapIterator(DynMap<K,V> * map_) : 
+		MapIterator(DynMap<K,V> * map_, int curIndex_) : 
 			map(map_),
-			curIndex(0)
+			curIndex(curIndex_)
 		{
-			curIt = map->array[0]->begin();
+			// Return iterator to beginning of first LL in map, or return iterator 
+			// to end of last LL in map
+			if (curIndex != map->bucketsFilled) 
+				curIt = map->array[ map->filled[curIndex] ]->begin();
+			else 
+				curIt = map->array[ map->filled[ map->bucketsFilled - 1 ] ]->end();
 		}
 
 		MapIterator(const MapIterator<K,V>& obj) :
-			cur(obj.cur), 
 			map(obj.map), 
-			curIndex(obj.curIndex) 
+			curIndex(obj.curIndex),
+			curIt(obj.curIt)
 		{}
 
 		MapIterator<K,V>& operator=(const MapIterator<K,V>& rhs) {
-			cur = rhs.cur;
 			map = rhs.map;
 			curIndex = rhs.curIndex;
+			curIt = rhs.curIt;
 			return *this;
 		}
 
 		// Comparators
-		bool operator==(const MapIterator<K,V>& rhs) { return cur == rhs.cur; }
-		bool operator!=(const MapIterator<K,V>& rhs) { return cur != rhs.cur; }
+		bool operator==(const MapIterator<K,V>& rhs) { 
+			return (curIt == rhs.curIt) && (curIndex == rhs.curIndex);
+		}
+		bool operator!=(const MapIterator<K,V>& rhs) { 
+			return (curIt != rhs.curIt) || (curIndex != rhs.curIndex); 
+		}
 
 		// Incrementors
 		MapIterator<K,V>& operator++() { 
-			if (++curIt == nullptr) {
+			curIt++;
+			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
+					curIndex < map->bucketsFilled) 
+			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
 			}
-			cur = *curIt;
 			return *this; 
 		}
 
 		MapIterator<K,V>& operator++(int) { 
-			if (++curIt == nullptr) {
+			curIt++;
+			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
+					curIndex < map->bucketsFilled) 
+			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
 			}
-			cur = *curIt;
 			return *this; 
 		}
 
 		// Dereferencers
 		V operator*() { 
-			V data = cur->val;
+			V data = (*curIt).val;
 			return data;
 		}
 		V operator->() { 
-			V data = cur->val;
+			V data = (*curIt).val;
 			return data; 
 		}
 };
 
 template <class K, class V>
 class DynMap  {
+
+	friend class MapIterator<K,V>;
+
 	public:
 		static const int INITIAL_SIZE = 8;
 	private:
@@ -327,8 +341,8 @@ class DynMap  {
 		typedef MapIterator<K,V> iterator;
 		typedef MapIterator<const K, const V> const_iterator;
 
-		iterator begin() { return iterator(this, array[filled[0]]); }
-		iterator end() { return nullptr; }
+		iterator begin() { return iterator(this, 0); }
+		iterator end() { return iterator(this, bucketsFilled); }
 		
 };
 

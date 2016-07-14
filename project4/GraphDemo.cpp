@@ -183,28 +183,20 @@ void GraphDemo::buildGraph(vector<int> &prev)
 {
 	cout << "(Build Graph)" << endl;
 
-	switch(prev.back()) 
-	{
-		case 1: // Graph
-		{
-			string fileName;
-			cout << "Filename: ";
-			getline(cin, fileName);
-			try
-			{ 
-				graph->buildGraph(fileName); 
-				cout << "File opened successfully";
-			}
-			catch ( const underflow_error& e)
-			{
-				cout << "Error: " << e.what();
-			}
-				
-			break;
-		}
+	BaseGraph<double>* g;
+	if (prev.back() == 1)
+		g = graph;
+	else 
+		g = digraph;
 
-		case 2: // Digraph 
-			break;
+	string fileName;
+	cout << "Filename: ";
+	getline(cin, fileName);
+	try { 
+		g->buildGraph(fileName); 
+		cout << "File opened successfully";
+	} catch ( const underflow_error& e) {
+		cout << "Error: " << e.what(); 
 	}
 	
 	cout << endl << endl;
@@ -232,12 +224,14 @@ void GraphDemo::reset(vector<int> &prev)
 	switch(prev.back()) 
 	{
 		case 1: // Graph
+			graph->reset();
 			break;
 		case 2: // Digraph 
+			digraph->reset();
 			break;
 	}
 	
-	cout << endl << endl;
+	cout << "Reset successful" << endl << endl;
 }
 
 void GraphDemo::insert(vector<int> &prev)
