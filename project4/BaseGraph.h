@@ -219,8 +219,8 @@ class BaseGraph
 			MapIterator it;
 			for (it = vertices.begin(); it != vertices.end(); it++)
 			{
-				if (it->visited)
-					it->visited = false;
+				if (it->isVisited())
+					it->setVisited(false);
 			}
 		}
 
