@@ -11,7 +11,7 @@ void GraphDemo::buildMenus() {
 
 	mainMenu->setIsMain(true);
 	mainMenu->add("Graph", MenuList::SubMenu(graphMenu), true);
-	mainMenu->add("Diraph", MenuList::SubMenu(digraphMenu), true);
+	mainMenu->add("Digraph", MenuList::SubMenu(digraphMenu), true);
 
 	graphMenu->add("Create Graph", action(createGraph));
 	digraphMenu->add("Create Digraph", action(createDigraph));
@@ -93,15 +93,32 @@ void GraphDemo::edgeCount(vector<int> &prev) {
 
 void GraphDemo::adjacent(vector<int> &prev) {
 	cout << "(Adjacent)" << endl;
+	Graph<double>* g;
 
-	switch(prev.back()) 
-	{
-		case 1: // Graph
-			break;
-		case 2: // Digraph 
-			break;
+	if (prev.back() == 1)
+		g = graph;
+	else 
+		g = nullptr;
+
+	string name1;
+	string name2;
+	double weight;
+	cout << "Vertex 1: ";
+	getline(cin, name1);
+	cout << "Vertex 2: ";
+	getline(cin, name2);
+	try {
+		weight = g->adjacent(name1, name2);
+	} catch (const underflow_error& e) {
+		cout << "Error: " << e.what();
+		return;
 	}
-	
+
+	if (weight == numeric_limits<double>::max()) {
+		cout << "Weight: ∞" << endl << endl;
+		return;
+	}
+	cout << "Weight: " << weight;
 	cout << endl << endl;
 }
 
@@ -115,8 +132,10 @@ void GraphDemo::dfs(vector<int> &prev) {
 			cout << "Name: ";
 			string name;
 			getline(cin, name);
-			try { graph->DFS(name); }
-			catch (const underflow_error& e) {
+			try { 
+				cout << graph->DFS(name); 
+				cout << " vertices visisted";
+			} catch (const underflow_error& e) {
 				cout << "Error: " << e.what();
 			}
 			break;
@@ -153,9 +172,13 @@ void GraphDemo::buildGraph(vector<int> &prev) {
 			string fileName;
 			cout << "Filename: ";
 			getline(cin, fileName);
-			try { graph->buildGraph(fileName); }
-			catch ( const underflow_error& e) 
-			{ cout << "Error: " << e.what(); }
+			try { 
+				graph->buildGraph(fileName); 
+				cout << "File opened successfully";
+			} catch ( const underflow_error& e) {
+				cout << "Error: " << e.what(); 
+			}
+				
 			break;
 		}
 

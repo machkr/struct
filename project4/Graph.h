@@ -66,17 +66,18 @@ class Graph
 			LLIterator it;
 			for (it = v1->edges.begin(); it != v1->edges.end(); it++) 
 			{
-				if (it->v == v2) 
-					return it->weight;
+				if ((*it).v == v2) 
+					return (*it).weight;
 			}
 
-			// 65536 represents infinity. There's no connection between v1 and v2
-			return 65536;
+			// Max value of double == infinity
+			return numeric_limits<double>::max();
 		}
 
-		void DFS(string name) 
+		int DFS(string name) 
 		{
 			DynStack<Vertex<Type>*> stack;
+			int count = 0;
 
 			if (!vertices.exists(name)) 
 				throw underflow_error("Vertex " + name + " cannot be found");
@@ -94,6 +95,7 @@ class Graph
 				{
 					cout << v->getName() << " " << v->getData() << endl;
 					v->setVisited(true);
+					count++;
 				}	
 
 				// Push next unvisited child onto stack
@@ -110,6 +112,7 @@ class Graph
 				// Remove vertex from stack if it has no unvisited children
 				stack.pop();
 			}
+			return count;
 
 		}
 
