@@ -40,7 +40,7 @@ class Digraph : public BaseGraph<Type>
 				}
 			}
 
-			v1->edges.push_back(newEdge1);
+			v1->edges.push_back(newEdge);
 
 			this->numEdges++;
 		}

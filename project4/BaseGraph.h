@@ -48,8 +48,7 @@ class BaseGraph
 			Vertex<Type>* v1 = vertices.search(name1);
 			Vertex<Type>* v2 = vertices.search(name2);
 
-			if (v1 == v2) 
-				return 0;
+			if (v1 == v2) { return 0; }
 
 			// Look to see if edge exists
 			LLIterator it;
@@ -101,13 +100,43 @@ class BaseGraph
 				// Remove vertex from stack if it has no unvisited children
 				stack.pop();
 			}
-			return count;
 
+			return count;
 		}
 
-		void BFS(string name)
+		int BFS(string name)
 		{
+			SimpleQueue<Vertex<Type>*> queue;
+			int count = 0;
+
+			if (!vertices.exists(name))
+				throw underflow_error("Vertex " + name + " cannot be found");
+
+			// Enqueue root
+			Vertex<Type>* v = vertices.search(name);
+			queue.enqueue(v);
+
+			while (!queue.empty())
+			{
+				// Dequeue vertex, print it
+				v = queue.front();
+				cout << v->getName() << " " << v->getData() << endl;
+				count++;
+				queue.dequeue();
+
+				// Enqueue next unvisited child onto stack
+				LLIterator it;
+				for (it = v->edges.begin(); it != v->edges.end(); it++)
+				{
+					if (!(*it).v->isVisited())
+					{
+						v->setVisited(true);
+						queue.enqueue((*it).v);
+					}
+				}
+			}
 			
+			return count;
 		}
 
 		void buildGraph(string fileName) 
@@ -191,18 +220,17 @@ class BaseGraph
 				if (it->visited)
 					it->visited = false;
 			}
-		
 		}
 
 		void del(string name)
 		{
-			LLIterator lit;
-			MapIterator mit;
+			//LLIterator lit;
+			//MapIterator mit;
 
-			for (mit = vertices.begin(); mit != vertices.end; mit++)
-			{
-				for(lit = (*mit).v)
-			}
+			//for (mit = vertices.begin(); mit != vertices.end(); mit++)
+			//{
+			//	for(lit = (*mit).v)
+			//}
 		}
 
 		void insertVertex(string name, Type data)
