@@ -2,11 +2,12 @@
 #include <string>
 #include "MenuList.h"
 #include "Graph.h"
+#include "Digraph.h"
 
 class GraphDemo {
 	private: 
-		 Graph<double> * graph;
-		// Digraph * digraph;
+		Graph<double> * graph;
+		Digraph<double> * digraph;
 		
 		MenuList * mainMenu;
 		MenuList * graphMenu;
