@@ -35,6 +35,11 @@ class Vertex
 
 		void setVisited(bool value) { visited = value; }
 
+		bool operator==(const Vertex<Type>& rhs)
+		{
+			return (name == rhs.name && data == rhs.data);
+		}
+
 		LinkedList<Edge<Type>> edges;
 };
 

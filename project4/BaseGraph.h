@@ -209,8 +209,37 @@ class BaseGraph
 			}
 		}
 
-		void clear() 
+		//The Idea: Create temp pointers for vertices and edges. Create iterators to go through all vertices of a graph, and all edges of each vertex. 
+		//While the vertex iterator isn't pointing at the end, delete all of its edges, followed by pointing to the next vertex and deleting its edges.
+		void clear()
 		{
+			Vertex<Type> * vertexTemp;
+			Edge<Type> * edgeTemp;
+			MapIterator mit = vertices.begin();
+			LLIterator lit;
+
+			while (mit != vertices.end())
+			{
+				vertexTemp = *mit;
+				lit = mit->edges.begin();
+				while (lit != mit->edges.end())
+				{
+					*edgeTemp = *lit;
+					lit++;
+					delete edgeTemp;
+					this->numEdges--;
+				}
+
+				delete &lit;
+				this->numEdges--;
+				delete vertexTemp;
+				this->numVertices--;
+				mit++;
+			}
+
+			delete *mit;
+			this->numVertices--;
+			return;
 		}
 
 		void reset() 

@@ -45,10 +45,27 @@ class Digraph : public BaseGraph<Type>
 		}
 		
 		int indegree(string name)
-		{ 
-			
-			return 0; // Temporarily 0 for compiling
+		{
+			int count = 0;
+			LLIterator lit;
+			MapIterator mit = this->vertices.begin();
+			Vertex<Type> * vPointer = this->vertices.search(name);
+			while (mit != this->vertices.end())
+			{
+				lit = mit->edges.begin();
+
+				while (lit != mit->edges.end())
+				{
+					if ((*lit).v == vPointer)
+					{
+						count++;
+					}
+				}
+			}
+
+			return count;
 		}
+
 
 		int outdegree(string name)
 		{
