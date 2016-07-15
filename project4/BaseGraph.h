@@ -214,14 +214,14 @@ class BaseGraph
 		void clear()
 		{
 			Vertex<Type> * vertexTemp;
-			Edge<Type> * edgeTemp;
+			//Edge<Type> * edgeTemp;
 			MapIterator mit = vertices.begin();
-			LLIterator lit;
+			//LLIterator lit;
 
 			while (mit != vertices.end())
 			{
 				vertexTemp = *mit;
-				lit = mit->edges.begin();
+				/*lit = mit->edges.begin();
 				while (lit != mit->edges.end())
 				{
 					*edgeTemp = *lit;
@@ -230,7 +230,7 @@ class BaseGraph
 					this->numEdges--;
 				}
 
-				delete &lit;
+				delete &lit;*/
 				this->numEdges--;
 				delete vertexTemp;
 				this->numVertices--;
