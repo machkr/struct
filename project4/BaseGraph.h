@@ -233,7 +233,7 @@ class BaseGraph
 				{
 					if ((*lit).v->getName() == name)
 					{
-						// delete *lit;
+						delete &lit;
 						this->numEdges--;
 					}
 				}
