@@ -19,6 +19,15 @@ class SimpleQueue {
 			array = new Type[arraySize];
 		}
 
+		SimpleQueue() :
+			arraySize(1),
+			front(0),
+			back(-1),
+			count(0)
+		{
+			array = new Type[arraySize];
+		}
+
 		void enqueue(Type data) {
 			if (count == arraySize) {
 				doubleArray();
@@ -49,4 +58,8 @@ class SimpleQueue {
 		}
 
 		bool empty() { return count == 0; }
+		Type getFront() { return array[front]; }
+		Type getBack() { return array[back]; }
+		int getCount() { return count; }
+		int getSize() { return arraySize; }
 };

@@ -53,7 +53,8 @@ class MapIterator {
 			curIt(obj.curIt)
 		{}
 
-		MapIterator<K,V>& operator=(const MapIterator<K,V>& rhs) {
+		MapIterator<K,V>& operator=(const MapIterator<K,V>& rhs)
+		{
 			map = rhs.map;
 			curIndex = rhs.curIndex;
 			curIt = rhs.curIt;
@@ -61,15 +62,18 @@ class MapIterator {
 		}
 
 		// Comparators
-		bool operator==(const MapIterator<K,V>& rhs) { 
+		bool operator==(const MapIterator<K,V>& rhs)
+		{ 
 			return (curIt == rhs.curIt) && (curIndex == rhs.curIndex);
 		}
-		bool operator!=(const MapIterator<K,V>& rhs) { 
+		bool operator!=(const MapIterator<K,V>& rhs)
+		{ 
 			return (curIt != rhs.curIt) || (curIndex != rhs.curIndex); 
 		}
 
 		// Incrementors
-		MapIterator<K,V>& operator++() { 
+		MapIterator<K,V>& operator++()
+		{ 
 			curIt++;
 			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
 					curIndex < map->bucketsFilled) 
@@ -80,7 +84,8 @@ class MapIterator {
 			return *this; 
 		}
 
-		MapIterator<K,V>& operator++(int) { 
+		MapIterator<K,V>& operator++(int)
+		{ 
 			curIt++;
 			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
 					curIndex < map->bucketsFilled) 
@@ -92,19 +97,21 @@ class MapIterator {
 		}
 
 		// Dereferencers
-		V operator*() { 
+		V operator*()
+		{ 
 			V data = (*curIt).val;
 			return data;
 		}
-		V operator->() { 
+		V operator->()
+		{ 
 			V data = (*curIt).val;
 			return data; 
 		}
 };
 
 template <class K, class V>
-class DynMap  {
-
+class DynMap 
+{
 	friend class MapIterator<K,V>;
 
 	public:
@@ -133,13 +140,13 @@ class DynMap  {
 			unsigned long n = (unsigned long)key;
 			n = ((1103515245 * n) + 12345) % 4294967296;
 			return (unsigned int) n % size;
-
 		}
 	
 		unsigned int hash(string const &key, int size) const 
 		{
 			unsigned long n = 1;
-			for (string::const_iterator it = key.begin(); it != key.end(); it++) {
+			for (string::const_iterator it = key.begin(); it != key.end(); it++)
+			{
 				n = (1103515245 * (n + (*it)) + 12345) % 4294967296;
 			} 
 			return (unsigned int)(n % size);
@@ -161,14 +168,16 @@ class DynMap  {
 		void insert(K const &key, V const &val)  
 		{	
 			// Double array size if count > arraySize/2
-			if ( ((double)count / (double)arraySize) > loadFactor )
-				doubleSize();
+			if (((double)count / (double)arraySize) > loadFactor) doubleSize();
 
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr) {
+			if (array[h] == nullptr) 
+			{
 				array[h] = new LinkedList<MapNode<K,V>>();
 				filled[bucketsFilled++] = h;
-			} else { 
+			}
+			else
+			{ 
 				// Find duplicate keys
 				SingleNode< MapNode<K,V> > * curNode = array[h]->getHead();
 				while(curNode!=nullptr)
@@ -190,15 +199,12 @@ class DynMap  {
 		V search(K const &key) 
 		{
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr) 
-				throw underflow_error("Key not found");
+			if (array[h] == nullptr) throw underflow_error("Key not found");
 
 			SingleNode<MapNode<K,V>> * curNode = array[h]->getHead();
 			while (curNode != nullptr) 
 			{
-				if (curNode->getData().key == key)
-					return curNode->getData().val;
-				
+				if (curNode->getData().key == key) return curNode->getData().val;		
 				curNode = curNode->getNext();
 			}
 			throw underflow_error("Key not found");
@@ -220,16 +226,14 @@ class DynMap  {
 		LinkedList<MapNode<K,V>>* getLL(K const &key)
 		{
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr) 
-				throw underflow_error("Key not found");
+			if (array[h] == nullptr) throw underflow_error("Key not found");
 			return array[h];
 		}
 
 		void del(K const &key) 
 		{
 			unsigned int h = hash(key, arraySize);
-			if (array[h] == nullptr)
-				throw underflow_error("Key not found");
+			if (array[h] == nullptr) throw underflow_error("Key not found");
 
 			SingleNode<MapNode<K,V>> * curNode = array[h]->getHead();
 			while (curNode != nullptr) 
@@ -237,13 +241,17 @@ class DynMap  {
 				if (curNode->getData().key == key) 
 				{
 					array[h]->erase({key,curNode->getData().val});
-					if (array[h]->empty()) {
+					if (array[h]->empty())
+					{
 						delete array[h];
 						
 						// Delete from filled entry
-						for (int i = 0; i < bucketsFilled; i++) {
-							if (filled[i] == h) {
-								while (i < bucketsFilled) {
+						for (int i = 0; i < bucketsFilled; i++)
+						{
+							if (filled[i] == h)
+							{
+								while (i < bucketsFilled)
+								{
 									filled[i] = filled[i+1];
 									i++;
 								}
@@ -279,7 +287,8 @@ class DynMap  {
 					while (curNode != nullptr) 
 					{
 						unsigned int h = hash(curNode->getData().key, arraySize*2);
-						if (newArray[h] == nullptr) {
+						if (newArray[h] == nullptr)
+						{
 							newArray[h] = new LinkedList<MapNode<K,V>>();
 							filled[bucketsFilled++] = h;
 						}

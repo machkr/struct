@@ -218,25 +218,26 @@ public:
 	typedef LLIterator<const Type> const_iterator;
 
 	iterator begin() { return iterator(head); }
-	iterator end() { 
-		if (tail == nullptr)
-			return iterator(nullptr);
-		else
-			return iterator(tail->next);
+	iterator end()
+	{ 
+		if (tail == nullptr) return iterator(nullptr);
+		else return iterator(tail->next);
 	}
 
 	// Destructor
-	void deleteFollowing(SingleNode<Type> * cur) {
-		if (cur->next != nullptr) {
+	void deleteFollowing(SingleNode<Type> * cur)
+	{
+		if (cur->next != nullptr)
+		{
 			deleteFollowing(cur->next); 
 		}
 		cur->next = nullptr;
 		delete cur;
 	}
 	
-	~LinkedList() {
-		if (head != nullptr)
-			deleteFollowing(head);
+	~LinkedList()
+	{
+		if (head != nullptr) deleteFollowing(head);
 	} 
 
 

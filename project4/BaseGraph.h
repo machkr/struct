@@ -119,7 +119,7 @@ class BaseGraph
 			while (!queue.empty())
 			{
 				// Dequeue vertex, print it
-				v = queue.front();
+				v = queue.getFront();
 				cout << v->getName() << " " << v->getData() << endl;
 				count++;
 				queue.dequeue();
@@ -160,11 +160,13 @@ class BaseGraph
 				istringstream ss(line);
 
 				// Read name and data, insert new vertex
-				if (getline(ss, name, ',') && getline(ss, dataStr, ';')) {
+				if (getline(ss, name, ',') && getline(ss, dataStr, ';'))
+				{
 					data = stod(dataStr);
 					insertVertex(name, data);
 				}
 			}
+
 			// Return to beginning of file
 			file.clear();
 			file.seekg(0, ios::beg);
@@ -177,8 +179,7 @@ class BaseGraph
 				string name1;
 
 				istringstream ss(line);
-				if (!getline(ss, name1, ',')) 
-					continue;
+				if (!getline(ss, name1, ',')) continue;
 
 				// Ignore anything after name1 until it hits the ';'
 				ss.ignore(numeric_limits<streamsize>::max(), ';');
@@ -204,14 +205,12 @@ class BaseGraph
 
 					// Insert edge
 					insert(name1, name2, weight);
-				}
-				
+				}		
 			}
 		}
 
 		void clear() 
 		{
-			
 		}
 
 		void reset() 
@@ -219,20 +218,32 @@ class BaseGraph
 			MapIterator it;
 			for (it = vertices.begin(); it != vertices.end(); it++)
 			{
-				if (it->isVisited())
-					it->setVisited(false);
+				if (it->isVisited()) it->setVisited(false);
 			}
 		}
 
 		void del(string name)
 		{
-			//LLIterator lit;
-			//MapIterator mit;
+			MapIterator mit;
+			LLIterator lit;
 
-			//for (mit = vertices.begin(); mit != vertices.end(); mit++)
-			//{
-			//	for(lit = (*mit).v)
-			//}
+			for (mit = vertices.begin(); mit != vertices.end(); mit++)
+			{
+				for (lit = mit->edges.begin(); lit != mit->edges.end(); lit++)
+				{
+					if ((*lit).v->getName() == name)
+					{
+						// delete *lit;
+						this->numEdges--;
+					}
+				}
+
+				if (mit->getName() == name)
+				{ 
+					delete *mit;
+					this->numVertices--;
+				}
+			}
 		}
 
 		void insertVertex(string name, Type data)

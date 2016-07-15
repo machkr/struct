@@ -9,8 +9,7 @@ class Graph : public BaseGraph<Type>
 	typedef typename DynMap<string, Vertex<Type>*>::iterator MapIterator;
 
 	public:
-		Graph() :
-			BaseGraph<Type>()
+		Graph() : BaseGraph<Type>()
 		{}
 
 		int degree(string name) 
@@ -21,7 +20,15 @@ class Graph : public BaseGraph<Type>
 			return this->vertices.search(name)->getDegree();
 		}
 
-		bool isConnected() { return 0; }
+		bool isConnected()
+		{
+			string name = this->vertices.begin()->getName();
+
+			int BFS = this->BFS(name);
+			int DFS = this->DFS(name);
+
+			return (BFS == this->numVertices && DFS == this->numVertices);
+		}
 
 		void MST(string name) // Prim's Algorithm
 		{}
@@ -35,7 +42,7 @@ class Graph : public BaseGraph<Type>
 			if (!this->vertices.exists(name2))
 				throw underflow_error("Vertex " + name2 + " cannot be found");
 				
-			if (weight == 0) { throw invalid_argument("Weight cannot be 0"); }
+			if (weight == 0) { throw invalid_argument ("Weight cannot be 0"); }
 
 			// Create new edges
 			Vertex<Type>* v1 = this->vertices.search(name1); 

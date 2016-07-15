@@ -11,8 +11,7 @@ class Digraph : public BaseGraph<Type>
 
 	public:
 
-		Digraph() :
-			BaseGraph<Type>()
+		Digraph() : BaseGraph<Type>()
 		{}
 
 		void insert(string name1, string name2, double weight) 
@@ -45,11 +44,15 @@ class Digraph : public BaseGraph<Type>
 			this->numEdges++;
 		}
 		
-		int indegree(string name) { return 0; }
+		int indegree(string name)
+		{ 
+			
+			return 0; // Temporarily 0 for compiling
+		}
 
 		int outdegree(string name)
 		{
-			Vertex<Type> * v1 = this->vertices.search(name);
+			Vertex<Type> *v1 = this->vertices.search(name);
 			return v1->getDegree();
 		}
 
@@ -58,12 +61,12 @@ class Digraph : public BaseGraph<Type>
 
 		double distance(string name1, string name2) 
 		{
-			double totalWeight = 0;
+			double total = 0;
 
-			//pseudocode: determine all of the edges from vertex(name1) to vertex(name2)
-			//pseudocode: totalWeight = weight of all edges found from above iteration.
+			// Determine all of the edges from vertex(name1) to vertex(name2)
+			// total is the sum of the weight of all edges found from above iteration
 
-			return totalWeight;
+			return total;
 		}
 
 };
