@@ -13,6 +13,15 @@ class GraphDemo {
 		MenuList * graphMenu;
 		MenuList * digraphMenu;
 
+		MenuList * graphAccessMenu;
+		MenuList * digraphAccessMenu;
+
+		MenuList * graphMutateMenu;
+		MenuList * digraphMutateMenu;
+
+		MenuList * graphTraverseMenu;
+		MenuList * digraphTraverseMenu;
+
 		void createGraph(vector<int>& prev);
 		void createDigraph(vector<int>& prev);
 		

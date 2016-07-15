@@ -3,11 +3,21 @@
 
 using namespace std;
 
-void GraphDemo::buildMenus() {
+void GraphDemo::buildMenus()
+{
 
 	mainMenu = new MenuList("Please select a graph:");
-	graphMenu = new MenuList("Select an option for: Graph");
-	digraphMenu = new MenuList("Select an option for: Digraph");
+	graphMenu = new MenuList("Please choose an action for: Graph");
+	digraphMenu = new MenuList("Please choose an action for: Digraph");
+
+	graphAccessMenu = new MenuList("Please choose an accessor method: Graph");
+	digraphAccessMenu = new MenuList("Please choose an accessor method: Digraph");
+
+	graphMutateMenu = new MenuList("Please choose a mutator method: Graph");
+	digraphMutateMenu = new MenuList("Please choose a mutator method: Digraph");
+
+	graphTraverseMenu = new MenuList("Please choose a traversal method: Graph");
+	digraphTraverseMenu = new MenuList("Please choose a traversal method: Digraph");
 
 	mainMenu->setIsMain(true);
 	mainMenu->add("Graph", MenuList::SubMenu(graphMenu), true);
@@ -18,48 +28,58 @@ void GraphDemo::buildMenus() {
 
 }
 
-void GraphDemo::createGraph(vector<int>& prev) {
-
+void GraphDemo::createGraph(vector<int>& prev)
+{
 	graph = new Graph<double>();
 	
 	graphMenu->remove("Create Graph");
-	graphMenu->add("Empty", action(empty));
-	graphMenu->add("Degree", action(degree));
-	graphMenu->add("Edge Count", action(edgeCount));
-	graphMenu->add("Is Connected", action(isConnected));
-	graphMenu->add("Adjacent", action(adjacent));
-	graphMenu->add("DFS", action(dfs));
-	graphMenu->add("BFS", action(bfs));
-	graphMenu->add("MST", action(mst));
-	graphMenu->add("Build Graph From File", action(buildGraph));
-	graphMenu->add("Clear", action(clear));
-	graphMenu->add("Reset", action(reset));
-	graphMenu->add("Insert", action(insert));
-	graphMenu->add("Delete", action(del));
+	graphMenu->add("Access", MenuList::SubMenu(graphAccessMenu), true);
+	graphMenu->add("Mutate", MenuList::SubMenu(graphMutateMenu), true);
+	graphMenu->add("Traverse", MenuList::SubMenu(graphTraverseMenu), true);
 
+	graphAccessMenu->add("Empty", action(empty));
+	graphAccessMenu->add("Degree", action(degree));
+	graphAccessMenu->add("Edge Count", action(edgeCount));
+	graphAccessMenu->add("Is Connected", action(isConnected));
+	graphAccessMenu->add("Adjacent", action(adjacent));
+
+	graphMutateMenu->add("Build Graph From File", action(buildGraph));
+	graphMutateMenu->add("Clear", action(clear));
+	graphMutateMenu->add("Reset", action(reset));
+	graphMutateMenu->add("Insert", action(insert));
+	graphMutateMenu->add("Delete", action(del));
+
+	graphTraverseMenu->add("DFS", action(dfs));
+	graphTraverseMenu->add("BFS", action(bfs));
+	graphTraverseMenu->add("MST", action(mst));
 }
 
-void GraphDemo::createDigraph(vector<int>& prev) {
-	// Create digraph
-
+void GraphDemo::createDigraph(vector<int>& prev)
+{
 	digraph = new Digraph<double>();
 	
 	digraphMenu->remove("Create Digraph");
-	digraphMenu->add("Empty", action(empty));
-	digraphMenu->add("Indegree", action(indegree));
-	digraphMenu->add("Outdegree", action(outdegree));
-	digraphMenu->add("Edge Count", action(edgeCount));
-	digraphMenu->add("Is Connected", action(isConnected));
-	digraphMenu->add("Adjacent", action(adjacent));
-	digraphMenu->add("DFS", action(dfs));
-	digraphMenu->add("BFS", action(bfs));
-	digraphMenu->add("Shortest Path", action(shortestPath));
-	digraphMenu->add("Distance", action(distance));
-	digraphMenu->add("Build Digraph From File", action(buildGraph));
-	digraphMenu->add("Clear", action(clear));
-	digraphMenu->add("Reset", action(reset));
-	digraphMenu->add("Insert", action(insert));
-	digraphMenu->add("Delete", action(del));
+	digraphMenu->add("Access", MenuList::SubMenu(digraphAccessMenu), true);
+	digraphMenu->add("Mutate", MenuList::SubMenu(digraphMutateMenu), true);
+	digraphMenu->add("Traverse", MenuList::SubMenu(digraphTraverseMenu), true);
+
+	digraphAccessMenu->add("Empty", action(empty));
+	digraphAccessMenu->add("Indegree", action(indegree));
+	digraphAccessMenu->add("Outdegree", action(outdegree));
+	digraphAccessMenu->add("Edge Count", action(edgeCount));
+	digraphAccessMenu->add("Is Connected", action(isConnected));
+	digraphAccessMenu->add("Adjacent", action(adjacent));
+	digraphAccessMenu->add("Distance", action(distance));
+
+	digraphMutateMenu->add("Build Digraph From File", action(buildGraph));
+	digraphMutateMenu->add("Clear", action(clear));
+	digraphMutateMenu->add("Reset", action(reset));
+	digraphMutateMenu->add("Insert", action(insert));
+	digraphMutateMenu->add("Delete", action(del));
+
+	digraphTraverseMenu->add("DFS", action(dfs));
+	digraphTraverseMenu->add("BFS", action(bfs));
+	digraphTraverseMenu->add("Shortest Path", action(shortestPath));
 }
 
 void GraphDemo::empty(vector<int> &prev)
