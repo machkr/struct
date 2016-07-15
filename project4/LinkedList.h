@@ -5,8 +5,8 @@
 
 
 template <class Type>
-class LLIterator {
-
+class LLIterator
+{
 	private:
 		SingleNode<Type> * cur;
 	public:	
@@ -14,7 +14,8 @@ class LLIterator {
 		LLIterator() : cur(nullptr) {};
 		LLIterator(SingleNode<Type> * ptr) : cur(ptr) {}
 		LLIterator(const LLIterator<Type>& obj) :	cur(obj.cur) {}
-		LLIterator<Type>& operator=(const LLIterator<Type>& rhs) {
+		LLIterator<Type>& operator=(const LLIterator<Type>& rhs)
+		{
 			cur = rhs.cur;
 			return *this;
 		}
@@ -24,21 +25,26 @@ class LLIterator {
 		bool operator!=(const LLIterator<Type>& rhs) { return cur != rhs.cur; }
 
 		// Incrementors
-		LLIterator<Type>& operator++() { 
+		LLIterator<Type>& operator++()
+		{ 
 			cur = cur->getNext();
 			return *this; 
 		}
-		LLIterator<Type>& operator++(int) { 
+
+		LLIterator<Type>& operator++(int)
+		{ 
 			cur = cur->getNext();
 			return *this;
 		}
 
 		// Dereferencers
-		Type operator*() { 
+		Type operator*()
+		{ 
 			Type data = cur->getData();
 			return data;
 		}
-		Type operator->() { 
+		Type operator->()
+		{ 
 			Type data = cur->getData();
 			return data; 
 		}
@@ -239,8 +245,6 @@ public:
 	{
 		if (head != nullptr) deleteFollowing(head);
 	} 
-
-
 };
 
 

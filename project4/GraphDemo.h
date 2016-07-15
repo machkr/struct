@@ -4,7 +4,8 @@
 #include "Graph.h"
 #include "Digraph.h"
 
-class GraphDemo {
+class GraphDemo
+{
 	private: 
 		Graph<double> * graph;
 		Digraph<double> * digraph;
