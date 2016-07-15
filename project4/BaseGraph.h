@@ -239,7 +239,10 @@ class BaseGraph
 
 			delete *mit;
 			this->numVertices--;
-			return;
+
+			//vertices.clear();
+			//numVertices = 0;
+			//numEdges = 0;
 		}
 
 		void reset() 
