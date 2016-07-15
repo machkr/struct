@@ -45,12 +45,12 @@ class Digraph : public BaseGraph<Type>
 			this->numEdges++;
 		}
 		
-		int indegree(string name) {}
+		int indegree(string name) { return 0; }
 
 		int outdegree(string name)
 		{
 			Vertex<Type> * v1 = this->vertices.search(name);
-			return v1.getDegree();
+			return v1->getDegree();
 		}
 
 		void shortestPath(string name1, string name2) // Djikstra's Algorithm

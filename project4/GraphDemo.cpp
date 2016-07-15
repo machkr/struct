@@ -101,10 +101,8 @@ void GraphDemo::adjacent(vector<int> &prev)
 	cout << "(Adjacent)" << endl;
 	BaseGraph<double>* g;
 
-	if (prev.back() == 1)
-		g = graph;
-	else
-		g = digraph;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
 
 	string name1;
 	string name2;
@@ -130,6 +128,7 @@ void GraphDemo::adjacent(vector<int> &prev)
 		cout << "Weight: ∞" << endl << endl;
 		return;
 	}
+
 	cout << "Weight: " << weight;
 	cout << endl << endl;
 }
@@ -138,27 +137,22 @@ void GraphDemo::dfs(vector<int> &prev)
 {
 	cout << "(DFS)" << endl;
 
-	switch(prev.back()) 
-	{
-		case 1: // Graph
-		{
-			cout << "Name: ";
-			string name;
-			getline(cin, name);
-			try
-			{ 
-				cout << graph->DFS(name); 
-				cout << " vertices visisted";
-			}
-			catch (const underflow_error& e)
-			{
-				cout << "Error: " << e.what();
-			}
-			break;
-		}
+	BaseGraph<double>* g;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
 
-		case 2: // Digraph 
-			break;
+	string name;
+	cout << "Name: ";
+	getline(cin, name);
+	
+	try
+	{
+		cout << g->DFS(name);
+		cout << " vertices visisted.";
+	}
+	catch (const underflow_error& e)
+	{
+		cout << "Error: " << e.what();
 	}
 	
 	cout << endl << endl;
@@ -168,14 +162,24 @@ void GraphDemo::bfs(vector<int> &prev)
 {
 	cout << "(BFS)" << endl;
 
-	switch(prev.back()) 
+	BaseGraph<double>* g;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
+
+	string name;
+	cout << "Name: ";
+	getline(cin, name);
+
+	try
 	{
-		case 1: // Graph
-			break;
-		case 2: // Digraph 
-			break;
+		cout << g->DFS(name);
+		cout << " vertices visisted.";
 	}
-	
+	catch (const underflow_error& e)
+	{
+		cout << "Error: " << e.what();
+	}
+
 	cout << endl << endl;
 }
 
@@ -184,18 +188,20 @@ void GraphDemo::buildGraph(vector<int> &prev)
 	cout << "(Build Graph)" << endl;
 
 	BaseGraph<double>* g;
-	if (prev.back() == 1)
-		g = graph;
-	else 
-		g = digraph;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
 
 	string fileName;
 	cout << "Filename: ";
 	getline(cin, fileName);
-	try { 
+
+	try
+	{ 
 		g->buildGraph(fileName); 
-		cout << "File opened successfully";
-	} catch ( const underflow_error& e) {
+		cout << "File opened successfully.";
+	}
+	catch ( const underflow_error& e)
+	{
 		cout << "Error: " << e.what(); 
 	}
 	
@@ -206,14 +212,20 @@ void GraphDemo::clear(vector<int> &prev)
 {
 	cout << "(Clear)" << endl;
 
-	switch(prev.back()) 
+	BaseGraph<double>* g;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
+
+	try
 	{
-		case 1: // Graph
-			break;
-		case 2: // Digraph 
-			break;
+		g->clear();
+		cout << "Cleared successfully.";
 	}
-	
+	catch(const underflow_error& e)
+	{
+		cout << "Error: " << e.what();
+	}
+
 	cout << endl << endl;
 }
 
@@ -221,31 +233,53 @@ void GraphDemo::reset(vector<int> &prev)
 {
 	cout << "(Reset)" << endl;
 
-	switch(prev.back()) 
+	BaseGraph<double>* g;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
+
+	try
 	{
-		case 1: // Graph
-			graph->reset();
-			break;
-		case 2: // Digraph 
-			digraph->reset();
-			break;
+		g->reset();
+		cout << "Reset successfully.";
+	}
+	catch (const underflow_error& e)
+	{
+		cout << "Error: " << e.what() << endl << endl;
 	}
 	
-	cout << "Reset successful" << endl << endl;
+	cout << endl << endl;
 }
 
 void GraphDemo::insert(vector<int> &prev)
 {
 	cout << "(Insert)" << endl;
 
-	switch(prev.back()) 
+	string v1;
+	string v2;
+	double weight;
+
+	cout << "Vertex 1: ";
+	getline(cin, v1);
+	cout << "Vertex 2: ";
+	getline(cin, v2);
+	cout << "Weight: ";
+	cin >> weight;
+	cin.ignore();
+
+	BaseGraph<double>* g;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
+
+	try
 	{
-		case 1: // Graph
-			break;
-		case 2: // Digraph 
-			break;
+		g->insert(v1,v2,weight);
+		cout << "Edge inserted successfully.";
 	}
-	
+	catch (const underflow_error& e)
+	{
+		cout << "Error: " << e.what();
+	}
+
 	cout << endl << endl;
 }
 
@@ -253,12 +287,22 @@ void GraphDemo::del(vector<int> &prev)
 {
 	cout << "(Delete)" << endl;
 	
-	switch(prev.back()) 
+	BaseGraph<double>* g;
+	if (prev.back() == 1) g = graph;
+	else g = digraph;
+
+	string name;
+	cout << "Name: ";
+	getline(cin, name);
+
+	try
 	{
-		case 1: // Graph
-			break;
-		case 2: // Digraph 
-			break;
+		g->del(name);
+		cout << name << "deleted successfully.";
+	}
+	catch(const underflow_error& e)
+	{
+		cout << "Error: " << e.what();
 	}
 	
 	cout << endl << endl;
@@ -268,14 +312,21 @@ void GraphDemo::degree(vector<int> &prev)
 {
 	cout << "(Degree)" << endl; // Graph only
 	
+	string name;
+	cout << "Name: ";
+	getline(cin, name);
+
+	cout << graph->degree(name);
+
 	cout << endl << endl;
 }
 
 void GraphDemo::isConnected(vector<int> &prev)
 {
 	cout << "(Is Connected)" << endl; // Graph only
-
 	
+	cout << ((graph->isConnected()) ? "True" : "False");
+
 	cout << endl << endl;
 }
 
@@ -283,7 +334,19 @@ void GraphDemo::mst(vector<int> &prev)
 {
 	cout << "(MST)" << endl; // Graph only
 
+	string name;
+	cout << "Name: ";
+	getline(cin, name);
 	
+	try
+	{
+		graph->MST(name);
+	}
+	catch (const invalid_argument& i)
+	{
+		cout << "Error: " << i.what();
+	}
+
 	cout << endl << endl;
 }
 
@@ -291,6 +354,18 @@ void GraphDemo::indegree(vector<int> &prev)
 {
 	cout << "(In-Degree)" << endl; // Digraph only
 
+	string name;
+	cout << "Name: ";
+	getline(cin, name);
+
+	try
+	{
+		cout << digraph->indegree(name);
+	}
+	catch (const invalid_argument& i)
+	{
+		cout << "Error: " << i.what();
+	}
 	
 	cout << endl << endl;
 }
@@ -298,16 +373,44 @@ void GraphDemo::indegree(vector<int> &prev)
 void GraphDemo::outdegree(vector<int> &prev)
 {
 	cout << "(Out-Degree)" << endl; // Digraph only
-
 	
+	string name;
+	cout << "Name: ";
+	getline(cin, name);
+
+	try
+	{
+		cout << digraph->outdegree(name);
+	}
+	catch (const invalid_argument& i)
+	{
+		cout << "Error: " << i.what();
+	}
+
 	cout << endl << endl;
 }
 
 void GraphDemo::shortestPath(vector<int> &prev)
 {
 	cout << "(Shortest Path)" << endl; // Digraph only
-
 	
+	string name1;
+	string name2;
+
+	cout << "Vertex 1: ";
+	getline(cin, name1);
+	cout << "Vertex 2: ";
+	getline(cin, name2);
+
+	try
+	{
+		digraph->shortestPath(name1, name2);
+	}
+	catch (const invalid_argument& i)
+	{
+		cout << "Error: " << i.what();
+	}
+
 	cout << endl << endl;
 }
 
@@ -315,6 +418,22 @@ void GraphDemo::distance(vector<int> &prev)
 {
 	cout << "(Distance)" << endl; // Digraph only
 
-	
+	string name1;
+	string name2;
+
+	cout << "Vertex 1: ";
+	getline(cin, name1);
+	cout << "Vertex 2: ";
+	getline(cin, name2);
+
+	try
+	{
+		cout << digraph->distance(name1, name2);
+	}
+	catch(const invalid_argument& i)
+	{
+		cout << "Error: " << i.what();
+	}
+
 	cout << endl << endl;
 }

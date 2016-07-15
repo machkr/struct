@@ -206,9 +206,12 @@ class DynMap  {
 
 		bool exists(K const &key) 
 		{
-			try {
+			try
+			{
 				search(key);
-			} catch (const underflow_error& e) {
+			}
+			catch (const underflow_error& e)
+			{
 				return false;
 			}
 			return true;

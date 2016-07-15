@@ -18,10 +18,10 @@ class Graph : public BaseGraph<Type>
 			if (!this->vertices.exists(name))
 				throw underflow_error("Vertex " + name + " cannot be found");
 
-			return this->vertices.search(name)->degree();
+			return this->vertices.search(name)->getDegree();
 		}
 
-		bool isConnected() {}
+		bool isConnected() { return 0; }
 
 		void MST(string name) // Prim's Algorithm
 		{}
