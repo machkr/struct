@@ -230,15 +230,17 @@ class BaseGraph
 					this->numEdges--;
 				}
 
-				delete &lit;*/
-				this->numEdges--;
+				delete &lit;
+				this->numEdges--;*/
 				delete vertexTemp;
-				this->numVertices--;
 				mit++;
+				this->numVertices--;
 			}
 
 			delete *mit;
 			this->numVertices--;
+
+			this->numEdges = 0;
 
 			//vertices.clear();
 			//numVertices = 0;
