@@ -157,7 +157,7 @@ void GraphDemo::dfs(vector<int> &prev)
 {
 	cout << "(DFS)" << endl;
 
-	BaseGraph<double>* g;
+	BaseGraph<double> * g;
 	if (prev.back() == 1) g = graph;
 	else g = digraph;
 
@@ -182,7 +182,7 @@ void GraphDemo::bfs(vector<int> &prev)
 {
 	cout << "(BFS)" << endl;
 
-	BaseGraph<double>* g;
+	BaseGraph<double> * g;
 	if (prev.back() == 1) g = graph;
 	else g = digraph;
 
@@ -207,7 +207,7 @@ void GraphDemo::buildGraph(vector<int> &prev)
 {
 	cout << "(Build Graph)" << endl;
 
-	BaseGraph<double>* g;
+	BaseGraph<double> * g;
 	if (prev.back() == 1) g = graph;
 	else g = digraph;
 
@@ -253,7 +253,7 @@ void GraphDemo::reset(vector<int> &prev)
 {
 	cout << "(Reset)" << endl;
 
-	BaseGraph<double>* g;
+	BaseGraph<double> * g;
 	if (prev.back() == 1) g = graph;
 	else g = digraph;
 
@@ -286,7 +286,7 @@ void GraphDemo::insert(vector<int> &prev)
 	cin >> weight;
 	cin.ignore();
 
-	BaseGraph<double>* g;
+	BaseGraph<double> * g;
 	if (prev.back() == 1) g = graph;
 	else g = digraph;
 
@@ -307,7 +307,7 @@ void GraphDemo::del(vector<int> &prev)
 {
 	cout << "(Delete)" << endl;
 	
-	BaseGraph<double>* g;
+	BaseGraph<double> * g;
 	if (prev.back() == 1) g = graph;
 	else g = digraph;
 
