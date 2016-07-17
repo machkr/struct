@@ -9,6 +9,7 @@
 #include "LinkedList.h"
 #include "DynStack.h"
 #include "SimpleQueue.h"
+#include "MinHeap.h"
 
 using namespace std;
 

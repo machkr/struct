@@ -31,7 +31,68 @@ class Graph : public BaseGraph<Type>
 		}
 
 		void MST(string name) // Prim's Algorithm
-		{}
+		{
+			MapIterator it;
+			it = vertices.begin();
+
+			int V = this->numVertices;
+			int *MST = new int [V];
+			double *key = new double [V];
+
+			Vertex<Type> * root = vertices.search(name);
+			MinHeap<Vertex<Type>*> *minheap;
+			minheap = new MinHeap<Vertex<Type>*>(V);
+
+			for (int v = 1; v < V; ++v)
+			{
+				MST[v] = -1;
+				key[v] = 1000;
+
+				while(it != vertices.end())
+				{
+					HeapNode<Vertex<Type>*> *node = new HeapNode<Vertex<Type>*>(key[v], v, (*it));
+					if (!((*it) == root)) (*minheap).insert(*node, v);
+					it++;
+					break;
+				}
+			}
+
+			key[0] = 0;
+			(*minheap).insert(HeapNode<Vertex<Type>*>(key[0], 0, root), 0);
+			(*minheap).setPosition(0,0);
+
+			(*minheap).setSize(V);
+
+			while (!(*minheap).isEmpty())
+			{
+				HeapNode<Vertex<Type>*> *minHeapNode = new HeapNode<Vertex<Type>*>;
+
+				try
+				{
+					*minHeapNode = (*minheap).extractMin<Type>();
+				}
+				catch (const underflow_error &e)
+				{
+					cout << "Error: " << e.what();
+				}
+
+				Vertex<Type>* temp = (*minHeapNode).getData();
+				int a = (*minHeapNode).getVertex();
+
+				LLIterator it;
+				for (it = temp->edges.begin(); it != temp->edges.end(); it++)
+				{
+					int b = (*minheap).findVertex((*it).v);
+					if ((*minheap).isInHeap(b) && (*it).weight < key[b])
+					{
+						key[b] = (*it).weight;
+						MST[b] = a;
+						(*minheap).dKey(b, key[b]);
+					}
+				}
+
+			}
+		}
 
 		// Overloaded insert
 		void insert(string name1, string name2, double weight) 

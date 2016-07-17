@@ -192,8 +192,7 @@ class DynMap
 			}
 				
 			array[h]->push_back({key,val});
-			count++;
-			
+			count++;		
 		}
 
 		V search(K const &key) 
@@ -341,7 +340,7 @@ class DynMap
 			array = new LinkedList<MapNode<K,V>>*[initialSize];	
 			arraySize = initialSize;
 			initializeArray(array,arraySize);
-		};
+		}
 
 		void initializeArray(LinkedList<MapNode<K,V>> ** a, int size) 
 		{
