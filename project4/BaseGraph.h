@@ -163,7 +163,14 @@ class BaseGraph
 				// Read name and data, insert new vertex
 				if (getline(ss, name, ',') && getline(ss, dataStr, ';'))
 				{
-					data = stod(dataStr);
+					try {
+						data = stod(dataStr);
+					} catch (const invalid_argument& e) {
+						ostringstream errorSs;
+						errorSs << "Parse error on line " << l << ": " << 
+							 "Invalid argument stod(" << dataStr << ")";
+						throw invalid_argument(errorSs.str());
+					}
 					insertVertex(name, data);
 				}
 			}
@@ -192,7 +199,14 @@ class BaseGraph
 				double weight;
 				while (getline(ss, weightStr, ' '))
 				{
-					weight = stod(weightStr);
+					try {
+						weight = stod(weightStr);
+					} catch (const invalid_argument& e) {
+						ostringstream errorSs;
+						errorSs << "Parse error on line " << l << ": " << 
+							 "Invalid argument stod(" << weightStr << ")";
+						throw invalid_argument(errorSs.str());
+					}
 					getline(ss, name2, ',');
 					ss.ignore();
 

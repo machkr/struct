@@ -224,7 +224,11 @@ void GraphDemo::buildGraph(vector<int> &prev)
 	{
 		cout << "Error: " << e.what(); 
 	}
-	
+	catch ( const invalid_argument& e)
+	{
+		cout << "Error: " << e.what(); 
+	}
+
 	cout << endl << endl;
 }
 
