@@ -92,6 +92,8 @@ class Graph : public BaseGraph<Type>
 				}
 
 			}
+
+			// Add display for minimum spanning tree
 		}
 
 		// Overloaded insert
