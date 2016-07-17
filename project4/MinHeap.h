@@ -97,6 +97,7 @@ public:
 	void insert(HeapNode<type> node, int position)
 	{
 		heap[position] = node;
+		size++;
 	}
 
 	void setPosition(int p, int x)
