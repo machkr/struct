@@ -167,7 +167,7 @@ class DynMap
 
 		void insert(K const &key, V const &val)  
 		{	
-			// Double array size if count > arraySize/2
+			//Double array size if count > arraySize/2
 			if (((double)count / (double)arraySize) > loadFactor) doubleSize();
 
 			unsigned int h = hash(key, arraySize);
@@ -178,7 +178,7 @@ class DynMap
 			}
 			else
 			{ 
-				// Find duplicate keys
+				//Find duplicate keys
 				SingleNode< MapNode<K,V> > * curNode = array[h]->getHead();
 				while(curNode!=nullptr)
 				{
@@ -244,7 +244,7 @@ class DynMap
 					{
 						delete array[h];
 						
-						// Delete from filled entry
+						//Delete from filled entry
 						for (int i = 0; i < bucketsFilled; i++)
 						{
 							if (filled[i] == h)
@@ -268,7 +268,7 @@ class DynMap
 		
 		void doubleSize() 
 		{
-			// Double filled array
+			//Double filled array
 			int * newFilled = new int[arraySize*2];
 			delete[] filled;
 			filled = newFilled;
@@ -348,7 +348,7 @@ class DynMap
 				a[i] = nullptr;
 		}
 
-		// Iterator
+		//Iterator
 		typedef MapIterator<K,V> iterator;
 		typedef MapIterator<const K, const V> const_iterator;
 
