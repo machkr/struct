@@ -1,5 +1,4 @@
 #include "BaseGraph.h"
-#include "MinHeap.h"
 
 template <class Type>
 class Digraph : public BaseGraph<Type>
