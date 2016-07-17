@@ -9,10 +9,10 @@
 
 using namespace std;
 
-template <class type> class MinHeap
+template <class HeapType> class MinHeap
 {
 private:
-	HeapNode<type> * heap;
+	HeapNode<HeapType> * heap;
 	int size;
 	int capacity;
 	int * position;
@@ -20,19 +20,19 @@ private:
 public:
 	MinHeap() : size(0), capacity(1)
 	{
-		heap = new HeapNode<type>[capacity];
+		heap = new HeapNode<HeapType>[capacity];
 		position = new int[capacity];
 	}
 
 	MinHeap(int _capacity) : size(0), capacity(_capacity)
 	{
-		heap = new HeapNode<type>[capacity];
+		heap = new HeapNode<HeapType>[capacity];
 		position = new int[capacity];
 	}
 
 	~MinHeap()
 	{ 
-		clear();
+		//clear();
 	}
 
 	int getLeft(int parentIndex)
@@ -89,12 +89,12 @@ public:
 
 	void swap(int indexA, int indexB)
 	{
-		HeapNode<type> temp = heap[indexA];
+		HeapNode<HeapType> temp = heap[indexA];
 		heap[indexA] = heap[indexB];
 		heap[indexB] = temp;
 	}
 
-	void insert(HeapNode<type> node, int position)
+	void insert(HeapNode<HeapType> node, int position)
 	{
 		heap[position] = node;
 		size++;
@@ -110,7 +110,6 @@ public:
 		size = _size;
 	}
 
-	template <class Type>
 	void heapify(int index)
 	{
 		int smallest = index;
@@ -125,9 +124,9 @@ public:
 
 		if (smallest != index)
 		{
-			HeapNode<type> *smallestNode = new HeapNode<Vertex<Type>*>;
+			HeapNode<HeapType> *smallestNode = new HeapNode<HeapType>;
 			*smallestNode = heap[smallest];
-			HeapNode<type> *indexNode = new HeapNode<Vertex<Type>*>;
+			HeapNode<HeapType> *indexNode = new HeapNode<HeapType>;
 			*indexNode = heap[index];
 
 			position[(*smallestNode).getVertex()] = index;
@@ -135,24 +134,23 @@ public:
 
 			swap(smallest, index);
 
-			heapify<Type>(smallest);
+			heapify(smallest);
 		}
 	}
 
-	template <class Type>
-	HeapNode<type> extractMin()
+	HeapNode<HeapType> extractMin()
 	{
 		if (isEmpty()) throw underflow_error("Heap is empty.");
 
-		HeapNode<type> root = heap[0];
-		HeapNode<type> last = heap[size - 1];
+		HeapNode<HeapType> root = heap[0];
+		HeapNode<HeapType> last = heap[size - 1];
 		heap[0] = last;
 
 		position[root.getVertex()] = size - 1;
 		position[last.getVertex()] = 0;
 
 		size--;
-		heapify<Type>(1);
+		heapify(1);
 
 		return root;
 	}

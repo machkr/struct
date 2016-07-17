@@ -115,7 +115,7 @@ class Digraph : public BaseGraph<Type>
 
 				try
 				{
-					*minHeapNode = (*minheap).extractMin<Type>();
+					*minHeapNode =  (*minheap).extractMin();
 				}
 				catch (const underflow_error &e)
 				{
