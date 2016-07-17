@@ -145,7 +145,7 @@ void GraphDemo::adjacent(vector<int> &prev)
 
 	if (weight == numeric_limits<double>::max())
 	{
-		cout << "Weight: ∞" << endl << endl;
+		cout << "Weight: Infinite" << endl << endl;
 		return;
 	}
 
@@ -165,9 +165,11 @@ void GraphDemo::dfs(vector<int> &prev)
 	cout << "Name: ";
 	getline(cin, name);
 	
+	cout << endl;
+
 	try
 	{
-		cout << g->DFS(name);
+		cout << endl << g->DFS(name);
 		cout << " vertices visited.";
 	}
 	catch (const underflow_error& e)
@@ -190,9 +192,11 @@ void GraphDemo::bfs(vector<int> &prev)
 	cout << "Name: ";
 	getline(cin, name);
 
+	cout << endl;
+
 	try
 	{
-		cout << g->DFS(name);
+		cout << endl << g->DFS(name);
 		cout << " vertices visited.";
 	}
 	catch (const underflow_error& e)
@@ -340,7 +344,7 @@ void GraphDemo::degree(vector<int> &prev)
 	cout << "Name: ";
 	getline(cin, name);
 
-	cout << graph->degree(name);
+	cout << "Degree: " << graph->degree(name);
 
 	cout << endl << endl;
 }
@@ -384,7 +388,7 @@ void GraphDemo::indegree(vector<int> &prev)
 
 	try
 	{
-		cout << digraph->indegree(name);
+		cout << "In-Degree: " << digraph->indegree(name);
 	}
 	catch (const invalid_argument& i)
 	{
@@ -404,7 +408,7 @@ void GraphDemo::outdegree(vector<int> &prev)
 
 	try
 	{
-		cout << digraph->outdegree(name);
+		cout << "Out-Degree: " << digraph->outdegree(name);
 	}
 	catch (const invalid_argument& i)
 	{
