@@ -87,7 +87,7 @@ class Digraph : public BaseGraph<Type>
 		{
 			MapIterator it = this->vertices.begin();
 			int V = this->numVertices;
-			int * distance = new int[V];
+			int * dist = new int[V];
 
 			Vertex<Type> * origin = this->vertices.search(name1);
 			Vertex<Type> * destination = this->vertices.search(name2);
@@ -97,19 +97,17 @@ class Digraph : public BaseGraph<Type>
 
 			for (int v = 0; v < V; ++v)
 			{
-				distance[v] = 1000;
-
-				HeapNode<Vertex<Type>*> * node = new HeapNode<Vertex<Type>*>(distance[v], v, (*it));
+				dist[v] = 1000;
+				HeapNode<Vertex<Type>*> * node = new HeapNode<Vertex<Type>*>(dist[v], v, (*it));
 				it++;
 			}
 
 			int originKey = (*minheap).findVertex(origin);
-			(*minheap).insert(HeapNode<Vertex<Type>*>(distance[originKey], originKey, origin), originKey);
+			(*minheap).insert(HeapNode<Vertex<Type>*>(dist[originKey], originKey, origin), originKey);
 			(*minheap).setPosition(originKey, originKey);
-			distance[originKey] = 0;
-			(*minheap).dKey(originKey, distance[originKey]);
+			dist[originKey] = 0;
+			(*minheap).dKey(originKey, dist[originKey]);
 			(*minheap).setSize(V);
-
 
 			while (!(*minheap).isEmpty())
 			{
@@ -127,16 +125,18 @@ class Digraph : public BaseGraph<Type>
 				Vertex<Type> * temp = (*minHeapNode).getData();
 				int a = (*minHeapNode).getVertex();
 
-				LLIterator checker;
+				if (*temp == *destination) break;
 
-				for (checker = temp->edges.begin(); checker != temp->edges.end(); checker++)
+				LLIterator it;
+
+				for (it = temp->edges.begin(); it != temp->edges.end(); it++)
 				{
-					int vertexNumber = (*minheap).findVertex((*checker).v);
+					int b = (*minheap).findVertex((*it).v);
 
-					if ((*minheap).isInHeap(vertexNumber) && distance[a] != 1000 && (*checker).weight + distance[a] < distance[vertexNumber])
+					if ((*minheap).isInHeap(b) && dist[a] != 1000 && (*it).weight + dist[a] < dist[b])
 					{
-						distance[vertexNumber] = distance[a] + (*checker).weight;
-						(*minheap).dKey(vertexNumber, distance[vertexNumber]);
+						dist[b] = dist[a] + (*it).weight;
+						(*minheap).dKey(b, dist[b]);
 					}
 
 				}
