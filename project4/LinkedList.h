@@ -237,6 +237,7 @@ public:
 		{
 			deleteFollowing(cur->next); 
 		}
+
 		cur->next = nullptr;
 		delete cur;
 	}

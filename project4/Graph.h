@@ -90,8 +90,9 @@ class Graph : public BaseGraph<Type>
 						(*minheap).dKey(b, key[b]);
 					}
 				}
-
 			}
+
+			// Add display for minimum spanning tree
 		}
 
 		// Overloaded insert
