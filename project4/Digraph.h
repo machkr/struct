@@ -36,7 +36,10 @@ class Digraph : public BaseGraph<Type>
 			LLIterator it;
 			for (it = v1->edges.begin(); it != v1->edges.end(); it++)
 			{
-				if ((*it).v == v2) { v1->edges.erase(*it); }
+				if ((*it).v == v2) { 
+					v1->edges.erase(*it); 
+					break;
+				}
 			}
 			
 			// Push edges into appropriate vertex
