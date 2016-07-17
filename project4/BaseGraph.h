@@ -102,6 +102,7 @@ class BaseGraph
 				stack.pop();
 			}
 
+			//this->reset();
 			return count;
 		}
 
@@ -137,6 +138,7 @@ class BaseGraph
 				}
 			}
 			
+			//this->reset();
 			return count;
 		}
 
@@ -267,7 +269,7 @@ class BaseGraph
 			MapIterator it;
 			for (it = vertices.begin(); it != vertices.end(); it++)
 			{
-				if (it->isVisited()) it->setVisited(false);
+				if ((*it)->isVisited()) (*it)->setVisited(false);
 			}
 		}
 
