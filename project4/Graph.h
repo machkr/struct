@@ -33,13 +33,13 @@ class Graph : public BaseGraph<Type>
 		void MST(string name) // Prim's Algorithm
 		{
 			MapIterator it;
-			it = vertices.begin();
+			it = this->vertices.begin();
 
 			int V = this->numVertices;
 			int *MST = new int [V];
 			double *key = new double [V];
 
-			Vertex<Type> * root = vertices.search(name);
+			Vertex<Type> * root = this->vertices.search(name);
 			MinHeap<Vertex<Type>*> *minheap;
 			minheap = new MinHeap<Vertex<Type>*>(V);
 
@@ -48,7 +48,7 @@ class Graph : public BaseGraph<Type>
 				MST[v] = -1;
 				key[v] = 1000;
 
-				while(it != vertices.end())
+				while(it != this->vertices.end())
 				{
 					HeapNode<Vertex<Type>*> *node = new HeapNode<Vertex<Type>*>(key[v], v, (*it));
 					if (!((*it) == root)) (*minheap).insert(*node, v);
@@ -69,7 +69,7 @@ class Graph : public BaseGraph<Type>
 
 				try
 				{
-					*minHeapNode = (*minheap).extractMin<Type>();
+					*minHeapNode = (*minheap).extractMin();
 				}
 				catch (const underflow_error &e)
 				{

@@ -3,15 +3,15 @@
 
 using namespace std;
 
-template<class type> class HeapNode
+template<class HeapType> class HeapNode
 {
 private:
 	double key;
 	int vertex;
-	type data;
+	HeapType data;
 
 public:
-	HeapNode(double _key, int _vertex, type _data) : key(_key), vertex(_vertex), data(_data) {}
+	HeapNode(double _key, int _vertex, HeapType _data) : key(_key), vertex(_vertex), data(_data) {}
 	HeapNode() {}
 
 	~HeapNode() {}
@@ -36,12 +36,12 @@ public:
 		vertex = _vertex;
 	}
 
-	type getData()
+	HeapType getData()
 	{
 		return data;
 	}
 
-	void setData(type _data)
+	void setData(HeapType _data)
 	{
 		data = _data;
 	}
