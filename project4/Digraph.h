@@ -138,7 +138,6 @@ class Digraph : public BaseGraph<Type>
 						dist[b] = dist[a] + (*it).weight;
 						(*minheap).dKey(b, dist[b]);
 					}
-
 				}
 			}
 		}
