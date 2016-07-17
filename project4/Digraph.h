@@ -1,4 +1,9 @@
 #include "BaseGraph.h"
+#include "MinHeap.h"
+
+
+
+
 
 template <class Type>
 class Digraph : public BaseGraph<Type>
@@ -80,72 +85,62 @@ class Digraph : public BaseGraph<Type>
 
 		void shortestPath(string name1, string name2) // Djikstra's Algorithm
 		{
-				
-			/*Vertex<Type> * v1 = this->vertices.search(name1);
-			Vertex<Type> * v2 = this->vertices.search(name2);
-			LLIterator lit;
-			MapIterator mit = this->vertices.begin();
-			Vertex<Type> destinationArray[numVertices - 1];
-			Vertex<Type> finalArray[numVertices - 1];
-			Vertex<Type> currentBestVertex;
-			int currentBestWeight = 1000;
-			int bestWeight = 1000;
-			double weightArray[numVertices - 1];
-			int i = 0;
-			int j = 0;
-			int temp = 0;
+			MapIterator it = this->vertices.begin();
+			int V = this->numVertices;
+			int * distance = new int[V];
 
-			//If both vertices are the same, we return v1. 
-			if (v1 == v2)
+			Vertex<Type> * origin = this->vertices.search(name1);
+			Vertex<Type> * destination = this->vertices.search(name2);
+
+			MinHeap<Vertex<Type>*> * minheap;
+			minheap = new MinHeap<Vertex<Type>*>(V);
+
+			for (int v = 0; v < V; ++v)
 			{
-				return v1;
+				distance[v] = 1000;
+
+				HeapNode<Vertex<Type>*> * node = new HeapNode<Vertex<Type>*>(distance[v], v, (*it));
+				it++;
 			}
 
-			while (mit != this->vertices.end())
+			int originKey = (*minheap).findVertex(origin);
+			(*minheap).insert(HeapNode<Vertex<Type>*>(distance[originKey], originKey, origin), originKey);
+			(*minheap).setPosition(originKey, originKey);
+			distance[originKey] = 0;
+			(*minheap).dKey(originKey, distance[originKey]);
+			(*minheap).setSize(V);
+
+
+			while (!(*minheap).isEmpty())
 			{
-				for (lit = mit->edges.begin(); lit != mit->edges.end(); lit++)
+				HeapNode<Vertex<Type>*> *minHeapNode = new HeapNode<Vertex<Type>*>;
+
+				try
 				{
-					//Finds all vertices that have edges directed at Vertex v2.
-					if ((*lit).v == v2))
-					{
-						destinationArray[i] = mit;
-						i++;
-					}
+					*minHeapNode = (*minheap).extractMin<Type>();
+				}
+				catch (const underflow_error &e)
+				{
+					cout << "Error: " << e.what();
 				}
 
-				mit++;
-			}
+				Vertex<Type> * temp = (*minHeapNode).getData();
+				int a = (*minHeapNode).getVertex();
 
-			temp = i;
+				LLIterator checker;
 
-			for (int i = 0; i <= temp; i++)
-			{
-
-			}
-
-
-
-			mit = this->vertices.begin(); 
-
-			temp = i;
-			i = 0;
-			int j = 0;
-
-			for (i; i <= temp; i++)
-			{
-				while (mit != this->vertices.end())
+				for (checker = temp->edges.begin(); checker != temp->edges.end(); checker++)
 				{
-					for (lit = mit->edges.begin(); lit != mit->edges.end(); lit++)
-					{
-						if ((*lit).v == destinationArray[i])
-						{
-							finalArray[j] == destinationArray[i];
-							j++;
-						}
-					}
-				}
-			}*/
+					int vertexNumber = (*minheap).findVertex((*checker).v);
 
+					if ((*minheap).isInHeap(vertexNumber) && distance[a] != 1000 && (*checker).weight + distance[a] < distance[vertexNumber])
+					{
+						distance[vertexNumber] = distance[a] + (*checker).weight;
+						(*minheap).dKey(vertexNumber, distance[vertexNumber]);
+					}
+
+				}
+			}
 		}
 
 		double distance(string name1, string name2) 
