@@ -116,13 +116,19 @@ class Graph : public BaseGraph<Type>
 			LLIterator it;
 			for (it = v1->edges.begin(); it != v1->edges.end(); it++)
 			{
-				if ((*it).v == v2) { v1->edges.erase(*it); }
+				if ((*it).v == v2) { 
+					v1->edges.erase(*it); 
+					break;
+				}
 			}
 			
 			// Remove existing edge from v2
 			for (it = v2->edges.begin(); it != v2->edges.end(); it++)
 			{
-				if ((*it).v == v1) { v2->edges.erase(*it); }
+				if ((*it).v == v1) { 
+					v2->edges.erase(*it); 
+					break;
+				}
 			}
 
 			// Push edges into appropriate vertex
