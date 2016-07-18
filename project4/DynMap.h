@@ -79,7 +79,7 @@ class MapIterator
 		{ 
 			curIt++;
 			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
-					curIndex < map->bucketsFilled) 
+					curIndex < map->bucketsFilled-1) 
 			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
@@ -91,7 +91,7 @@ class MapIterator
 		{ 
 			curIt++;
 			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
-					curIndex < map->bucketsFilled) 
+					curIndex < map->bucketsFilled-1) 
 			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
