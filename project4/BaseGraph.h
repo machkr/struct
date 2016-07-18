@@ -287,6 +287,9 @@ class BaseGraph
 
 		void del(string name)
 		{
+			if (!vertices.exists(name))
+				throw underflow_error("vertex \"" + name + "\" cannot be found.");
+
 			MapIterator mit;
 			LLIterator lit;
 
