@@ -96,19 +96,21 @@ class Digraph : public BaseGraph<Type>
 			MapIterator it = this->vertices.begin();
 			int V = this->numVertices;
 			double * dist = new double[V];
-
+			
 			Vertex<Type> * origin = this->vertices.search(name1);
 			Vertex<Type> * destination = this->vertices.search(name2);
 
 			MinHeap<Vertex<Type>*> * minheap;
 			minheap = new MinHeap<Vertex<Type>*>(V);
 
-			for (int v = 0; v < V; ++v)
+			for (int v = 0; v < V && it!= this->vertices.end(); v++)
 			{
 				dist[v] = 1000;
-				HeapNode<Vertex<Type>*> * node = new HeapNode<Vertex<Type>*>(dist[v], v, (*it));
+				(*minheap).insert(HeapNode<Vertex<Type>*>(dist[v], v, (*it)), v);
 				it++;
 			}
+
+		
 
 			int originKey = (*minheap).findVertex(origin);
 			(*minheap).insert(HeapNode<Vertex<Type>*>(dist[originKey], originKey, origin), originKey);
@@ -133,7 +135,7 @@ class Digraph : public BaseGraph<Type>
 				Vertex<Type> * temp = (*minHeapNode).getData();
 				int a = (*minHeapNode).getVertex();
 
-				if (*temp == *destination) break;
+				//if (temp == destination) break;
 
 				LLIterator it;
 
@@ -146,7 +148,16 @@ class Digraph : public BaseGraph<Type>
 						dist[b] = dist[a] + (*it).weight;
 						(*minheap).dKey(b, dist[b]);
 					}
+
 				}
+
+			}
+
+			//cout << dist[(*minheap).findVertex(destination)];
+
+			for (int i = 0; i < V; i++)
+			{
+				cout << i << ": " << dist[i] << endl;
 			}
 		}
 
