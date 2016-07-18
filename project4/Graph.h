@@ -36,11 +36,11 @@ class Graph : public BaseGraph<Type>
 			it = this->vertices.begin();
 
 			int V = this->numVertices;
-			int *MST = new int [V];
-			double *key = new double [V];
+			int * MST = new int [V];
+			double * key = new double [V];
 
 			Vertex<Type> * root = this->vertices.search(name);
-			MinHeap<Vertex<Type>*> *minheap;
+			MinHeap<Vertex<Type>*> * minheap;
 			minheap = new MinHeap<Vertex<Type>*>(V);
 
 			for (int v = 1; v < V; ++v)
@@ -50,7 +50,7 @@ class Graph : public BaseGraph<Type>
 
 				while(it != this->vertices.end())
 				{
-					HeapNode<Vertex<Type>*> *node = new HeapNode<Vertex<Type>*>(key[v], v, (*it));
+					HeapNode<Vertex<Type>*> * node = new HeapNode<Vertex<Type>*>(key[v], v, (*it));
 					if (!((*it) == root)) (*minheap).insert(*node, v);
 					it++;
 					break;

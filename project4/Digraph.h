@@ -85,7 +85,7 @@ class Digraph : public BaseGraph<Type>
 		{
 			MapIterator it = this->vertices.begin();
 			int V = this->numVertices;
-			int * dist = new int[V];
+			double * dist = new double[V];
 
 			Vertex<Type> * origin = this->vertices.search(name1);
 			Vertex<Type> * destination = this->vertices.search(name2);

@@ -11,18 +11,20 @@ template <class K, class V>
 class DynMap;
 
 template <class K, class V>
-struct MapNode {
+struct MapNode
+{
 	K key;
 	V val;
-	bool operator==(const MapNode& right) {
+	bool operator==(const MapNode& right)
+	{
 		return (key == right.key);
 	}
 };
 
 // https://xkcd.com/974/
 template <class K, class V>
-class MapIterator {
-
+class MapIterator
+{
 	private:
 		DynMap<K,V> * map;
 		int curIndex;
@@ -66,6 +68,7 @@ class MapIterator {
 		{ 
 			return (curIt == rhs.curIt) && (curIndex == rhs.curIndex);
 		}
+
 		bool operator!=(const MapIterator<K,V>& rhs)
 		{ 
 			return (curIt != rhs.curIt) || (curIndex != rhs.curIndex); 
@@ -102,6 +105,7 @@ class MapIterator {
 			V data = (*curIt).val;
 			return data;
 		}
+
 		V operator->()
 		{ 
 			V data = (*curIt).val;
