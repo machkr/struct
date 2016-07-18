@@ -35,6 +35,17 @@ public:
 		//clear();
 	}
 
+	HeapNode<HeapType> searchVertex(int _vertex)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (heap[i].getVertex() == _vertex)
+			{
+				return heap[i];
+			}
+		}
+	}
+
 	int getLeft(int parentIndex)
 	{
 		int left = ((2 * parentIndex) + 1);
@@ -110,6 +121,8 @@ public:
 		size = _size;
 	}
 
+	int getSize() { return size; }
+
 	void heapify(int index)
 	{
 		int smallest = index;
@@ -169,7 +182,7 @@ public:
 			index = getParent(index);
 		}
 	}
-	
+
 	template<class Type>
 	int findVertex(Vertex<Type> *v)
 	{
@@ -181,4 +194,6 @@ public:
 
 		return -1;
 	}
+
+
 };

@@ -96,6 +96,12 @@ class Graph : public BaseGraph<Type>
 			}
 
 			// Add display for minimum spanning tree
+			for (int i = 0; i < (*minheap).getSize(); i++)
+			{
+				cout << (*(*minheap).searchVertex(MST[i]).getData()).getName()
+					<< " --> " << (*(*minheap).searchVertex(i).getData()).getName()
+					<< endl;
+			}
 		}
 
 		// Overloaded insert

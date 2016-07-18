@@ -20,12 +20,12 @@
       </Typedef>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAAAABIBAgACAAAQAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\BaseGraph.h</FileName>
+      <HashCode>AEAAAAAEAAFAQAAAQBJBggACAAAQAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\BaseGraph.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Digraph&lt;Type&gt;">
-    <Position X="0.5" Y="4" Width="1.75" />
+  <Class Name="Digraph&lt;Type&gt;" HideInheritanceLine="true">
+    <Position X="0.5" Y="5.25" Width="1.75" />
     <NestedTypes>
       <Typedef Name="Digraph&lt;Type&gt;::Map" Collapsed="true">
         <TypeIdentifier>
@@ -43,41 +43,42 @@
         </TypeIdentifier>
       </Typedef>
     </NestedTypes>
+    <InheritanceLine Type="BaseGraph&lt;Type&gt;" IsHidden="true" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAABAAAAAAAAAEAAAAEAAABAAAAAAAAAACAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\Digraph.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\Digraph.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MapIterator&lt;K, V&gt;">
-    <Position X="5.25" Y="4.25" Width="1.5" />
+    <Position X="5.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAACAAQAAAIwAAAAAAAAAAAAAgAQAAAAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\DynMap.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\DynMap.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DynMap&lt;K, V&gt;">
     <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAFAAAAAABAAAACBAgAABAAAAAIAAAAAAAAAAEQBAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\DynMap.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\DynMap.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DynStack&lt;type&gt;">
-    <Position X="16.25" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QEAFAAQAAAAAAIAABYIIAIgCAAEAAAAAAAAIAAAAAAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\DynStack.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\DynStack.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Edge&lt;Type&gt;">
-    <Position X="14.25" Y="6" Width="1.5" />
+    <Position X="9" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAABAAgABAgAAAAAAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\Edge.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\Edge.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Graph&lt;Type&gt;">
-    <Position X="3" Y="4" Width="1.75" />
+  <Class Name="Graph&lt;Type&gt;" HideInheritanceLine="true">
+    <Position X="3" Y="5.25" Width="1.75" />
     <NestedTypes>
       <Typedef Name="Graph&lt;Type&gt;::Map" Collapsed="true">
         <TypeIdentifier>
@@ -95,20 +96,21 @@
         </TypeIdentifier>
       </Typedef>
     </NestedTypes>
+    <InheritanceLine Type="BaseGraph&lt;Type&gt;" IsHidden="true" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAQAAAAAAAEAgAAAAAAAAAQAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\Graph.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\Graph.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LLIterator&lt;Type&gt;">
-    <Position X="10.75" Y="6" Width="1.5" />
+    <Position X="5.5" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAQAAAA0AAAAAAAAAAAAAgAAAAAAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\LinkedList.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\LinkedList.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LinkedList&lt;Type&gt;">
-    <Position X="12.5" Y="0.5" Width="1.5" />
+    <Position X="7.25" Y="6.5" Width="1.5" />
     <NestedTypes>
       <Typedef Name="LinkedList&lt;Type&gt;::iterator" Collapsed="true">
         <TypeIdentifier>
@@ -123,49 +125,49 @@
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>ggAAACECgJAAgAAABIEIBAASAAAAAgAAAAAAAAAAAgA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\LinkedList.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\LinkedList.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimpleQueue&lt;Type&gt;">
-    <Position X="18.25" Y="0.5" Width="1.5" />
+    <Position X="5" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAEAAJAAAAEABEgAAQAGAAAAAAAAEAAAAAAEQAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\SimpleQueue.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\SimpleQueue.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SingleNode&lt;Type&gt;">
-    <Position X="12.5" Y="6" Width="1.5" />
+    <Position X="7.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAASCAIAAAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\SingleNode.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\SingleNode.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Vertex&lt;Type&gt;">
-    <Position X="8.75" Y="4.25" Width="1.5" />
+    <Position X="9" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABSAAAAAMABAAAAAAAAAQAAAAAEAAAAAAAUAAAAAAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\Vertex.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\Vertex.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinHeap&lt;HeapType&gt;">
-    <Position X="20.25" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>DAAAAAgAgABAAAgACIIAYACCCAAQAAgAAQAAAAACQAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\MinHeap.h</FileName>
+      <HashCode>DAAAAAgAgIBAAAgACIIAYACCCAAQAAgAAQAAAAACQAA=</HashCode>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\MinHeap.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HeapNode&lt;HeapType&gt;">
-    <Position X="20.25" Y="5.5" Width="1.5" />
+    <Position X="0.5" Y="13.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEQAAAAAAABABAABQAEAAAAAAAAAAAAAEAQAAAAQQA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\HeapNode.h</FileName>
+      <HashCode>AAEQAAAAAAABABAABQAkAAAAAAAAAAAAAEAQAAAAQQA=</HashCode>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\HeapNode.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="MapNode&lt;K, V&gt;">
-    <Position X="7" Y="4.25" Width="1.5" />
+    <Position X="7.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\kramerm\Source\Repos\cop4530\project4\DynMap.h</FileName>
+      <FileName>C:\Users\Matthew\Source\Repos\cop4530\project4\DynMap.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Font Name="Segoe UI" Size="9" />

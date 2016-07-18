@@ -8,14 +8,13 @@ template<class HeapType> class HeapNode
 private:
 	int vertex;
 	HeapType data;
+	double key;
 
 public:
 	HeapNode(double _key, int _vertex, HeapType _data) : key(_key), vertex(_vertex), data(_data) {}
 	HeapNode() {}
 
 	~HeapNode() {}
-
-	double key;
 
 	double getKey()
 	{
