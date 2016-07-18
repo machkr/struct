@@ -49,6 +49,9 @@ class Digraph : public BaseGraph<Type>
 		
 		int indegree(string name)
 		{
+			if (!this->vertices.exists(name))
+				throw underflow_error("vertex \"" + name + "\" cannot be found.");
+
 			int count = 0;
 			LLIterator lit;
 			MapIterator mit = this->vertices.begin();
@@ -73,16 +76,23 @@ class Digraph : public BaseGraph<Type>
 			return count;
 		}
 
-
 		int outdegree(string name)
 		{
+			if (!this->vertices.exists(name))
+				throw underflow_error("vertex \"" + name + "\" cannot be found.");
+
 			Vertex<Type> *v1 = this->vertices.search(name);
 			return v1->getDegree();
 		}
 
-
 		void shortestPath(string name1, string name2) // Djikstra's Algorithm
 		{
+			if (!this->vertices.exists(name1))
+				throw underflow_error("vertex \"" + name1 + "\" cannot be found.");
+
+			if (!this->vertices.exists(name2))
+				throw underflow_error("vertex \"" + name2 + "\" cannot be found.");
+
 			MapIterator it = this->vertices.begin();
 			int V = this->numVertices;
 			double * dist = new double[V];
@@ -142,6 +152,12 @@ class Digraph : public BaseGraph<Type>
 
 		double distance(string name1, string name2) 
 		{
+			if (!this->vertices.exists(name1))
+				throw underflow_error("vertex \"" + name1 + "\" cannot be found.");
+
+			if (!this->vertices.exists(name2))
+				throw underflow_error("vertex \"" + name2 + "\" cannot be found.");
+
 			double total = 0;
 
 			// Determine all of the edges from vertex(name1) to vertex(name2)

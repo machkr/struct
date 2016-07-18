@@ -74,6 +74,8 @@ class BaseGraph
 			// Push first vertex onto stack
 			stack.push(vertices.search(name));
 			
+			cout << endl << endl;
+
 			outer:
 			while (!stack.empty()) 
 			{
@@ -117,6 +119,8 @@ class BaseGraph
 			// Enqueue root
 			Vertex<Type>* v = vertices.search(name);
 			queue.enqueue(v);
+
+			cout << endl << endl;
 
 			while (!queue.empty())
 			{

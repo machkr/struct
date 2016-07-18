@@ -67,7 +67,6 @@ void GraphDemo::createDigraph(vector<int>& prev)
 	digraphAccessMenu->add("Indegree", action(indegree));
 	digraphAccessMenu->add("Outdegree", action(outdegree));
 	digraphAccessMenu->add("Edge Count", action(edgeCount));
-	digraphAccessMenu->add("Is Connected", action(isConnected));
 	digraphAccessMenu->add("Adjacent", action(adjacent));
 	digraphAccessMenu->add("Distance", action(distance));
 
@@ -164,12 +163,10 @@ void GraphDemo::dfs(vector<int> &prev)
 	string name;
 	cout << "Name: ";
 	getline(cin, name);
-	
-	cout << endl;
 
 	try
 	{
-		cout << endl << g->DFS(name);
+		cout << g->DFS(name);
 		cout << " vertices visited.";
 	}
 	catch (const underflow_error& e)
@@ -192,11 +189,9 @@ void GraphDemo::bfs(vector<int> &prev)
 	cout << "Name: ";
 	getline(cin, name);
 
-	cout << endl;
-
 	try
 	{
-		cout << endl << g->DFS(name);
+		cout << g->DFS(name);
 		cout << " vertices visited.";
 	}
 	catch (const underflow_error& e)
@@ -383,9 +378,9 @@ void GraphDemo::mst(vector<int> &prev)
 	{
 		graph->MST(name);
 	}
-	catch (const invalid_argument& i)
+	catch (const underflow_error& e)
 	{
-		cout << "Error: " << i.what();
+		cout << "Error: " << e.what();
 	}
 
 	cout << endl << endl;
@@ -403,9 +398,9 @@ void GraphDemo::indegree(vector<int> &prev)
 	{
 		cout << "In-Degree: " << digraph->indegree(name);
 	}
-	catch (const invalid_argument& i)
+	catch (const underflow_error& e)
 	{
-		cout << "Error: " << i.what();
+		cout << "Error: " << e.what();
 	}
 	
 	cout << endl << endl;
@@ -423,9 +418,9 @@ void GraphDemo::outdegree(vector<int> &prev)
 	{
 		cout << "Out-Degree: " << digraph->outdegree(name);
 	}
-	catch (const invalid_argument& i)
+	catch (const underflow_error& e)
 	{
-		cout << "Error: " << i.what();
+		cout << "Error: " << e.what();
 	}
 
 	cout << endl << endl;
@@ -447,9 +442,9 @@ void GraphDemo::shortestPath(vector<int> &prev)
 	{
 		digraph->shortestPath(name1, name2);
 	}
-	catch (const invalid_argument& i)
+	catch (const underflow_error& e)
 	{
-		cout << "Error: " << i.what();
+		cout << "Error: " << e.what();
 	}
 
 	cout << endl << endl;
@@ -471,9 +466,9 @@ void GraphDemo::distance(vector<int> &prev)
 	{
 		cout << digraph->distance(name1, name2);
 	}
-	catch(const invalid_argument& i)
+	catch(const underflow_error& e)
 	{
-		cout << "Error: " << i.what();
+		cout << "Error: " << e.what();
 	}
 
 	cout << endl << endl;

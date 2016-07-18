@@ -32,6 +32,9 @@ class Graph : public BaseGraph<Type>
 
 		void MST(string name) // Prim's Algorithm
 		{
+			if (!this->vertices.exists(name))
+				throw underflow_error("vertex \"" + name + "\" cannot be found.");
+
 			MapIterator it;
 			it = this->vertices.begin();
 
