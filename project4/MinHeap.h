@@ -140,7 +140,7 @@ public:
 
 	HeapNode<HeapType> extractMin()
 	{
-		if (isEmpty()) throw underflow_error("Heap is empty.");
+		if (isEmpty()) throw underflow_error("heap is empty.");
 
 		HeapNode<HeapType> root = heap[0];
 		HeapNode<HeapType> last = heap[size - 1];

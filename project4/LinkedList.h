@@ -165,7 +165,7 @@ public:
 	// popped. Throw an underflow exception if list is empty.
 	Type pop_front()								
 	{
-		if (empty()) throw underflow_error("List is empty.");
+		if (empty()) throw underflow_error("list is empty.");
 		Type data = head->data;
 		delete head;
 		size--;

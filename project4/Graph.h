@@ -15,7 +15,7 @@ class Graph : public BaseGraph<Type>
 		int degree(string name) 
 		{
 			if (!this->vertices.exists(name))
-				throw underflow_error("Vertex " + name + " cannot be found");
+				throw underflow_error("vertex \"" + name + "\" cannot be found.");
 
 			return this->vertices.search(name)->getDegree();
 		}
@@ -99,12 +99,12 @@ class Graph : public BaseGraph<Type>
 		void insert(string name1, string name2, double weight) 
 		{
 			if (!this->vertices.exists(name1))
-				throw underflow_error("Vertex " + name1 + " cannot be found");
+				throw underflow_error("vertex \"" + name1 + "\" cannot be found.");
 				
 			if (!this->vertices.exists(name2))
-				throw underflow_error("Vertex " + name2 + " cannot be found");
+				throw underflow_error("vertex \"" + name2 + "\" cannot be found.");
 				
-			if (weight == 0) { throw invalid_argument ("Weight cannot be 0"); }
+			if (weight == 0) { throw invalid_argument ("invalid weight (0)."); }
 
 			// Create new edges
 			Vertex<Type>* v1 = this->vertices.search(name1); 

@@ -6,7 +6,6 @@ using namespace std;
 template<class HeapType> class HeapNode
 {
 private:
-	double key;
 	int vertex;
 	HeapType data;
 
@@ -15,6 +14,8 @@ public:
 	HeapNode() {}
 
 	~HeapNode() {}
+
+	double key;
 
 	double getKey()
 	{

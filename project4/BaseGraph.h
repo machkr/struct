@@ -41,10 +41,10 @@ class BaseGraph
 		{
 			// Find vertices
 			if (!vertices.exists(name1))
-				throw underflow_error("Vertex " + name1 + " cannot be found");
+				throw underflow_error("vertex \"" + name1 + "\" cannot be found.");
 				
 			if (!vertices.exists(name2))
-				throw underflow_error("Vertex " + name2 + " cannot be found");
+				throw underflow_error("vertex \"" + name2 + "\" cannot be found.");
 
 			Vertex<Type>* v1 = vertices.search(name1);
 			Vertex<Type>* v2 = vertices.search(name2);
@@ -69,7 +69,7 @@ class BaseGraph
 			int count = 0;
 
 			if (!vertices.exists(name)) 
-				throw underflow_error("Vertex " + name + " cannot be found");
+				throw underflow_error("vertex \"" + name + "\" cannot be found.");
 
 			// Push first vertex onto stack
 			stack.push(vertices.search(name));
@@ -112,7 +112,7 @@ class BaseGraph
 			int count = 0;
 
 			if (!vertices.exists(name))
-				throw underflow_error("Vertex " + name + " cannot be found");
+				throw underflow_error("vertex \"" + name + "\" cannot be found.");
 
 			// Enqueue root
 			Vertex<Type>* v = vertices.search(name);
@@ -148,7 +148,7 @@ class BaseGraph
 			file.open(fileName, ios::in);
 
 			if (!file)
-				throw underflow_error("Error opening file: " + fileName);
+				throw underflow_error("unable to open: \"" + fileName + "\".");
 
 			// Read vertices from file
 			int l = 0;
@@ -165,12 +165,15 @@ class BaseGraph
 				// Read name and data, insert new vertex
 				if (getline(ss, name, ',') && getline(ss, dataStr, ';'))
 				{
-					try {
+					try
+					{
 						data = stod(dataStr);
-					} catch (const invalid_argument& e) {
+					}
+					catch (const invalid_argument& e)
+					{
 						ostringstream errorSs;
-						errorSs << "Parse error on line " << l << ": " << 
-							 "Invalid argument stod(" << dataStr << ")";
+						errorSs << "unable to parse line " << l << ", " << 
+							 "invalid argument stod(" << dataStr << ").";
 						throw invalid_argument(errorSs.str());
 					}
 					insertVertex(name, data);
@@ -205,8 +208,8 @@ class BaseGraph
 						weight = stod(weightStr);
 					} catch (const invalid_argument& e) {
 						ostringstream errorSs;
-						errorSs << "Parse error on line " << l << ": " << 
-							 "Invalid argument stod(" << weightStr << ")";
+						errorSs << "unable to parse line " << l << ", " << 
+							 "invalid argument stod(" << weightStr << ").";
 						throw invalid_argument(errorSs.str());
 					}
 					getline(ss, name2, ',');
@@ -215,8 +218,8 @@ class BaseGraph
 					// If name2 vertex doesn't exist, throw error w/ line number
 					if (!vertices.exists(name2)) {
 						ostringstream errorSs;
-						errorSs << "Parse error on line " << l << ": \"" << 
-							name2 << "\" vertex does not exist";
+						errorSs << "unable to parse line " << l << ", vertex " <<  
+							"\"" << name2 << "\"does not exist.";
 						throw underflow_error(errorSs.str());
 					}
 
@@ -226,10 +229,17 @@ class BaseGraph
 			}
 		}
 
-		//The Idea: Create temp pointers for vertices and edges. Create iterators to go through all vertices of a graph, and all edges of each vertex. 
-		//While the vertex iterator isn't pointing at the end, delete all of its edges, followed by pointing to the next vertex and deleting its edges.
+		//The Idea: Create temp pointers for vertices and edges. 
+		//Create iterators to go through all vertices of a graph, 
+		//and all edges of each vertex. While the vertex iterator
+		//isn't pointing at the end, delete all of its edges,
+		//followed by pointing to the next vertex and deleting its
+		//edges.
+
 		void clear()
 		{
+			if (empty()) throw underflow_error("nothing to clear.");
+
 			Vertex<Type> * vertexTemp;
 			//Edge<Type> * edgeTemp;
 			MapIterator mit = vertices.begin();
@@ -266,6 +276,8 @@ class BaseGraph
 
 		void reset() 
 		{
+			if (empty()) throw underflow_error("nothing to reset.");
+
 			MapIterator it;
 			for (it = vertices.begin(); it != vertices.end(); it++)
 			{

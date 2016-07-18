@@ -139,13 +139,13 @@ void GraphDemo::adjacent(vector<int> &prev)
 	}
 	catch (const underflow_error& e)
 	{
-		cout << "Error: " << e.what();
+		cout << "Error: " << e.what() << endl << endl;
 		return;
 	}
 
 	if (weight == numeric_limits<double>::max())
 	{
-		cout << "Weight: Infinite" << endl << endl;
+		cout << "Infinite weight." << endl << endl;
 		return;
 	}
 
@@ -272,7 +272,7 @@ void GraphDemo::reset(vector<int> &prev)
 	}
 	catch (const underflow_error& e)
 	{
-		cout << "Error: " << e.what() << endl << endl;
+		cout << "Error: " << e.what();
 	}
 	
 	cout << endl << endl;
@@ -343,8 +343,14 @@ void GraphDemo::degree(vector<int> &prev)
 	string name;
 	cout << "Name: ";
 	getline(cin, name);
-
-	cout << "Degree: " << graph->degree(name);
+	try
+	{
+		cout << "Degree: " << graph->degree(name);
+	}
+	catch(const underflow_error& e)
+	{
+		cout << "Error: " << e.what();
+	}
 
 	cout << endl << endl;
 }
@@ -353,7 +359,14 @@ void GraphDemo::isConnected(vector<int> &prev)
 {
 	cout << "(Is Connected)" << endl; // Graph only
 	
-	cout << ((graph->isConnected()) ? "True" : "False");
+	try
+	{
+		cout << ((graph->isConnected()) ? "True" : "False");
+	}
+	catch (const underflow_error& e)
+	{
+		cout << "Error: " << e.what();
+	}
 
 	cout << endl << endl;
 }
