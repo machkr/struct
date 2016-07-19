@@ -184,32 +184,40 @@ class Digraph : public BaseGraph<Type>
 
 			q.enqueue(origin);
 
-			while(!q.empty()) {
+			while(!q.empty())
+			{
 				Vertex<Type>* v = q.getFront();
 				v->setVisited(true);
 				
-				for (int i = 0; i < v->edges.getSize(); i++) {
+				for (int i = 0; i < v->edges.getSize(); i++)
+				{
 					Edge<Type> smallEdge;
 					LLIterator it;
-					for (it = v->edges.begin(); it != v->edges.end(); it++) {
-						if ((*it).v->isVisited() == false) {
+					for (it = v->edges.begin(); it != v->edges.end(); it++)
+					{
+						if ((*it).v->isVisited() == false)
+						{
 							smallEdge = (*it);
 						}
 					}
 
-					if (smallEdge.weight == 0) {
+					if (smallEdge.weight == 0)
+					{
 						break;
 					}
 
-					for (it = v->edges.begin(); it != v->edges.end(); it++) {
-						if ((*it).weight < smallEdge.weight && (*it).v->isVisited() == false) {
+					for (it = v->edges.begin(); it != v->edges.end(); it++)
+					{
+						if ((*it).weight < smallEdge.weight && (*it).v->isVisited() == false)
+						{
 							smallEdge = (*it);
 						}
 					}
 
 					smallEdge.v->setData(smallEdge.weight + v->getData());
 					smallEdge.v->setVisited(true);
-					if (v->getName() == name2) {
+					if (v->getName() == name2)
+					{
 						cout << v->getData();
 						return;
 					}
