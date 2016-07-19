@@ -30,6 +30,8 @@ class Vertex
 		string getName() { return name; }
 
 		Type getData() { return data; }
+		
+		void setData(Type data_) { data = data_; }
 
 		bool isVisited() { return visited; }
 

@@ -84,7 +84,7 @@ class Digraph : public BaseGraph<Type>
 			Vertex<Type> *v1 = this->vertices.search(name);
 			return v1->getDegree();
 		}
-
+/*
 		void shortestPath(string name1, string name2) // Djikstra's Algorithm
 		{
 			if (!this->vertices.exists(name1))
@@ -160,6 +160,68 @@ class Digraph : public BaseGraph<Type>
 				cout << i << ": " << dist[i] << endl;
 			}
 		}
+*/
+		void shortestPath(string name1, string name2) 
+		{
+			if (!this->vertices.exists(name1))
+				throw underflow_error("vertex \"" + name1 + "\" cannot be found.");
+
+			if (!this->vertices.exists(name2))
+				throw underflow_error("vertex \"" + name2 + "\" cannot be found.");
+			SimpleQueue<Vertex<Type>*> q;
+			Digraph<Type> shortGraph;
+			shortGraph.buildGraph("digraph.txt");
+			Vertex<Type> * origin = shortGraph.vertices.search(name1);
+			Vertex<Type> * destination = shortGraph.vertices.search(name2);
+			
+
+			MapIterator it;
+			for (it = shortGraph.vertices.begin(); it != shortGraph.vertices.end(); it++) {
+				(*it)->setData(1000);
+			}
+
+			origin->setData(0);
+
+			q.enqueue(origin);
+
+			while(!q.empty()) {
+				Vertex<Type>* v = q.getFront();
+				v->setVisited(true);
+				
+				for (int i = 0; i < v->edges.getSize(); i++) {
+					Edge<Type> smallEdge;
+					LLIterator it;
+					for (it = v->edges.begin(); it != v->edges.end(); it++) {
+						if ((*it).v->isVisited() == false) {
+							smallEdge = (*it);
+						}
+					}
+
+					if (smallEdge.weight == 0) {
+						break;
+					}
+
+					for (it = v->edges.begin(); it != v->edges.end(); it++) {
+						if ((*it).weight < smallEdge.weight && (*it).v->isVisited() == false) {
+							smallEdge = (*it);
+						}
+					}
+
+					smallEdge.v->setData(smallEdge.weight + v->getData());
+					smallEdge.v->setVisited(true);
+					if (v->getName() == name2) {
+						cout << v->getData();
+						return;
+					}
+					q.enqueue(smallEdge.v);
+				}
+				v = q.dequeue();
+			//	cout << v->getName() << " " << v->getData() << endl;
+
+			}
+
+		}
+
 
 		double distance(string name1, string name2) 
 		{

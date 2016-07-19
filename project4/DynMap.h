@@ -79,7 +79,7 @@ class MapIterator
 		{ 
 			curIt++;
 			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
-					curIndex < map->bucketsFilled-1) 
+					curIndex < map->bucketsFilled) 
 			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
@@ -91,7 +91,7 @@ class MapIterator
 		{ 
 			curIt++;
 			if (curIt == map->array[ map->filled[curIndex] ]->end() && 
-					curIndex < map->bucketsFilled-1) 
+					curIndex < map->bucketsFilled) 
 			{
 				curIndex++;
 				curIt = map->array[ map->filled[curIndex] ]->begin();
@@ -168,6 +168,23 @@ class DynMap
 		{
 			initializeArray(array, arraySize);
 		}
+
+		DynMap& operator=(const DynMap& other) 
+		{
+			count = other.count;
+			bucketsFilled = other.bucketsFilled;
+			initialSize = other.initialSize;
+			arraySize = other.arraySize;
+
+			array = new LinkedList<MapNode<K,V>>[other.arraySize];
+			initializeArray(array);
+			for (int i = 0; i < bucketsFilled; i++) {
+				array[ filled[i] ]  = new LinkedList<MapNode<K,V>>();
+				*array[ filled[i] ]  = *other.array[ filled[i] ];
+			}
+		}
+
+
 
 		void insert(K const &key, V const &val)  
 		{	
