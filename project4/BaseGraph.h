@@ -104,7 +104,7 @@ class BaseGraph
 				stack.pop();
 			}
 
-			//this->reset();
+			this->reset();
 			return count;
 		}
 
@@ -142,7 +142,7 @@ class BaseGraph
 				}
 			}
 			
-			//this->reset();
+			this->reset();
 			return count;
 		}
 

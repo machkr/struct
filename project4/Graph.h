@@ -43,7 +43,8 @@ class Graph : public BaseGraph<Type>
 			
 
 			MapIterator it;
-			for (it = shortGraph.vertices.begin(); it != shortGraph.vertices.end(); it++) {
+			for (it = shortGraph.vertices.begin(); it != shortGraph.vertices.end(); it++)
+			{
 				(*it)->setData(1000);
 			}
 
@@ -54,25 +55,32 @@ class Graph : public BaseGraph<Type>
 			path.enqueue(origin);
 
 			bool breakWhile = false;	
-			while(!q.empty() && !breakWhile) {
+			while(!q.empty() && !breakWhile)
+			{
 				Vertex<Type>* v = q.getFront();
 				v->setVisited(true);
 				
-				for ( int i = 0; i < v->edges.getSize(); i++) {
+				for ( int i = 0; i < v->edges.getSize(); i++)
+				{
 					Edge<Type> smallEdge;
 					LLIterator it;
-					for (it = v->edges.begin(); it != v->edges.end(); it++) {
-						if ((*it).v->isVisited() == false) {
+					for (it = v->edges.begin(); it != v->edges.end(); it++)
+					{
+						if ((*it).v->isVisited() == false)
+						{
 							smallEdge = (*it);
 						}
 					}
 
-					if (smallEdge.weight == 0) {
+					if (smallEdge.weight == 0)
+					{
 						break;
 					}
 
-					for (it = v->edges.begin(); it != v->edges.end(); it++) {
-						if ((*it).weight < smallEdge.weight && (*it).v->isVisited() == false) {
+					for (it = v->edges.begin(); it != v->edges.end(); it++)
+					{
+						if ((*it).weight < smallEdge.weight && (*it).v->isVisited() == false)
+						{
 							smallEdge = (*it);
 						}
 					}
@@ -81,12 +89,10 @@ class Graph : public BaseGraph<Type>
 					smallEdge.v->setVisited(true);
 					q.enqueue(smallEdge.v);
 				}
+
 				v = q.dequeue();
 				cout << v->getName() << " " << v->getData() << endl;
-
 			}
-
-
 		}
 
 		// Overloaded insert
