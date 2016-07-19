@@ -191,7 +191,7 @@ void GraphDemo::bfs(vector<int> &prev)
 
 	try
 	{
-		cout << g->DFS(name);
+		cout << g->BFS(name);
 		cout << " vertices visited.";
 	}
 	catch (const underflow_error& e)
