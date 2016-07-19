@@ -35,73 +35,58 @@ class Graph : public BaseGraph<Type>
 			if (!this->vertices.exists(name))
 				throw underflow_error("vertex \"" + name + "\" cannot be found.");
 
+			SimpleQueue<Vertex<Type>*> q;
+			Graph<Type> shortGraph;
+			shortGraph.buildGraph("graph.txt");
+			Vertex<Type> * origin = shortGraph.vertices.search(name);
+			SimpleQueue<Vertex<Type>*> path;
+			
+
 			MapIterator it;
-			it = this->vertices.begin();
-
-			int V = this->numVertices;
-			int * MST = new int [V];
-			double * key = new double [V];
-
-			Vertex<Type> * root = this->vertices.search(name);
-			MinHeap<Vertex<Type>*> * minheap;
-			minheap = new MinHeap<Vertex<Type>*>(V);
-
-			for (int v = 1; v < V; ++v)
-			{
-				MST[v] = -1;
-				key[v] = 1000;
-
-				while(it != this->vertices.end())
-				{
-					HeapNode<Vertex<Type>*> * node = new HeapNode<Vertex<Type>*>(key[v], v, (*it));
-					if (!((*it) == root)) (*minheap).insert(*node, v);
-					it++;
-					break;
-				}
+			for (it = shortGraph.vertices.begin(); it != shortGraph.vertices.end(); it++) {
+				(*it)->setData(1000);
 			}
 
-			key[0] = 0;
-			(*minheap).insert(HeapNode<Vertex<Type>*>(key[0], 0, root), 0);
-			(*minheap).setPosition(0,0);
+			origin->setData(0);
+			
 
-			(*minheap).setSize(V);
+			q.enqueue(origin);
+			path.enqueue(origin);
 
-			while (!(*minheap).isEmpty())
-			{
-				HeapNode<Vertex<Type>*> *minHeapNode = new HeapNode<Vertex<Type>*>;
-
-				try
-				{
-					*minHeapNode = (*minheap).extractMin();
-				}
-				catch (const underflow_error &e)
-				{
-					cout << "Error: " << e.what();
-				}
-
-				Vertex<Type>* temp = (*minHeapNode).getData();
-				int a = (*minHeapNode).getVertex();
-
-				LLIterator it;
-				for (it = temp->edges.begin(); it != temp->edges.end(); it++)
-				{
-					int b = (*minheap).findVertex((*it).v);
-					if ((*minheap).isInHeap(b) && (*it).weight < key[b])
-					{
-						key[b] = (*it).weight;
-						MST[b] = a;
-						(*minheap).dKey(b, key[b]);
+			bool breakWhile = false;	
+			while(!q.empty() && !breakWhile) {
+				Vertex<Type>* v = q.getFront();
+				v->setVisited(true);
+				
+				for ( int i = 0; i < v->edges.getSize(); i++) {
+					Edge<Type> smallEdge;
+					LLIterator it;
+					for (it = v->edges.begin(); it != v->edges.end(); it++) {
+						if ((*it).v->isVisited() == false) {
+							smallEdge = (*it);
+						}
 					}
+
+					if (smallEdge.weight == 0) {
+						break;
+					}
+
+					for (it = v->edges.begin(); it != v->edges.end(); it++) {
+						if ((*it).weight < smallEdge.weight && (*it).v->isVisited() == false) {
+							smallEdge = (*it);
+						}
+					}
+
+					smallEdge.v->setData(smallEdge.weight + v->getData());
+					smallEdge.v->setVisited(true);
+					q.enqueue(smallEdge.v);
 				}
+				v = q.dequeue();
+				cout << v->getName() << " " << v->getData() << endl;
+
 			}
 
-			// Add display for minimum spanning tree
-			for (int i = 0; i < (*minheap).getSize(); i++)
-			{
-				cout << (*(*minheap).searchVertex(MST[i]).getData()).getName()
-					<< " --> " << (*(*minheap).searchVertex(i).getData()).getName()
-					<< endl;
-			}
+
 		}
 
 		// Overloaded insert
