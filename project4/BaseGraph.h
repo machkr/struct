@@ -208,9 +208,12 @@ class BaseGraph
 				double weight;
 				while (getline(ss, weightStr, ' '))
 				{
-					try {
+					try
+					{
 						weight = stod(weightStr);
-					} catch (const invalid_argument& e) {
+					}
+					catch (const invalid_argument& e)
+					{
 						ostringstream errorSs;
 						errorSs << "unable to parse line " << l << ", " << 
 							 "invalid argument stod(" << weightStr << ").";
