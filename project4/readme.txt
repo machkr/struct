@@ -12,6 +12,4 @@ are:
 Graph: graph.txt
 Digraph: digraph.txt
 
-After building the data structure from the respective text file, you may perform operations on it. 
-
-
+After building the data structure from the respective text file, you may perform operations on it.
