@@ -22,6 +22,8 @@ class Graph : public BaseGraph<Type>
 
 		bool isConnected()
 		{
+			if (this->empty()) throw underflow_error("graph is empty.");
+
 			string name = this->vertices.begin()->getName();
 
 			int BFS = this->BFS(name);
@@ -50,7 +52,6 @@ class Graph : public BaseGraph<Type>
 
 			origin->setData(0);
 			
-
 			q.enqueue(origin);
 			path.enqueue(origin);
 

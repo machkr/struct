@@ -184,8 +184,6 @@ class DynMap
 			}
 		}
 
-
-
 		void insert(K const &key, V const &val)  
 		{	
 			//Double array size if count > arraySize/2
